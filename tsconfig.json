@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+	"lib": ["es6"],
+	"target": "es5",
+	"module": "commonjs",
+	"types": ["node"],
+	"moduleResolution": "node",
+	"sourceMap": false,
+	"outDir": "dist",
+	"declaration": true
+  },
+  "include": [
+	"./src/pt.ts",
+	"./src/server.ts",
+	"./src/client.ts"
+  ]
+}

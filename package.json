@@ -1,0 +1,44 @@
+{
+  "name": "ts-mixer",
+  "version": "1.0.0",
+  "description": "An acceptable solution for Mixin patterns in TypeScript.",
+  "author": "Tanner Nielsen",
+  "main": "./dist/server.js",
+  "module": "./dist/server.js",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "add-dist": "git add ./dist",
+    "build-only": "tsc",
+    "build-schemas": "node ./src/schema/build.js",
+    "build": "npm-run-all build-only build-schemas add-dist docs",
+    "build-clean": "npm-run-all clean build-only build-schemas add-dist docs",
+    "watch": "npm run build-only -- -w",
+    "version": "npm run build-clean",
+    "test": "nyc mocha --recursive -r ts-node/register test/**/*.test.*",
+    "docs": "rm -rf ./docs && typedoc --out ./docs --mode modules --ignoreCompilerErrors ./src && git add ./docs"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "./src/**/*.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
+  },
+  "dependencies": {
+    "typescript": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.6",
+    "@types/mocha": "^2.2.48",
+    "@types/node": "^8.10.32",
+    "chai": "^4.2.0",
+    "mocha": "^4.1.0",
+    "nyc": "^12.0.2",
+    "ts-node": "^3.3.0",
+  }
+}
