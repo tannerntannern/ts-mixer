@@ -1,21 +1,21 @@
 {
   "name": "ts-mixer",
   "version": "1.0.0",
-  "description": "An acceptable solution for Mixin patterns in TypeScript.",
-  "author": "Tanner Nielsen",
-  "main": "./dist/server.js",
-  "module": "./dist/server.js",
+  "description": "A very small TypeScript library that provides tolerable Mixin functionality.",
+  "main": "dist/mixins.js",
+  "module": "dist/mixins.js",
+  "types": "dist/mixins.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "clean": "rm -rf ./dist",
-    "add-dist": "git add ./dist",
-    "build-only": "tsc",
-    "build-schemas": "node ./src/schema/build.js",
-    "build": "npm-run-all build-only build-schemas add-dist docs",
-    "build-clean": "npm-run-all clean build-only build-schemas add-dist docs",
-    "watch": "npm run build-only -- -w",
-    "version": "npm run build-clean",
+    "build": "tsc",
+    "build-clean": "rm -rf ./dist && npm run build && git add ./dist",
+    "watch": "npm run build -- -w",
     "test": "nyc mocha --recursive -r ts-node/register test/**/*.test.*",
-    "docs": "rm -rf ./docs && typedoc --out ./docs --mode modules --ignoreCompilerErrors ./src && git add ./docs"
+    "coverage": "nyc report",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "version": "npm run build-clean && auto-changelog"
   },
   "nyc": {
     "extension": [
@@ -30,15 +30,37 @@
     "all": true
   },
   "dependencies": {
-    "typescript": "^3.1.1"
+    "@types/express": "^4.16.0",
+    "@types/socket.io": "^1.4.38",
+    "@types/socket.io-client": "^1.4.32",
+    "axios": "^0.18.0",
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",
-    "@types/mocha": "^2.2.48",
-    "@types/node": "^8.10.32",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.4",
+    "auto-changelog": "^1.8.0",
     "chai": "^4.2.0",
-    "mocha": "^4.1.0",
-    "nyc": "^12.0.2",
-    "ts-node": "^3.3.0",
-  }
+    "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.6.1",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.1",
+    "typescript-eslint-parser": "^19.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tannerntannern/ts-mixer.git"
+  },
+  "author": "Tanner Nielsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tannerntannern/ts-mixer/issues"
+  },
+  "homepage": "https://github.com/tannerntannern/ts-mixer#readme"
 }

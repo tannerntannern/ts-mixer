@@ -10,8 +10,6 @@
 	"declaration": true
   },
   "include": [
-	"./src/pt.ts",
-	"./src/server.ts",
-	"./src/client.ts"
+	"./src/mixins.ts"
   ]
 }
