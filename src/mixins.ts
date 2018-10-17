@@ -8,13 +8,14 @@ function Mixin<C1, C2, C3, C4, C5>(ctor1: Constructor<C1>, ctor2: Constructor<C2
 function Mixin<C1, C2, C3, C4, C5, C6>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>): Constructor<C1 & C2 & C3 & C4 & C5 & C6>;
 function Mixin<C1, C2, C3, C4, C5, C6, C7>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7>;
 function Mixin<C1, C2, C3, C4, C5, C6, C7, C8>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8>;
+function Mixin<C1, C2, C3, C4, C5, C6, C7, C8, C9>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>, ctor9: Constructor<C9>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9>;
 function Mixin(...constructors: Constructor<any>[]) {
 	// Mix constructors and prototypes
 	let Mixed = constructors.reduce((clazz, mixin, index) => {
 		if (index === 0) return mixin;
 
 		class MixedClass extends mixin {
-			constructor(...args: any[]) {
+			constructor(...args) {
 				super(...args);
 				clazz.apply(this, args);
 			}
@@ -25,10 +26,18 @@ function Mixin(...constructors: Constructor<any>[]) {
 		return MixedClass;
 	});
 
-	// Mix static properties
+	// Mix static properties, but in the traditional Java sense, where no static properties can be overridden
 	for(let constructor of constructors)
 		for(let prop in constructor)
-			if (constructor.hasOwnProperty(prop)) Mixed[prop] = constructor[prop];
+			if (constructor.hasOwnProperty(prop) && !Mixed.hasOwnProperty(prop))
+				Object.defineProperty(Mixed, prop, {
+					get(){ return constructor[prop] },
+					set(val){ constructor[prop] = val },
+					enumerable: true,
+					configurable: false,
+					writable: true,
+					value: constructor[prop]
+				});
 
 	return Mixed;
 }
