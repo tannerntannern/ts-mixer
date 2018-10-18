@@ -12,6 +12,7 @@
     "build": "tsc",
     "build-clean": "rm -rf ./dist && npm run build && git add ./dist",
     "watch": "npm run build -- -w",
+    "lint": "eslint src/**/*.ts",
     "test": "nyc mocha --recursive -r ts-node/register test/**/*.test.*",
     "coverage": "nyc report",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
@@ -38,9 +39,11 @@
     "@types/node": "^10.11.4",
     "chai": "^4.2.0",
     "coveralls": "^3.0.2",
+    "eslint": "^5.7.0",
     "mocha": "^5.2.0",
     "nyc": "12.x.x",
-    "ts-node": "^7.0.1"
+    "ts-node": "^7.0.1",
+    "typescript-eslint-parser": "^20.0.0"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,7 @@
 # ts-mixer
+
+**WARNING: WORK IN PROGRESS**
+
 It seems that no one has been able to provide an acceptable way to gracefully implement
 the mixin pattern with TypeScript.  The "mixins" as described by the
 [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are horrendous.
