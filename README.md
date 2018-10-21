@@ -22,7 +22,7 @@ as possible.
 * Automatic inference of the mixed class type[¹](#caveats)
 * Proper handling of static properties[²](#caveats)
 * Support for classes with generics[¹](#caveats)
-* Proper typing of the mixed class constructor[³](#caveats)
+* <del>Proper typing of the mixed class constructor[³](#caveats)</del>
 
 #### Caveats
 1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
