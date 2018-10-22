@@ -1,4 +1,8 @@
 # ts-mixer
+[![Build Status](https://travis-ci.org/tannerntannern/ts-mixer.svg?branch=master)](https://travis-ci.org/tannerntannern/ts-mixer)
+[![Coverage Status](https://coveralls.io/repos/github/tannerntannern/ts-mixer/badge.svg?branch=master)](https://coveralls.io/github/tannerntannern/ts-mixer?branch=master)
+[![dependencies Status](https://david-dm.org/tannerntannern/ts-mixer/status.svg)](https://david-dm.org/tannerntannern/ts-mixer)
+
 It seems that no one has been able to provide an acceptable way to gracefully implement
 the mixin pattern with TypeScript.  Mixins as described by the
 [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less
