@@ -32,12 +32,9 @@ function Mixin<C1, C2, C3, C4, C5, C6, C7, C8, C9, C10>(ctor1: Constructor<C1>, 
 
 // Actual mixin implementation
 function Mixin(...constructors: Constructor<any>[]) {
-	// The first constructor is assumed to be the base class
-	const Base = constructors[0];
-
 	class MixedClass {
 		// Apply each of the mixing class constructors
-		constructor(...args: ConstructorParameters<typeof Base>) {
+		constructor(...args: ConstructorParameters<typeof constructors[0]>) {
 			for(let constructor of constructors) constructor.apply(this, args);
 		}
 	}
