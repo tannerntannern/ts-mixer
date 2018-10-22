@@ -1,7 +1,4 @@
 # ts-mixer
-
-**WARNING: WORK IN PROGRESS**
-
 It seems that no one has been able to provide an acceptable way to gracefully implement
 the mixin pattern with TypeScript.  The "mixins" as described by the
 [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are horrendous.
@@ -34,23 +31,107 @@ that is both a constructor and has specific properties.  Static properties are s
 accessible "on the JavaScript side," but you have to make some type assertions to convince
 TypeScript that you can access them.  See
 [Dealing with Static Properties](#dealing-with-static-properties).
-3. Unlike some mixin implementations, ts-mixer assigns a constructor signature to the
+3. <del>Unlike some mixin implementations, ts-mixer assigns a constructor signature to the
 mixed class.  Because the mixing classes need to have compatible constructor signatures,
-the first class passed to the `Mixin` function is used as the model for the signature.
+the first class passed to the `Mixin` function is used as the model for the signature.</del>
 
 # Getting Started
 ## Installation
-...
+`npm i --save ts-mixer`
 
 ## Examples
 ### Basic Example
-...
+```typescript
+class Person {
+	protected name: string;
+
+	constructor(name: string) {
+		this.name = name;
+	}
+}
+
+class RunnerMixin {
+	protected runSpeed: number = 10;
+
+	public run(){
+		return 'They are running at ' + this.runSpeed + ' ft/sec';
+	}
+}
+
+class JumperMixin {
+	protected jumpHeight: number = 3;
+
+	public jump(){
+		return 'They are jumping ' + this.jumpHeight + ' ft in the air';
+	}
+}
+
+class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin) {
+	protected stateDistance() {
+		return 'They landed ' + this.runSpeed * this.jumpHeight + ' ft from the start!';
+	}
+
+	public longJump() {
+		let msg = "";
+		msg += this.run() + '\n';
+		msg += this.jump() + '\n';
+		msg += this.stateDistance() + '\n';
+
+		return msg;
+	}
+}
+```
 
 ### Dealing with Static Properties
-...
+Consider the following scenario:
+```typescript
+class Person {
+	public static TOTAL: number = 0;
+	constructor() {
+		(<typeof Person>this.constructor).TOTAL ++;
+	}
+}
+
+class StudentMixin {
+	public study() { console.log('I am studying so hard') }
+}
+
+class CollegeStudent extends Mixin(Person, StudentMixin) {}
+```
+
+It would be expected that class `CollegeStudent` should have the property `TOTAL` since
+`CollegeStudent` inherits from `Person`.  The `Mixin` function properly sets up the
+inheritance of this static property, so that modifying it on the `CollegeStudent` class
+will also affect the `Person` class:
+
+```typescript
+let p1 = new Person();
+let cs1 = new CollegeStudent();
+
+// Person.TOTAL === CollegeStudent.TOTAL === 2
+```
+
+The only issue is that due to the impossibility of specifying properties on a constructor
+type, you must use some type assertions to keep the TypeScript compiler from complaining:
+
+```typescript
+CollegeStudent.TOTAL ++;                           // error
+(<any>CollegeStudent).TOTAL ++;                    // ok
+(<typeof Person><unknown>CollegeStudent).TOTAL++;  // ugly, but better
+```
 
 ### Dealing with Generics
-...
+Normally, the `Mixin` function is able to figure out the class types and produce an
+appropriately typed result.  However, when generics are involved, you should pass in
+type parameters to the `Mixin` function like so:
+```typescript
+class GenClassA<T> {}
+class GenClassB<T> {}
+
+class Mixed<T1, T2> extends Mixin<GenClassA<T1>, GenClassB<T2>>(GenClassA, GenClassB) {}
+```
+
+While this is a bit of an inconvenience, it only affects generic classes.
 
 # Contributing
 All contributions are welcome, just please run `npm run lint` and `npm run test` before

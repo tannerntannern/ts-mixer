@@ -106,11 +106,17 @@ describe('Mixin', function(){
 		class LongJumper extends Mixin(TrackPerson, RunnerMixin, JumperMixin) {}
 
 		it('should update base class static prop when the mixed class changes it', function(){
-			new Person('Bob');
+			// Manually reset TOTAL from previous tests.  Lazy, but not worth the time to restructure
+			(<any>Person).TOTAL = 0;
+			(<any>TrackPerson).TOTAL = 0;
+			(<any>LongJumper).TOTAL = 0;
+
+			// Invoke the TOTAL incrementer from two different constructors
+			new TrackPerson('Bob');
 			new LongJumper('Joe');
 
-			expect(Person.TOTAL).to.equal(2);
-			expect((<any>LongJumper).TOTAL).to.equal(2);
+			expect(TrackPerson.TOTAL).to.equal(2);
+			expect((<typeof TrackPerson><unknown>LongJumper).TOTAL).to.equal(2);
 		});
 	});
 

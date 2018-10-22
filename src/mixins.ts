@@ -35,13 +35,10 @@ function Mixin(...constructors: Constructor<any>[]) {
 	// The first constructor is assumed to be the base class
 	const Base = constructors[0];
 
-	class MixedClass extends Base {
+	class MixedClass {
+		// Apply each of the mixing class constructors
 		constructor(...args: ConstructorParameters<typeof Base>) {
-			super(...args);
-
-			// Apply each of the constructors, except Base, which is called by `super(...args)`
-			for(let constructor of constructors.slice(1))
-				constructor.apply(this, args);
+			for(let constructor of constructors) constructor.apply(this, args);
 		}
 	}
 
