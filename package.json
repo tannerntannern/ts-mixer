@@ -42,7 +42,7 @@
     "mocha": "^5.2.0",
     "nyc": "12.x.x",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.1"
+    "typescript": "^3.1.1",
     "typescript-eslint-parser": "^20.0.0"
   },
   "repository": {
