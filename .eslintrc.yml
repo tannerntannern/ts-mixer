@@ -21,3 +21,5 @@ rules:
     - always
   no-var:
     - error
+  space-before-blocks:
+    - error

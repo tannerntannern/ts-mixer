@@ -7,7 +7,7 @@
 function getProtoChain(proto: object): object[] {
 	let protoChain = [];
 
-	while(proto !== Object.prototype){
+	while(proto !== Object.prototype) {
 		protoChain.push(proto);
 		proto = Object.getPrototypeOf(proto);
 	}
@@ -51,18 +51,18 @@ function Mixin(...constructors: Constructor<any>[]) {
 		let protoChain = getProtoChain(constructor.prototype);
 
 		// Apply the prototype chain in reverse order, so that old methods don't override newer ones
-		for(let i = protoChain.length - 1; i >= 0; i --){
+		for(let i = protoChain.length - 1; i >= 0; i --) {
 			Object.assign(mixedClassProto, protoChain[i]);
 		}
 	}
 
 	// Mix static properties, but in the traditional sense where no static properties can be overridden
-	for(let constructor of constructors){
+	for(let constructor of constructors) {
 		for(let prop in constructor) {
 			if (!MixedClass.hasOwnProperty(prop)) {
 				Object.defineProperty(MixedClass, prop, {
-					get(){ return constructor[prop]; },
-					set(val){ constructor[prop] = val; },
+					get() { return constructor[prop]; },
+					set(val) { constructor[prop] = val; },
 					enumerable: true,
 					configurable: false
 				});
