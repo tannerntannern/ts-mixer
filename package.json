@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "build-clean": "rm -rf ./dist && npm run build",
+    "build-clean": "rm -rf ./dist && npm run build && git add ./dist",
     "watch": "npm run build -- -w",
     "lint": "eslint src/**/*.ts",
     "test": "nyc mocha --recursive -r ts-node/register test/**/*.test.*",
