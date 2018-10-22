@@ -1,11 +1,11 @@
 # ts-mixer
 It seems that no one has been able to provide an acceptable way to gracefully implement
-the mixin pattern with TypeScript.  The "mixins" as described by the
-[TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are horrendous.
-Countless online threads feature half-working snippets.  Some are elegant, but fail to work
-properly with static properties.  Others solve static properties, but they don't work well
-with generics.  Some are memory-optimized, but force you to write the mixins in an awkward
-and cumbersome format.
+the mixin pattern with TypeScript.  Mixins as described by the
+[TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less
+than ideal.  Countless online threads feature half-working snippets.  Some are elegant,
+but fail to work properly with static properties.  Others solve static properties, but
+they don't work well with generics.  Some are memory-optimized, but force you to write the
+mixins in an awkward and cumbersome format.
 
 My fruitless search has led me to believe that there is no perfect solution with the
 current state of TypeScript.  Instead, I present a "tolerable" solution that attempts to

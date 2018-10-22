@@ -50,7 +50,7 @@ function Mixin(...constructors: Constructor<any>[]) {
 		}
 	}
 
-	// Mix static properties, but in the traditional sense where no static properties can be overridden
+	// Mix static properties by linking to the original static props with getters/setters
 	for(let constructor of constructors) {
 		for(let prop in constructor) {
 			if (!MixedClass.hasOwnProperty(prop)) {
