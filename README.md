@@ -3,13 +3,14 @@
 [![Coverage Status](https://coveralls.io/repos/github/tannerntannern/ts-mixer/badge.svg?branch=master)](https://coveralls.io/github/tannerntannern/ts-mixer?branch=master)
 [![dependencies Status](https://david-dm.org/tannerntannern/ts-mixer/status.svg)](https://david-dm.org/tannerntannern/ts-mixer)
 
+### Why another Mixin library? 
 It seems that no one has been able to provide an acceptable way to gracefully implement
 the mixin pattern with TypeScript.  Mixins as described by the
 [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less
 than ideal.  Countless online threads feature half-working snippets.  Some are elegant,
 but fail to work properly with static properties.  Others solve static properties, but
 they don't work well with generics.  Some are memory-optimized, but force you to write the
-mixins in an awkward and cumbersome format.
+mixins in an awkward, cumbersome format.
 
 My fruitless search has led me to believe that there is no perfect solution with the
 current state of TypeScript.  Instead, I present a "tolerable" solution that attempts to
@@ -38,6 +39,13 @@ TypeScript that you can access them.  See
 3. <del>Unlike some mixin implementations, ts-mixer assigns a constructor signature to the
 mixed class.  Because the mixing classes need to have compatible constructor signatures,
 the first class passed to the `Mixin` function is used as the model for the signature.</del>
+
+## Non-features
+* `instanceof` support;  Because this library is intended for use with TypeScript, running
+an `instanceof` check is generally not needed.  Additionally, adding support can have
+[negative effects on performance](https://stackoverflow.com/a/1919670).  See the
+[MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/hasInstance)
+for more information.
 
 # Getting Started
 ## Installation
@@ -139,7 +147,7 @@ While this is a bit of an inconvenience, it only affects generic classes.
 
 # Contributing
 All contributions are welcome, just please run `npm run lint` and `npm run test` before
-submitting a PR.
+submitting an MR.  If you add a new feature, please make sure it's covered by a test case.
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>
