@@ -16,22 +16,22 @@ function getProtoChain(proto: object): object[] {
 }
 
 // Constructor type
-type Constructor<T> = new(...args: any[]) => T;
+type Ctor<T> = new(...args: any[]) => T;
 
 // Overloads for up to 10 classes; it is exceedingly unlikely that you'll ever need to mix more than 10 classes at once
-function Mixin<C1>(ctor1: Constructor<C1>): Constructor<C1>;
-function Mixin<C1, C2>(ctor1: Constructor<C1>, ctor2: Constructor<C2>): Constructor<C1 & C2>;
-function Mixin<C1, C2, C3>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>): Constructor<C1 & C2 & C3>;
-function Mixin<C1, C2, C3, C4>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>): Constructor<C1 & C2 & C3 & C4>;
-function Mixin<C1, C2, C3, C4, C5>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>): Constructor<C1 & C2 & C3 & C4 & C5>;
-function Mixin<C1, C2, C3, C4, C5, C6>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>): Constructor<C1 & C2 & C3 & C4 & C5 & C6>;
-function Mixin<C1, C2, C3, C4, C5, C6, C7>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7>;
-function Mixin<C1, C2, C3, C4, C5, C6, C7, C8>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8>;
-function Mixin<C1, C2, C3, C4, C5, C6, C7, C8, C9>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>, ctor9: Constructor<C9>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9>;
-function Mixin<C1, C2, C3, C4, C5, C6, C7, C8, C9, C10>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>, ctor9: Constructor<C9>, ctor10: Constructor<C10>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9 & C10>;
+function Mixin<A>(a: Ctor<A>): Ctor<A>;
+function Mixin<A, B>(a: Ctor<A>, b: Ctor<B>): Ctor<A & B>;
+function Mixin<A, B, C>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>): Ctor<A & B & C>;
+function Mixin<A, B, C, D>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>): Ctor<A & B & C & D>;
+function Mixin<A, B, C, D, E>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>): Ctor<A & B & C & D & E>;
+function Mixin<A, B, C, D, E, F>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>): Ctor<A & B & C & D & E & F>;
+function Mixin<A, B, C, D, E, F, G>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>): Ctor<A & B & C & D & E & F & G>;
+function Mixin<A, B, C, D, E, F, G, H>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>, h: Ctor<H>): Ctor<A & B & C & D & E & F & G & H>;
+function Mixin<A, B, C, D, E, F, G, H, I>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>, h: Ctor<H>, i: Ctor<I>): Ctor<A & B & C & D & E & F & G & H & I>;
+function Mixin<A, B, C, D, E, F, G, H, I, J>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>, h: Ctor<H>, i: Ctor<I>, j: Ctor<J>): Ctor<A & B & C & D & E & F & G & H & I & J>;
 
 // Actual mixin implementation
-function Mixin(...constructors: Constructor<any>[]) {
+function Mixin(...constructors: Ctor<any>[]) {
 	class MixedClass {
 		// Apply each of the mixing class constructors
 		constructor(...args: ConstructorParameters<typeof constructors[0]>) {
