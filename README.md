@@ -54,6 +54,8 @@ for more information.
 ## Examples
 ### Basic Example
 ```typescript
+import {Mixin} from 'ts-mixer';
+
 class Person {
 	protected name: string;
 
@@ -97,6 +99,8 @@ class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin) {
 ### Dealing with Static Properties
 Consider the following scenario:
 ```typescript
+import {Mixin} from 'ts-mixer';
+
 class Person {
 	public static TOTAL: number = 0;
 	constructor() {
@@ -137,6 +141,8 @@ Normally, the `Mixin` function is able to figure out the class types and produce
 appropriately typed result.  However, when generics are involved, you should pass in
 type parameters to the `Mixin` function like so:
 ```typescript
+import {Mixin} from 'ts-mixer';
+
 class GenClassA<T> {}
 class GenClassB<T> {}
 
