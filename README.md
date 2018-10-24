@@ -23,7 +23,7 @@ as possible.
 * Support for protected and private properties
 * Automatic inference of the mixed class type[¹](#caveats)
 * Proper handling of static properties[²](#caveats)
-* Support for classes with generics[¹](#caveats)
+* <del>Support for classes with generics[¹](#caveats)</del>
 * <del>Proper typing of the mixed class constructor[³](#caveats)</del>
 
 #### Caveats
@@ -132,7 +132,7 @@ CollegeStudent.TOTAL ++;                           // error
 (<typeof Person><unknown>CollegeStudent).TOTAL++;  // ugly, but better
 ```
 
-### Dealing with Generics
+<del>### Dealing with Generics
 Normally, the `Mixin` function is able to figure out the class types and produce an
 appropriately typed result.  However, when generics are involved, you should pass in
 type parameters to the `Mixin` function like so:
@@ -144,6 +144,7 @@ class Mixed<T1, T2> extends Mixin<GenClassA<T1>, GenClassB<T2>>(GenClassA, GenCl
 ```
 
 While this is a bit of an inconvenience, it only affects generic classes.
+</del>
 
 # Contributing
 All contributions are welcome, just please run `npm run lint` and `npm run test` before
