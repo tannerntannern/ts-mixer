@@ -23,22 +23,18 @@ as possible.
 * Support for protected and private properties
 * Automatic inference of the mixed class type[¹](#caveats)
 * Proper handling of static properties[²](#caveats)
-* <del>Support for classes with generics[¹](#caveats)</del>
-* <del>Proper typing of the mixed class constructor[³](#caveats)</del>
+* Support for classes with generics[¹](#caveats)
 
 #### Caveats
 1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
 order for the types to work correctly.  ts-mixer is able to infer these types, so you can
-just do `Mixin(A, B)`... except when generics are involved.  See
+just do `Mixin(A, B)`, except when generics are involved.  See
 [Dealing with Generics](#dealing-with-generics).
 2. Due to the way constructor types work in TypeScript, it's impossible to specify a type
 that is both a constructor and has specific properties.  Static properties are still
 accessible "on the JavaScript side," but you have to make some type assertions to convince
 TypeScript that you can access them.  See
 [Dealing with Static Properties](#dealing-with-static-properties).
-3. <del>Unlike some mixin implementations, ts-mixer assigns a constructor signature to the
-mixed class.  Because the mixing classes need to have compatible constructor signatures,
-the first class passed to the `Mixin` function is used as the model for the signature.</del>
 
 ## Non-features
 * `instanceof` support;  Because this library is intended for use with TypeScript, running
@@ -124,7 +120,8 @@ will also affect the `Person` class:
 let p1 = new Person();
 let cs1 = new CollegeStudent();
 
-// Person.TOTAL === CollegeStudent.TOTAL === 2
+Person.TOTAL === 2; 		// true
+CollegeStudent.TOTAL === 2;	// true
 ```
 
 The only issue is that due to the impossibility of specifying properties on a constructor
@@ -136,25 +133,61 @@ CollegeStudent.TOTAL ++;                           // error
 (<typeof Person><unknown>CollegeStudent).TOTAL++;  // ugly, but better
 ```
 
-<del>### Dealing with Generics
+### Dealing with Generics
 Normally, the `Mixin` function is able to figure out the class types and produce an
-appropriately typed result.  However, when generics are involved, you should pass in
-type parameters to the `Mixin` function like so:
+appropriately typed result.  However, when generics are involved, the `Mixin` function
+is not able to correctly infer the type parameters.  Consider the following:
+
 ```typescript
 import {Mixin} from 'ts-mixer';
 
-class GenClassA<T> {}
-class GenClassB<T> {}
-
-class Mixed<T1, T2> extends Mixin<GenClassA<T1>, GenClassB<T2>>(GenClassA, GenClassB) {}
+class GenClassA<T> {
+	methodA(input: T) {}
+}
+class GenClassB<T> {
+	methodB(input: T) {}
+}
 ```
 
-While this is a bit of an inconvenience, it only affects generic classes.
-</del>
+Now let's say that we want to mix these two generic classes together, like so:
+
+```typescript
+class Mixed extends Mixin(GenClassA, GenClassB) {}
+```
+
+But we run into trouble here because we can't pass our type parameters along with the
+arguments to the `Mixin` function.  Instead, we can specify them like so (Note that the
+`string` and `number` types are arbitrary):
+
+```typescript
+class Mixed extends Mixin<GenClassA<string>, GenClassB<number>>(GenClassA, GenClassB) {}
+```
+
+This really works quite well.  However, it gets worse if you need the mixins to reference
+type parameters on the class, because this won't work:
+
+```typescript
+class Mixed<A, B> extends Mixin<GenClassA<A>, GenClassB<B>>(GenClassA, GenClassB) {}
+// Error: TS2562: Base class expressions cannot reference class type parameters.
+```
+
+There are a few ways to get around this, none of which are pretty.  The simplest is to wrap
+the class in a function so that the type parameters on the class and the mixins are in the
+same scope:
+
+```typescript
+function Mixed<A, B>() {
+	return class Mixed extends Mixin<GenClassA<A>, GenClassA<B>>(GenClassA, GenClassB) {
+		someAdditionalMethod(input1: A, input2: B) {}
+	}
+}
+
+let m = new (Mixed<string, number>())();
+```
 
 # Contributing
 All contributions are welcome, just please run `npm run lint` and `npm run test` before
-submitting an MR.  If you add a new feature, please make sure it's covered by a test case.
+submitting a PR.  If you add a new feature, please make sure it's covered by a test case.
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>
