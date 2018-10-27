@@ -1,8 +1,11 @@
 {
   "name": "ts-mixer",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A very small TypeScript library that provides tolerable Mixin functionality.",
-  "keywords": ["typescript", "mixins"],
+  "keywords": [
+    "typescript",
+    "mixins"
+  ],
   "main": "dist/mixins.js",
   "module": "dist/mixins.js",
   "types": "dist/mixins.d.ts",
