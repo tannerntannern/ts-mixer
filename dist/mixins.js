@@ -34,13 +34,18 @@ function Mixin() {
         return MixedClass;
     }());
     // Apply prototypes, including those up the chain
-    var mixedClassProto = MixedClass.prototype;
+    var mixedClassProto = MixedClass.prototype, appliedPrototypes = [];
     for (var _a = 0, constructors_1 = constructors; _a < constructors_1.length; _a++) {
         var constructor = constructors_1[_a];
         var protoChain = getProtoChain(constructor.prototype);
-        // Apply the prototype chain in reverse order, so that old methods don't override newer ones
+        // Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
+        // that the same prototype is never applied more than once.
         for (var i = protoChain.length - 1; i >= 0; i--) {
-            Object.assign(mixedClassProto, protoChain[i]);
+            var newProto = protoChain[i];
+            if (appliedPrototypes.indexOf(newProto) === -1) {
+                Object.assign(mixedClassProto, protoChain[i]);
+                appliedPrototypes.push(newProto);
+            }
         }
     }
     var _loop_1 = function (constructor) {
