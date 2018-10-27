@@ -1,6 +1,6 @@
 import 'mocha';
-import {Mixin} from '../src/mixins';
 import {expect} from 'chai';
+import {Mixin} from '../src/mixins';
 
 class Person {
 	protected name: string;
@@ -30,14 +30,6 @@ class RunnerWithCoolShoesMixin extends RunnerMixin {
 	}
 }
 
-class RunnerWithCoolSocksMixin extends RunnerMixin {
-	protected sockColor: string = 'blue';
-
-	public putOnSocks() {
-		return `Observe as I put on my ${this.sockColor} socks`
-	}
-}
-
 class JumperMixin {
 	protected jumpHeight: number = 3;
 
@@ -61,8 +53,4 @@ describe('Using a mixin that extends another class', function(){
 	it('should be able to use methods available on the class that the Mixin extends', function(){
 		expect(lj.run()).to.equal('They are running at 10 ft/sec');
 	});
-});
-
-describe('Using mixins that share a common ancestor', function(){
-	// TODO ...
 });

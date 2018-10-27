@@ -156,8 +156,11 @@ class Mixed extends Mixin(GenClassA, GenClassB) {}
 ```
 
 But we run into trouble here because we can't pass our type parameters along with the
-arguments to the `Mixin` function.  Instead, we can specify them like so (Note that the
-`string` and `number` types are arbitrary):
+arguments to the `Mixin` function.  How can we resolve this?
+
+### Option 1: Passing Type Parameters
+One solution is to pass your type information as type parameters to the `Mixin` function
+(note that the `string` and `number` types are arbitrary):
 
 ```typescript
 class Mixed extends Mixin<GenClassA<string>, GenClassB<number>>(GenClassA, GenClassB) {}
@@ -171,9 +174,11 @@ class Mixed<A, B> extends Mixin<GenClassA<A>, GenClassB<B>>(GenClassA, GenClassB
 // Error: TS2562: Base class expressions cannot reference class type parameters.
 ```
 
-There are a few ways to get around this, none of which are pretty.  The simplest is to wrap
-the class in a function so that the type parameters on the class and the mixins are in the
-same scope:
+### Option 2: Wrapping the Class in a Function
+To allow for the generic mixins to have access to the generic class's type parameters, the
+type parameters have to be available in the same scope.  To accomplish this, the simplest
+way is to wrap the class in a function, and use that function in place of the class.  It's
+not the best solution, but it gets the job done: 
 
 ```typescript
 function Mixed<A, B>() {
@@ -185,10 +190,11 @@ function Mixed<A, B>() {
 let m = new (Mixed<string, number>())();
 ```
 
-Another -- perhaps more preferable way -- makes simultaneous use of class decorators and
-interface merging to create the proper class typing.  It has the huge benefit of working
-without wrapping the class in a function, but because it depends on class decorators, the
-solution may not last for future versions of TypeScript.  (I tested on 3.1.3)
+### Option 3: Using Class Decorators and Interface Merging
+Another (perhaps more preferable) way to solve the above issue makes simultaneous use of
+class decorators and interface merging to create the proper class typing.  It has the benefit
+of working without wrapping the class in a function, but because it depends on class
+decorators, the solution may not last for future versions of TypeScript. (I tested on 3.1.3)
 
 Either way, it's a super cool solution.  Consider the following:
 
@@ -220,7 +226,7 @@ class Mixed<A, B> implements GenClassA<A>, GenClassB<B> {
 ```
 
 But now TypeScript will complain that `Mixed` doesn't implement `GenClassA` and `GenClassB`
-correctly, because it doesn't consider changes made by the decorator.  Instead, we can use
+correctly, because it can't see the changes made by the decorator.  Instead, we can use
 [interface merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces):
 
 ```typescript
@@ -231,11 +237,12 @@ class Mixed<A, B> {
 interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
 ```
 
-TADA! We now have a truly generic class that truly uses generic mixins!
+TADA! We now have a truly generic class that uses generic mixins!
 
 It's worth noting however that it's _only_ through the combination of TypeScript's failure
-to consider type modifications in conjunction with interface merging that this works.  If
-we attempted interface merging without the decorator, we would run into trouble:
+to consider type modifications with decorators in conjunction with interface merging that
+this works.  If we attempted interface merging without the decorator, we would run into
+trouble:
 
 ```typescript
 interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
@@ -249,8 +256,9 @@ class Mixed<A, B> extends Mixin(GenClassA, GenClassB) {
 
 We get this error because when the `Mixin` function is used in an extends clause, TypeScript
 is smart enough extract type information, which conflicts with the interface definition
-above.  Namely, because when the `Mixin` is given the generic classes as arguments, it 
-doesn't receive their type parameters and they default to `{}`, is incompatible.
+above it; when `Mixin` is given the generic classes as arguments, it doesn't receive their
+type parameters and they default to `{}`.  Even if you try to `// @ts-ignore` ignore it,
+the type checker will prefer the types of the `Mixin` function over those of the interface.
 
 # Contributing
 All contributions are welcome, just please run `npm run lint` and `npm run test` before
