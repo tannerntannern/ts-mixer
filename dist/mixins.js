@@ -1,5 +1,18 @@
 "use strict";
 // Based on https://github.com/Microsoft/TypeScript/pull/13743#issuecomment-429426722
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Utility function that returns the full chain of prototypes (excluding Object.prototype) from the given prototype.
@@ -70,4 +83,22 @@ function Mixin() {
     }
     return MixedClass;
 }
-exports.default = Mixin;
+exports.Mixin = Mixin;
+// Mixin decorator for special generic use cases
+function MixinDecorator() {
+    var constructors = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        constructors[_i] = arguments[_i];
+    }
+    return function (baseClass) {
+        // @ts-ignore
+        return /** @class */ (function (_super) {
+            __extends(Mixed, _super);
+            function Mixed() {
+                return _super !== null && _super.apply(this, arguments) || this;
+            }
+            return Mixed;
+        }(Mixin.apply(void 0, [baseClass].concat(constructors))));
+    };
+}
+exports.MixinDecorator = MixinDecorator;

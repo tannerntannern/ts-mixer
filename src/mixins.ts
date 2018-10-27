@@ -16,103 +16,70 @@ function getProtoChain(proto: object): object[] {
 }
 
 // Constructor type
-type Ctor<T> = new(...args: any[]) => T;
+type Constructor<T> = new(...args: any[]) => T;
 
 // Overloads for up to 10 classes; it is exceedingly unlikely that you'll ever need to mix more than 10 classes at once
-function Mixin<A>(a: Ctor<A>): (b) => Ctor<A>;
-function Mixin<A, B>(a: Ctor<A>, b: Ctor<B>): (b) => Ctor<A & B>;
-function Mixin<A, B, C>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>): (b) => Ctor<A & B & C>;
-function Mixin<A, B, C, D>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>): (b) => Ctor<A & B & C & D>;
-function Mixin<A, B, C, D, E>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>): (b) => Ctor<A & B & C & D & E>;
-function Mixin<A, B, C, D, E, F>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>): (b) => Ctor<A & B & C & D & E & F>;
-function Mixin<A, B, C, D, E, F, G>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>): (b) => Ctor<A & B & C & D & E & F & G>;
-function Mixin<A, B, C, D, E, F, G, H>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>, h: Ctor<H>): (b) => Ctor<A & B & C & D & E & F & G & H>;
-function Mixin<A, B, C, D, E, F, G, H, I>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>, h: Ctor<H>, i: Ctor<I>): (b) => Ctor<A & B & C & D & E & F & G & H & I>;
-function Mixin<A, B, C, D, E, F, G, H, I, J>(a: Ctor<A>, b: Ctor<B>, c: Ctor<C>, d: Ctor<D>, e: Ctor<E>, f: Ctor<F>, g: Ctor<G>, h: Ctor<H>, i: Ctor<I>, j: Ctor<J>): (b) => Ctor<A & B & C & D & E & F & G & H & I & J>;
+function Mixin<C1>(ctor1: Constructor<C1>): Constructor<C1>;
+function Mixin<C1, C2>(ctor1: Constructor<C1>, ctor2: Constructor<C2>): Constructor<C1 & C2>;
+function Mixin<C1, C2, C3>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>): Constructor<C1 & C2 & C3>;
+function Mixin<C1, C2, C3, C4>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>): Constructor<C1 & C2 & C3 & C4>;
+function Mixin<C1, C2, C3, C4, C5>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>): Constructor<C1 & C2 & C3 & C4 & C5>;
+function Mixin<C1, C2, C3, C4, C5, C6>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>): Constructor<C1 & C2 & C3 & C4 & C5 & C6>;
+function Mixin<C1, C2, C3, C4, C5, C6, C7>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7>;
+function Mixin<C1, C2, C3, C4, C5, C6, C7, C8>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8>;
+function Mixin<C1, C2, C3, C4, C5, C6, C7, C8, C9>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>, ctor9: Constructor<C9>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9>;
+function Mixin<C1, C2, C3, C4, C5, C6, C7, C8, C9, C10>(ctor1: Constructor<C1>, ctor2: Constructor<C2>, ctor3: Constructor<C3>, ctor4: Constructor<C4>, ctor5: Constructor<C5>, ctor6: Constructor<C6>, ctor7: Constructor<C7>, ctor8: Constructor<C8>, ctor9: Constructor<C9>, ctor10: Constructor<C10>): Constructor<C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9 & C10>;
 
 // Actual mixin implementation
-function Mixin(...constructors: Ctor<any>[]) {
-	return function(baseClass) {
-		class MixedClass extends baseClass {
-			// Apply each of the mixing class constructors
-			constructor(...args: ConstructorParameters<typeof constructors[0]>) {
-				super(...args);
-				for(let constructor of constructors) constructor.apply(this, args);
+function Mixin(...constructors: Constructor<any>[]) {
+	class MixedClass {
+		// Apply each of the mixing class constructors
+		constructor(...args: ConstructorParameters<typeof constructors[0]>) {
+			for(let constructor of constructors) constructor.apply(this, args);
+		}
+	}
+
+	// Apply prototypes, including those up the chain
+	let mixedClassProto = MixedClass.prototype,
+		appliedPrototypes = [];
+	for(let constructor of constructors) {
+		let protoChain = getProtoChain(constructor.prototype);
+
+		// Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
+		// that the same prototype is never applied more than once.
+		for(let i = protoChain.length - 1; i >= 0; i --) {
+			let newProto = protoChain[i];
+
+			if (appliedPrototypes.indexOf(newProto) === -1) {
+				Object.assign(mixedClassProto, protoChain[i]);
+				appliedPrototypes.push(newProto);
 			}
 		}
+	}
 
-		// Apply prototypes, including those up the chain
-		let mixedClassProto = MixedClass.prototype,
-			appliedPrototypes = [];
-		for(let constructor of constructors) {
-			let protoChain = getProtoChain(constructor.prototype);
-
-			// Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
-			// that the same prototype is never applied more than once.
-			for(let i = protoChain.length - 1; i >= 0; i --) {
-				let newProto = protoChain[i];
-
-				if (appliedPrototypes.indexOf(newProto) === -1) {
-					Object.assign(mixedClassProto, protoChain[i]);
-					appliedPrototypes.push(newProto);
-				}
+	// Mix static properties by linking to the original static props with getters/setters
+	for(let constructor of constructors) {
+		for(let prop in constructor) {
+			if (!MixedClass.hasOwnProperty(prop)) {
+				Object.defineProperty(MixedClass, prop, {
+					get() { return constructor[prop]; },
+					set(val) { constructor[prop] = val; },
+					enumerable: true,
+					configurable: false
+				});
 			}
 		}
-
-		// Mix static properties by linking to the original static props with getters/setters
-		for(let constructor of constructors) {
-			for(let prop in constructor) {
-				if (!MixedClass.hasOwnProperty(prop)) {
-					Object.defineProperty(MixedClass, prop, {
-						get() { return constructor[prop]; },
-						set(val) { constructor[prop] = val; },
-						enumerable: true,
-						configurable: false
-					});
-				}
-			}
-		}
-
-		return MixedClass;
 	}
+
+	return MixedClass;
 }
 
-export default Mixin;
-
-class Person {
-	protected name: string;
-
-	constructor(name: string) {
-		this.name = name;
-	}
-
-	public introduce(){
-		return `This is ${this.name}`;
-	}
+// Mixin decorator for special generic use cases
+function MixinDecorator(...constructors: Constructor<any>[]) {
+	return function<T>(baseClass: T): T {
+		// @ts-ignore
+		return class Mixed extends Mixin(baseClass, ...constructors) {};
+	};
 }
 
-class RunnerMixin {
-	protected runSpeed: number = 10;
-
-	public run(){
-		return `They are running at ${this.runSpeed} ft/sec`;
-	}
-}
-
-class JumperMixin {
-	protected jumpHeight: number = 3;
-
-	public jump(){
-		return `They are jumping ${this.jumpHeight} ft in the air`;
-	}
-}
-
-class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin)(class {}) implements Person, RunnerMixin, JumperMixin {
-	public introduce() {
-		return "This is " + this.name;
-	}
-
-	public jump() {
-		return this.name + ' has jumped ' + this.jumpHeight + ' ft high!';
-	}
-}
+export {Mixin, MixinDecorator};

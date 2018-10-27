@@ -21,9 +21,9 @@ as possible.
 * Support for mixing plain TypeScript classes
 * Support for mixing classes that extend other classes
 * Support for protected and private properties
+* **Support for classes with generics** (woot!)[¹](#caveats)
 * Automatic inference of the mixed class type[¹](#caveats)
 * Proper handling of static properties[²](#caveats)
-* Support for classes with generics[¹](#caveats)
 
 #### Caveats
 1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
@@ -184,6 +184,73 @@ function Mixed<A, B>() {
 
 let m = new (Mixed<string, number>())();
 ```
+
+Another -- perhaps more preferable way -- makes simultaneous use of class decorators and
+interface merging to create the proper class typing.  It has the huge benefit of working
+without wrapping the class in a function, but because it depends on class decorators, the
+solution may not last for future versions of TypeScript.  (I tested on 3.1.3)
+
+Consider the following:
+
+```typescript
+import {MixinDecorator} from 'ts-mixer';
+
+@MixinDecorator(GenClassA, GenClassB)
+class Mixed<A, B> {
+	someAdditonalMethod(input1: A, input2: B) {}
+}
+```
+
+The first thing to note is the `MixinDecorator` import.  This function is very similar to
+the `Mixin` function, but in a [decorator](https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators)
+format.  Decorators have the annoying property that even though they may modify the shape
+of the class they decorate "on the JavaScript side," the types don't update "on the 
+TypeScript side."  So as far as the TypeScript compiler is concerned in the example above,
+class `Mixed` just has that one method, even though the decorator is really adding methods
+from the mixed generic classes.
+
+How do we convince TypeScript that `Mixed` has the additional methods?  An attempt at a
+solution might look like this:
+
+```typescript
+@MixinDecorator(GenClassA, GenClassB)
+class Mixed<A, B> implements GenClassA<A>, GenClassB<B> {
+	someAdditonalMethod(input1: A, input2: B) {}
+}
+```
+
+But now TypeScript will complain that `Mixed` doesn't implement `GenClassA` and `GenClassB`
+correctly, because it doesn't consider changes made by the decorator.  Instead, we can use
+[interface merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces):
+
+```typescript
+@MixinDecorator(GenClassA, GenClassB)
+class Mixed<A, B> {
+	someAdditonalMethod(input1: A, input2: B) {}
+}
+interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
+```
+
+TADA! We now have a truly generic class that truly uses generic mixins!
+
+It's worth noting however that it's _only_ through the combination of TypeScript's failure
+to consider type modifications in conjunction with interface merging that this works.  If
+we attempted interface merging without the decorator, we would run into trouble:
+
+```typescript
+interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
+class Mixed<A, B> extends Mixin(GenClassA, GenClassB) {
+	newMethod(a: A, b: B) {}
+}
+
+// Error:TS2320: Interface 'Mixed<A, B>' cannot simultaneously extend types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>'.
+// Named property 'methodA' of types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>' are not identical.
+```
+
+We get this error because when the `Mixin` function is used in an extends clause, TypeScript
+is smart enough extract type information, which conflicts with the interface definition
+above.  Namely, because when the `Mixin` is given the generic classes as arguments, it 
+doesn't receive their type parameters and they default to `{}`, is incompatible.
 
 # Contributing
 All contributions are welcome, just please run `npm run lint` and `npm run test` before

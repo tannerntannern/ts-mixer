@@ -7,7 +7,8 @@
 	"moduleResolution": "node",
 	"sourceMap": false,
 	"outDir": "dist",
-	"declaration": true
+	"declaration": true,
+	"experimentalDecorators": true
   },
   "include": [
 	"./src/mixins.ts"

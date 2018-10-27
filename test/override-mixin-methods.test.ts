@@ -1,6 +1,6 @@
 import 'mocha';
 import {expect} from 'chai';
-import Mixin from '../src/mixins';
+import {Mixin} from '../src/mixins';
 
 class Person {
 	protected name: string;
