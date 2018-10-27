@@ -190,7 +190,7 @@ interface merging to create the proper class typing.  It has the huge benefit of
 without wrapping the class in a function, but because it depends on class decorators, the
 solution may not last for future versions of TypeScript.  (I tested on 3.1.3)
 
-Consider the following:
+Either way, it's a super cool solution.  Consider the following:
 
 ```typescript
 import {MixinDecorator} from 'ts-mixer';
