@@ -16,7 +16,7 @@
     "build": "tsc",
     "build-clean": "rm -rf ./dist && npm run build && git add ./dist",
     "docs": "typedoc --out ./docs --mode modules ./src",
-    "docs-clean": "rm -rf ./docs && npm run docs && git add ./docs",
+    "docs-clean": "rm -rf ./docs && npm run docs && touch ./docs/.nojekyll && git add ./docs",
     "lint": "eslint src/**/*.ts",
     "test": "nyc mocha --recursive -r ts-node/register test/**/*.test.*",
     "coverage": "nyc report",
