@@ -47,6 +47,10 @@ for more information.
 ## Installation
 `npm i --save ts-mixer`
 
+## Documentation
+If you're looking for more complete documentation, [go here](https://tannerntannern.github.io/ts-mixer).
+If you just need a few tips to get started, keep reading.
+
 ## Examples
 ### Basic Example
 ```typescript
