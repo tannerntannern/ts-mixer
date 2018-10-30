@@ -1,5 +1,4 @@
 "use strict";
-// Based on https://github.com/Microsoft/TypeScript/pull/13743#issuecomment-429426722
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -26,7 +25,6 @@ function getProtoChain(proto) {
     }
     return protoChain;
 }
-// Actual mixin implementation
 function Mixin() {
     var constructors = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -84,7 +82,22 @@ function Mixin() {
     return MixedClass;
 }
 exports.Mixin = Mixin;
-// Mixin decorator for special generic use cases
+/**
+ * A decorator version of the `Mixin` function.  Instead of applying mixins like this,
+ *
+ * 	class MyClass extends Mixin(Mixin1, Mixin2, Mixin3) {}
+ *
+ * you can apply mixins like this instead:
+ *
+ * 	@MixinDecorator(Mixin1, Mixin2, Mixin3)
+ * 	class MyClass {}
+ *
+ * 	// This line is necessary for the typings to work
+ * 	interface MyClass extends Mixin1, Mixin2, Mixin3 {}
+ *
+ * The main reason you might want to use this over `Mixin` is for mixing generic classes.  See the main README for more
+ * information.
+ */
 function MixinDecorator() {
     var constructors = [];
     for (var _i = 0; _i < arguments.length; _i++) {
