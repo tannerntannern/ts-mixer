@@ -178,24 +178,8 @@ class Mixed<A, B> extends Mixin<GenClassA<A>, GenClassB<B>>(GenClassA, GenClassB
 // Error: TS2562: Base class expressions cannot reference class type parameters.
 ```
 
-### Option 2: Wrapping the Class in a Function
-To allow for the generic mixins to have access to the generic class's type parameters, the
-type parameters have to be available in the same scope.  To accomplish this, the simplest
-way is to wrap the class in a function, and use that function in place of the class.  It's
-not the best solution, but it gets the job done: 
-
-```typescript
-function Mixed<A, B>() {
-	return class Mixed extends Mixin<GenClassA<A>, GenClassA<B>>(GenClassA, GenClassB) {
-		someAdditionalMethod(input1: A, input2: B) {}
-	}
-}
-
-let m = new (Mixed<string, number>())();
-```
-
-### Option 3: Using Class Decorators and Interface Merging
-Another (perhaps more preferable) way to solve the above issue makes simultaneous use of
+### Option 2: Using Class Decorators and Interface Merging
+To solve this issue, we can make simultaneous use of
 class decorators and interface merging to create the proper class typing.  It has the benefit
 of working without wrapping the class in a function, but because it depends on class
 decorators, the solution may not last for future versions of TypeScript. (I tested on 3.1.3)
@@ -265,8 +249,19 @@ type parameters and they default to `{}`.  Even if you try to `// @ts-ignore` ig
 the type checker will prefer the types of the `Mixin` function over those of the interface.
 
 # Contributing
-All contributions are welcome, just please run `npm run lint` and `npm run test` before
-submitting a PR.  If you add a new feature, please make sure it's covered by a test case.
+All contributions are welcome!  To get started, simply fork and clone the repo, run
+`npm install`, and get to work.  Once you have something you'd like to contribute,
+be sure to run `npm run lint && npm run test` locally, then submit a PR.
+
+Tests are very important to consider and I will not accept any PRs that are poorly
+tested.  Keep the following in mind:
+* If you add a new feature, please make sure it's covered by a test case.  Typically
+this should get a dedicated `*.test.ts` file in the `test` directory, so that all of
+the nuances of the feature can be adequately covered.
+* If you are contributing a bug fix, you must also write at least one test to verify
+that the bug is fixed.  If the bug is directly related to an existing feature, try
+to include the test in the relevant existing file.  If the bug is highly specific,
+it may make sense to give the test its own file; use discretion.
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>
