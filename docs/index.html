@@ -82,15 +82,20 @@
 				as possible.</p>
 				<h2 id="features">Features</h2>
 				<ul>
-					<li>Support for mixing plain TypeScript classes</li>
+					<li>Support for mixing plain TypeScript classes<a href="#caveats">¹</a></li>
 					<li>Support for mixing classes that extend other classes</li>
 					<li>Support for protected and private properties</li>
-					<li><strong>Support for classes with generics</strong> (woot!)<a href="#caveats">¹</a></li>
-					<li>Automatic inference of the mixed class type<a href="#caveats">¹</a></li>
-					<li>Proper handling of static properties<a href="#caveats">²</a></li>
+					<li><strong>Support for classes with generics</strong> (woot!)<a href="#caveats">²</a></li>
+					<li>Automatic inference of the mixed class type<a href="#caveats">²</a></li>
+					<li>Proper handling of static properties<a href="#caveats">³</a></li>
 				</ul>
 				<h4 id="caveats">Caveats</h4>
 				<ol>
+					<li>Only targeting ES5 is currently supported  Targeting ES6 (<code>&quot;target&quot;: &quot;es6&quot;</code> in your
+						<code>tsconfig.json</code>) will likely cause issues since ES6 doesn&#39;t allow you to call constructor
+						functions without the <code>new</code> keyword, which is crucial for mixins to work at all.  If you
+						must use ES6, you must define your classes &quot;the old way&quot; rather than with the new <code>class</code>
+					keyword to avoid runtime errors.</li>
 					<li>Some mixin implementations require you to do something like <code>Mixin&lt;A &amp; B&gt;(A, B)</code> in
 						order for the types to work correctly.  ts-mixer is able to infer these types, so you can
 						just do <code>Mixin(A, B)</code>, except when generics are involved.  See
@@ -131,7 +136,7 @@
     <span class="hljs-keyword">protected</span> runSpeed: <span class="hljs-built_in">number</span> = <span class="hljs-number">10</span>;
 
     <span class="hljs-keyword">public</span> run(){
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'They are running at '</span> + <span class="hljs-keyword">this</span>.runSpeed + <span class="hljs-string">' ft/sec'</span>;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'They are running at'</span>, <span class="hljs-keyword">this</span>.runSpeed, <span class="hljs-string">'ft/sec'</span>);
     }
 }
 
@@ -139,22 +144,18 @@
     <span class="hljs-keyword">protected</span> jumpHeight: <span class="hljs-built_in">number</span> = <span class="hljs-number">3</span>;
 
     <span class="hljs-keyword">public</span> jump(){
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'They are jumping '</span> + <span class="hljs-keyword">this</span>.jumpHeight + <span class="hljs-string">' ft in the air'</span>;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'They are jumping'</span>, <span class="hljs-keyword">this</span>.jumpHeight, <span class="hljs-string">'ft in the air'</span>);
     }
 }
 
 <span class="hljs-keyword">class</span> LongJumper <span class="hljs-keyword">extends</span> Mixin(Person, RunnerMixin, JumperMixin) {
-    <span class="hljs-keyword">protected</span> stateDistance() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'They landed '</span> + <span class="hljs-keyword">this</span>.runSpeed * <span class="hljs-keyword">this</span>.jumpHeight + <span class="hljs-string">' ft from the start!'</span>;
-    }
-
     <span class="hljs-keyword">public</span> longJump() {
-        <span class="hljs-keyword">let</span> msg = <span class="hljs-string">""</span>;
-        msg += <span class="hljs-keyword">this</span>.run() + <span class="hljs-string">'\n'</span>;
-        msg += <span class="hljs-keyword">this</span>.jump() + <span class="hljs-string">'\n'</span>;
-        msg += <span class="hljs-keyword">this</span>.stateDistance() + <span class="hljs-string">'\n'</span>;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name, <span class="hljs-string">'is stepping up to the event.'</span>);
 
-        <span class="hljs-keyword">return</span> msg;
+        <span class="hljs-keyword">this</span>.run();
+        <span class="hljs-keyword">this</span>.jump();
+
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'They landed'</span>, <span class="hljs-keyword">this</span>.runSpeed * <span class="hljs-keyword">this</span>.jumpHeight, <span class="hljs-string">'ft from the start!'</span>);
     }
 }</code></pre>
 				<h3 id="dealing-with-static-properties">Dealing with Static Properties</h3>
@@ -211,20 +212,8 @@ CollegeStudent.TOTAL === <span class="hljs-number">2</span>;    <span class="hlj
 				type parameters on the class, because this won&#39;t work:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">class</span> Mixed&lt;A, B&gt; <span class="hljs-keyword">extends</span> Mixin&lt;GenClassA&lt;A&gt;, GenClassB&lt;B&gt;&gt;(GenClassA, GenClassB) {}
 <span class="hljs-comment">// Error: TS2562: Base class expressions cannot reference class type parameters.</span></code></pre>
-				<h3 id="option-2-wrapping-the-class-in-a-function">Option 2: Wrapping the Class in a Function</h3>
-				<p>To allow for the generic mixins to have access to the generic class&#39;s type parameters, the
-					type parameters have to be available in the same scope.  To accomplish this, the simplest
-					way is to wrap the class in a function, and use that function in place of the class.  It&#39;s
-				not the best solution, but it gets the job done: </p>
-				<pre><code class="language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Mixed</span>&lt;<span class="hljs-title">A</span>, <span class="hljs-title">B</span>&gt;(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> Mixed <span class="hljs-keyword">extends</span> Mixin&lt;GenClassA&lt;A&gt;, GenClassA&lt;B&gt;&gt;(GenClassA, GenClassB) {
-        someAdditionalMethod(input1: A, input2: B) {}
-    }
-}
-
-<span class="hljs-keyword">let</span> m = <span class="hljs-keyword">new</span> (Mixed&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>&gt;())();</code></pre>
-				<h3 id="option-3-using-class-decorators-and-interface-merging">Option 3: Using Class Decorators and Interface Merging</h3>
-				<p>Another (perhaps more preferable) way to solve the above issue makes simultaneous use of
+				<h3 id="option-2-using-class-decorators-and-interface-merging">Option 2: Using Class Decorators and Interface Merging</h3>
+				<p>To solve this issue, we can make simultaneous use of
 					class decorators and interface merging to create the proper class typing.  It has the benefit
 					of working without wrapping the class in a function, but because it depends on class
 				decorators, the solution may not last for future versions of TypeScript. (I tested on 3.1.3)</p>
@@ -274,10 +263,22 @@ CollegeStudent.TOTAL === <span class="hljs-number">2</span>;    <span class="hlj
 					type parameters and they default to <code>{}</code>.  Even if you try to <code>// @ts-ignore</code> ignore it,
 				the type checker will prefer the types of the <code>Mixin</code> function over those of the interface.</p>
 				<h1 id="contributing">Contributing</h1>
-				<p>All contributions are welcome, just please run <code>npm run lint</code> and <code>npm run test</code> before
-				submitting a PR.  If you add a new feature, please make sure it&#39;s covered by a test case.</p>
+				<p>All contributions are welcome!  To get started, simply fork and clone the repo, run
+					<code>npm install</code>, and get to work.  Once you have something you&#39;d like to contribute,
+				be sure to run <code>npm run lint &amp;&amp; npm run test</code> locally, then submit a PR.</p>
+				<p>Tests are very important to consider and I will not accept any PRs that are poorly
+				tested.  Keep the following in mind:</p>
+				<ul>
+					<li>If you add a new feature, please make sure it&#39;s covered by a test case.  Typically
+						this should get a dedicated <code>*.test.ts</code> file in the <code>test</code> directory, so that all of
+					the nuances of the feature can be adequately covered.</li>
+					<li>If you are contributing a bug fix, you must also write at least one test to verify
+						that the bug is fixed.  If the bug is directly related to an existing feature, try
+						to include the test in the relevant existing file.  If the bug is highly specific,
+					it may make sense to give the test its own file; use discretion.</li>
+				</ul>
 				<h1 id="author">Author</h1>
-				<p>Tanner Nielsen <a href="mailto:&#116;&#x61;&#110;&#x6e;&#101;&#114;&#x6e;&#116;&#x61;&#x6e;&#110;&#x65;&#114;&#x6e;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#116;&#x61;&#110;&#x6e;&#101;&#114;&#x6e;&#116;&#x61;&#x6e;&#110;&#x65;&#114;&#x6e;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
+				<p>Tanner Nielsen <a href="mailto:&#x74;&#x61;&#x6e;&#110;&#x65;&#114;&#x6e;&#x74;&#97;&#110;&#110;&#101;&#114;&#110;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x74;&#x61;&#x6e;&#110;&#x65;&#114;&#x6e;&#x74;&#97;&#110;&#110;&#101;&#114;&#110;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
 				<ul>
 					<li>Website - <a href="http://tannernielsen.com">tannernielsen.com</a></li>
 					<li>Github - <a href="https://github.com/tannerntannern">github.com/tannerntannern</a></li>
