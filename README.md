@@ -18,19 +18,24 @@ take the best from the many different implementations while mitigating their fla
 as possible.
 
 ## Features
-* Support for mixing plain TypeScript classes
+* Support for mixing plain TypeScript classes[¹](#caveats)
 * Support for mixing classes that extend other classes
 * Support for protected and private properties
-* **Support for classes with generics** (woot!)[¹](#caveats)
-* Automatic inference of the mixed class type[¹](#caveats)
-* Proper handling of static properties[²](#caveats)
+* **Support for classes with generics** (woot!)[²](#caveats)
+* Automatic inference of the mixed class type[²](#caveats)
+* Proper handling of static properties[³](#caveats)
 
 #### Caveats
-1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
+1. Only targeting ES5 is currently supported  Targeting ES6 (`"target": "es6"` in your
+`tsconfig.json`) will likely cause issues since ES6 doesn't allow you to call constructor
+functions without the `new` keyword, which is crucial for mixins to work at all.  If you
+must use ES6, you must define your classes "the old way" rather than with the new `class`
+keyword to avoid runtime errors.
+2. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
 order for the types to work correctly.  ts-mixer is able to infer these types, so you can
 just do `Mixin(A, B)`, except when generics are involved.  See
 [Dealing with Generics](#dealing-with-generics).
-2. Due to the way constructor types work in TypeScript, it's impossible to specify a type
+3. Due to the way constructor types work in TypeScript, it's impossible to specify a type
 that is both a constructor and has specific properties.  Static properties are still
 accessible "on the JavaScript side," but you have to make some type assertions to convince
 TypeScript that you can access them.  See
@@ -68,7 +73,7 @@ class RunnerMixin {
 	protected runSpeed: number = 10;
 
 	public run(){
-		return 'They are running at ' + this.runSpeed + ' ft/sec';
+		console.log('They are running at', this.runSpeed, 'ft/sec');
 	}
 }
 
@@ -76,22 +81,18 @@ class JumperMixin {
 	protected jumpHeight: number = 3;
 
 	public jump(){
-		return 'They are jumping ' + this.jumpHeight + ' ft in the air';
+		console.log('They are jumping', this.jumpHeight, 'ft in the air');
 	}
 }
 
 class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin) {
-	protected stateDistance() {
-		return 'They landed ' + this.runSpeed * this.jumpHeight + ' ft from the start!';
-	}
-
 	public longJump() {
-		let msg = "";
-		msg += this.run() + '\n';
-		msg += this.jump() + '\n';
-		msg += this.stateDistance() + '\n';
-
-		return msg;
+		console.log(this.name, 'is stepping up to the event.');
+		
+		this.run();
+		this.jump();
+		
+		console.log('They landed', this.runSpeed * this.jumpHeight, 'ft from the start!');
 	}
 }
 ```
