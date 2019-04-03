@@ -50,7 +50,7 @@ for more information.
 
 # Getting Started
 ## Installation
-`npm i --save ts-mixer`
+`npm i --save ts-mixer` or `yarn add ts-mixer`
 
 ## Documentation
 If you're looking for more complete documentation, [go here](https://tannerntannern.github.io/ts-mixer).
@@ -251,8 +251,8 @@ the type checker will prefer the types of the `Mixin` function over those of the
 
 # Contributing
 All contributions are welcome!  To get started, simply fork and clone the repo, run
-`npm install`, and get to work.  Once you have something you'd like to contribute,
-be sure to run `npm run lint && npm run test` locally, then submit a PR.
+`yarn install`, and get to work.  Once you have something you'd like to contribute,
+be sure to run `yarn lint && yarn test` locally, then submit a PR.
 
 Tests are very important to consider and I will not accept any PRs that are poorly
 tested.  Keep the following in mind:

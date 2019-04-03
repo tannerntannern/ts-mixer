@@ -1,5 +1,5 @@
 import 'mocha';
-import {Mixin} from '../src/mixins';
+import {Mixin} from '../../../src/mixins';
 import {expect} from 'chai';
 
 class Person {
