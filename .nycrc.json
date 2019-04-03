@@ -1,0 +1,13 @@
+{
+  "extension": [
+	".ts"
+  ],
+  "include": [
+	"./src/**/*.ts"
+  ],
+  "reporter": [
+	"html",
+	"lcov"
+  ],
+  "all": true
+}
