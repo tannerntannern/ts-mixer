@@ -1,5 +1,5 @@
 import 'mocha';
-import {Mixin} from '../../../src/mixins';
+import {Mixin} from '../../src/mixins';
 import {expect} from 'chai';
 
 class Person {
@@ -9,7 +9,7 @@ class Person {
 
 	constructor(name: string) {
 		this.name = name;
-		(<typeof Person> this.constructor).TOTAL ++;
+		(this.constructor as typeof Person).TOTAL ++;
 	}
 }
 
@@ -26,6 +26,6 @@ describe('Static properties', function(){
 		new LongJumper('Joe');
 
 		expect(Person.TOTAL).to.equal(2);
-		expect((<typeof Person><unknown>LongJumper).TOTAL).to.equal(2);
+		expect(LongJumper.TOTAL).to.equal(2);
 	});
 });
