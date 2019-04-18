@@ -1,7 +1,7 @@
 // ======= NOTE =======
 // This file simply proves that the type checking on generic mixins works correctly.  No actual tests are run.
 
-import {MixinDecorator} from '../src/mixins';
+import {mix} from '../src/mixins';
 
 class GenericClassA<T> {
 	testA(input: T) {}
@@ -11,7 +11,7 @@ class GenericClassB<T> {
 	testB(input: T) {}
 }
 
-@MixinDecorator(GenericClassA, GenericClassB)
+@mix(GenericClassA, GenericClassB)
 class Mixed<A, B> {
 	newMethod(a: A, b: B) {}
 }

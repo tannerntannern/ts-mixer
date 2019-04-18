@@ -104,20 +104,20 @@ class Mixed<A, B> extends Mixin(GenClassA, GenClassB) {}
 But we run into trouble here because we can't pass our type parameters along with the arguments to the `Mixin` function.  To solve this issue, we can make simultaneous use of class decorators and interface merging to create the proper class typing.  Consider the following:
 
 ```typescript
-import {MixinDecorator} from 'ts-mixer';
+import {mix} from 'ts-mixer';
 
-@MixinDecorator(GenClassA, GenClassB)
+@mix(GenClassA, GenClassB)
 class Mixed<A, B> {
 	someAdditonalMethod(input1: A, input2: B) {}
 }
 ```
 
-Note the `MixinDecorator`, which is simply the `Mixin` function, but in a [decorator](https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators) form.  Decorators have the annoying property that even though they may modify the shape of the class they decorate "on the JavaScript side," the types don't update "on the TypeScript side."  So as far as the TypeScript compiler is concerned in the example above, class `Mixed` only has one method, even though the decorator is really adding methods from the mixed generic classes.
+Note the `mix`, which is simply the `Mixin` function in [class-decorator](https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators) form.  Decorators have the annoying property that even though they may modify the shape of the class they decorate "on the JavaScript side," the types don't update "on the TypeScript side."  So as far as the TypeScript compiler is concerned in the example above, class `Mixed` only has one method, even though the decorator is really adding methods from the mixed generic classes.
 
 How do we convince TypeScript that `Mixed` has the additional methods?  An attempt at a solution might look like this:
 
 ```typescript
-@MixinDecorator(GenClassA, GenClassB)
+@mix(GenClassA, GenClassB)
 class Mixed<A, B> implements GenClassA<A>, GenClassB<B> {
 	someAdditonalMethod(input1: A, input2: B) {}
 }
@@ -126,7 +126,7 @@ class Mixed<A, B> implements GenClassA<A>, GenClassB<B> {
 But now TypeScript will complain that `Mixed` doesn't implement `GenClassA` and `GenClassB` correctly, because it can't see the changes made by the decorator.  Instead, we can use [interface merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces):
 
 ```typescript
-@MixinDecorator(GenClassA, GenClassB)
+@mix(GenClassA, GenClassB)
 class Mixed<A, B> {
 	someAdditonalMethod(input1: A, input2: B) {}
 }

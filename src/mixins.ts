@@ -163,10 +163,8 @@ function Mixin(...ingredients: Class[]) {
 }
 
 /**
- * A decorator version of the `Mixin` function you might want to use this over `Mixin` for mixing generic classes.
- *
- * TODO: give this a better name
+ * A decorator version of the `Mixin` function.  You'll want to use this instead of `Mixin` for mixing generic classes.
  */
-const MixinDecorator = (...ingredients: Class[]) => baseClass => class Mixed extends Mixin(baseClass, ...ingredients) {};
+const mix = (...ingredients: Class[]) => baseClass => class Mixed extends Mixin(baseClass, ...ingredients) {};
 
-export {Mixin, MixinDecorator};
+export {Mixin, mix};

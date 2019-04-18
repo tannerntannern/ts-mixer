@@ -28,7 +28,7 @@ declare function Mixin<C1, C2, C3, C4, C5, C6, C7, C8, C9, C10>(ctor1: Construct
  *
  * you can apply mixins like this instead:
  *
- * 	@MixinDecorator(Mixin1, Mixin2, Mixin3)
+ * 	@mix(Mixin1, Mixin2, Mixin3)
  * 	class MyClass {}
  *
  * 	// This line is necessary for the typings to work

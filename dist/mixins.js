@@ -89,7 +89,7 @@ exports.Mixin = Mixin;
  *
  * you can apply mixins like this instead:
  *
- * 	@MixinDecorator(Mixin1, Mixin2, Mixin3)
+ * 	@mix(Mixin1, Mixin2, Mixin3)
  * 	class MyClass {}
  *
  * 	// This line is necessary for the typings to work
