@@ -3,43 +3,27 @@
 [![Coverage Status](https://coveralls.io/repos/github/tannerntannern/ts-mixer/badge.svg?branch=master)](https://coveralls.io/github/tannerntannern/ts-mixer?branch=master)
 [![dependencies Status](https://david-dm.org/tannerntannern/ts-mixer/status.svg)](https://david-dm.org/tannerntannern/ts-mixer)
 
-### Why another Mixin library? 
-It seems that no one has been able to provide an acceptable way to gracefully implement
-the mixin pattern with TypeScript.  Mixins as described by the
-[TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less
-than ideal.  Countless online threads feature half-working snippets.  Some are elegant,
-but fail to work properly with static properties.  Others solve static properties, but
-they don't work well with generics.  Some are memory-optimized, but force you to write the
-mixins in an awkward, cumbersome format.
+### What is it?
+`ts-mixer` is a lightweight package that brings mixins to TypeScript.  Mixins in JavaScript are easy, but TypeScript introduces complications.  `ts-mixer` deals with these complications for you and infers all of the intelligent typing you'd expect, including instance properties, methods, static properties, **generics**, and more.
 
-My fruitless search has led me to believe that there is no perfect solution with the
-current state of TypeScript.  Instead, I present a "tolerable" solution that attempts to
-take the best from the many different implementations while mitigating their flaws as much
-as possible.
+### Why another Mixin implementation? 
+It seems that no one has been able to implement TypeScript mixins gracefully.  Mixins as described by the [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less than ideal.  Countless online threads feature half-working snippets, each one simultaneously elegant but lacking in its own way.
+
+My fruitless search has led me to believe that there is no perfect solution with the current state of TypeScript.  Instead, I present a "tolerable" solution that attempts to take the best from the many different implementations while mitigating their flaws as much as possible.
 
 ## Features
-* Support for mixing plain TypeScript classes[¹](#caveats)
+* Support for mixing plain TypeScript classes
 * Support for mixing classes that extend other classes
 * Support for protected and private properties
-* **Support for classes with generics** (woot!)[²](#caveats)
-* Automatic inference of the mixed class type[²](#caveats)
-* Proper handling of static properties[³](#caveats)
+* **Support for classes with generics**[¹](#caveats)
+* Automatic inference of the mixed class type[¹](#caveats)
+* Proper handling of static properties
 
 #### Caveats
-1. Only targeting ES5 is currently supported  Targeting ES6 (`"target": "es6"` in your
-`tsconfig.json`) will likely cause issues since ES6 doesn't allow you to call constructor
-functions without the `new` keyword, which is crucial for mixins to work at all.  If you
-must use ES6, you must define your classes "the old way" rather than with the new `class`
-keyword to avoid runtime errors.
-2. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
+1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
 order for the types to work correctly.  ts-mixer is able to infer these types, so you can
 just do `Mixin(A, B)`, except when generics are involved.  See
 [Dealing with Generics](#dealing-with-generics).
-3. Due to the way constructor types work in TypeScript, it's impossible to specify a type
-that is both a constructor and has specific properties.  Static properties are still
-accessible "on the JavaScript side," but you have to make some type assertions to convince
-TypeScript that you can access them.  See
-[Dealing with Static Properties](#dealing-with-static-properties).
 
 ## Non-features
 * `instanceof` support;  Because this library is intended for use with TypeScript, running
@@ -53,7 +37,7 @@ for more information.
 `npm i --save ts-mixer` or `yarn add ts-mixer`
 
 ## Documentation
-If you're looking for more complete documentation, [go here](https://tannerntannern.github.io/ts-mixer).
+If you're looking for the API documentation, [go here](https://tannerntannern.github.io/ts-mixer).
 If you just need a few tips to get started, keep reading.
 
 ## Examples
@@ -97,51 +81,8 @@ class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin) {
 }
 ```
 
-### Dealing with Static Properties
-Consider the following scenario:
-```typescript
-import {Mixin} from 'ts-mixer';
-
-class Person {
-	public static TOTAL: number = 0;
-	constructor() {
-		(<typeof Person>this.constructor).TOTAL ++;
-	}
-}
-
-class StudentMixin {
-	public study() { console.log('I am studying so hard') }
-}
-
-class CollegeStudent extends Mixin(Person, StudentMixin) {}
-```
-
-It would be expected that class `CollegeStudent` should have the property `TOTAL` since
-`CollegeStudent` inherits from `Person`.  The `Mixin` function properly sets up the
-inheritance of this static property, so that modifying it on the `CollegeStudent` class
-will also affect the `Person` class:
-
-```typescript
-let p1 = new Person();
-let cs1 = new CollegeStudent();
-
-Person.TOTAL === 2; 		// true
-CollegeStudent.TOTAL === 2;	// true
-```
-
-The only issue is that due to the impossibility of specifying properties on a constructor
-type, you must use some type assertions to keep the TypeScript compiler from complaining:
-
-```typescript
-CollegeStudent.TOTAL ++;                           // error
-(<any>CollegeStudent).TOTAL ++;                    // ok
-(<typeof Person><unknown>CollegeStudent).TOTAL++;  // ugly, but better
-```
-
 ### Dealing with Generics
-Normally, the `Mixin` function is able to figure out the class types and produce an
-appropriately typed result.  However, when generics are involved, the `Mixin` function
-is not able to correctly infer the type parameters.  Consider the following:
+Normally, the `Mixin` function is able to figure out the class types without help.  However, when generics are involved, the `Mixin` function is not able to correctly infer the type parameters.  Consider the following:
 
 ```typescript
 import {Mixin} from 'ts-mixer';
@@ -157,35 +98,10 @@ class GenClassB<T> {
 Now let's say that we want to mix these two generic classes together, like so:
 
 ```typescript
-class Mixed extends Mixin(GenClassA, GenClassB) {}
+class Mixed<A, B> extends Mixin(GenClassA, GenClassB) {}
 ```
 
-But we run into trouble here because we can't pass our type parameters along with the
-arguments to the `Mixin` function.  How can we resolve this?
-
-### Option 1: Passing Type Parameters
-One solution is to pass your type information as type parameters to the `Mixin` function
-(note that the `string` and `number` types are arbitrary):
-
-```typescript
-class Mixed extends Mixin<GenClassA<string>, GenClassB<number>>(GenClassA, GenClassB) {}
-```
-
-This really works quite well.  However, it gets worse if you need the mixins to reference
-type parameters on the class, because this won't work:
-
-```typescript
-class Mixed<A, B> extends Mixin<GenClassA<A>, GenClassB<B>>(GenClassA, GenClassB) {}
-// Error: TS2562: Base class expressions cannot reference class type parameters.
-```
-
-### Option 2: Using Class Decorators and Interface Merging
-To solve this issue, we can make simultaneous use of
-class decorators and interface merging to create the proper class typing.  It has the benefit
-of working without wrapping the class in a function, but because it depends on class
-decorators, the solution may not last for future versions of TypeScript. (I tested on 3.1.3)
-
-Either way, it's a super cool solution.  Consider the following:
+But we run into trouble here because we can't pass our type parameters along with the arguments to the `Mixin` function.  To solve this issue, we can make simultaneous use of class decorators and interface merging to create the proper class typing.  Consider the following:
 
 ```typescript
 import {MixinDecorator} from 'ts-mixer';
@@ -196,16 +112,9 @@ class Mixed<A, B> {
 }
 ```
 
-The first thing to note is the `MixinDecorator` import.  This function is very similar to
-the `Mixin` function, but in a [decorator](https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators)
-format.  Decorators have the annoying property that even though they may modify the shape
-of the class they decorate "on the JavaScript side," the types don't update "on the 
-TypeScript side."  So as far as the TypeScript compiler is concerned in the example above,
-class `Mixed` just has that one method, even though the decorator is really adding methods
-from the mixed generic classes.
+Note the `MixinDecorator`, which is simply the `Mixin` function, but in a [decorator](https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators) form.  Decorators have the annoying property that even though they may modify the shape of the class they decorate "on the JavaScript side," the types don't update "on the TypeScript side."  So as far as the TypeScript compiler is concerned in the example above, class `Mixed` only has one method, even though the decorator is really adding methods from the mixed generic classes.
 
-How do we convince TypeScript that `Mixed` has the additional methods?  An attempt at a
-solution might look like this:
+How do we convince TypeScript that `Mixed` has the additional methods?  An attempt at a solution might look like this:
 
 ```typescript
 @MixinDecorator(GenClassA, GenClassB)
@@ -214,9 +123,7 @@ class Mixed<A, B> implements GenClassA<A>, GenClassB<B> {
 }
 ```
 
-But now TypeScript will complain that `Mixed` doesn't implement `GenClassA` and `GenClassB`
-correctly, because it can't see the changes made by the decorator.  Instead, we can use
-[interface merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces):
+But now TypeScript will complain that `Mixed` doesn't implement `GenClassA` and `GenClassB` correctly, because it can't see the changes made by the decorator.  Instead, we can use [interface merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces):
 
 ```typescript
 @MixinDecorator(GenClassA, GenClassB)
@@ -226,45 +133,35 @@ class Mixed<A, B> {
 interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
 ```
 
-TADA! We now have a truly generic class that uses generic mixins!
+Boom.  Generic mixins solved.
 
-It's worth noting however that it's _only_ through the combination of TypeScript's failure
-to consider type modifications with decorators in conjunction with interface merging that
-this works.  If we attempted interface merging without the decorator, we would run into
-trouble:
+#### Important Note
+It's worth noting that it's _only through_ TypeScript's failure to consider decorator return types _in conjunction_ with interface merging that this works.  If we attempted interface merging without the decorator, we would run into trouble:
 
 ```typescript
 interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
 class Mixed<A, B> extends Mixin(GenClassA, GenClassB) {
 	newMethod(a: A, b: B) {}
 }
-
-// Error:TS2320: Interface 'Mixed<A, B>' cannot simultaneously extend types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>'.
-// Named property 'methodA' of types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>' are not identical.
 ```
 
-We get this error because when the `Mixin` function is used in an extends clause, TypeScript
-is smart enough extract type information, which conflicts with the interface definition
-above it; when `Mixin` is given the generic classes as arguments, it doesn't receive their
-type parameters and they default to `{}`.  Even if you try to `// @ts-ignore` ignore it,
-the type checker will prefer the types of the `Mixin` function over those of the interface.
+```
+Error:TS2320: Interface 'Mixed<A, B>' cannot simultaneously extend types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>'.
+Named property 'methodA' of types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>' are not identical.
+```
+
+We get this error because when generic classes are fed to the `Mixin` function, any generic parameters default to `{}`, since TypeScript can't infer them.  Unfortunately, these incorrect defaults can't be overridden with interface merging.  Even if you try to `@ts-ignore` it, the TypeScript will prefer the types of the `Mixin` function over those of the interface.
+
+In other words, use the decorator instead!
 
 # Contributing
-All contributions are welcome!  To get started, simply fork and clone the repo, run
-`yarn install`, and get to work.  Once you have something you'd like to contribute,
-be sure to run `yarn lint && yarn test` locally, then submit a PR.
+All contributions are welcome!  To get started, simply fork and clone the repo, run `yarn install`, and get to work.  Once you have something you'd like to contribute, be sure to run `yarn lint && yarn test` locally, then submit a PR.
 
-Tests are very important to consider and I will not accept any PRs that are poorly
-tested.  Keep the following in mind:
-* If you add a new feature, please make sure it's covered by a test case.  Typically
-this should get a dedicated `*.test.ts` file in the `test` directory, so that all of
-the nuances of the feature can be adequately covered.
-* If you are contributing a bug fix, you must also write at least one test to verify
-that the bug is fixed.  If the bug is directly related to an existing feature, try
-to include the test in the relevant existing file.  If the bug is highly specific,
-it may make sense to give the test its own file; use discretion.
+Tests are very important to consider and I will not accept any PRs that are poorly tested.  Keep the following in mind:
+* If you add a new feature, please make sure it's covered by a test case.  Typically this should get a dedicated `*.test.ts` file in the `test` directory, so that all of the nuances of the feature can be adequately covered.
+* If you are contributing a bug fix, you must also write at least one test to verify that the bug is fixed.  If the bug is directly related to an existing feature, try to include the test in the relevant test file.  If the bug is highly specific, it may deserve a dedicated file; use discretion.
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>
 * Website - [tannernielsen.com](http://tannernielsen.com)
-* Github - [github.com/tannerntannern](https://github.com/tannerntannern)
+* Github - [tannerntannern](https://github.com/tannerntannern)
