@@ -24,5 +24,5 @@ deploy:
   on:
     tags: true
     branch: master
-    node: '8'
+    node: '10'
     repo: tannerntannern/ts-mixer
