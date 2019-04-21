@@ -73,16 +73,15 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_mixins_.html#arr" class="tsd-kind-icon">Arr</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported"><a href="_mixins_.html#class" class="tsd-kind-icon">Class</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported"><a href="_mixins_.html#constructor" class="tsd-kind-icon">Constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported"><a href="_mixins_.html#mixin" class="tsd-kind-icon">Mixin</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_mixins_.html#mixindecorator" class="tsd-kind-icon">Mixin<wbr>Decorator</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_mixins_.html#getprotochain" class="tsd-kind-icon">get<wbr>Proto<wbr>Chain</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_mixins_.html#mix" class="tsd-kind-icon">mix</a></li>
 							</ul>
 						</section>
 					</div>
@@ -90,34 +89,24 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="arr" class="tsd-anchor"></a>
-					<h3>Arr</h3>
-					<div class="tsd-signature tsd-kind-icon">Arr<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>Constructor</h3>
+					<div class="tsd-signature tsd-kind-icon">Constructor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L21">mixins.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L19">mixins.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Shorthand Array<any> type.</p>
+							<p>Basic constructor type</p>
 						</div>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-					<a name="class" class="tsd-anchor"></a>
-					<h3>Class</h3>
-					<div class="tsd-signature tsd-kind-icon">Class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L26">mixins.ts:26</a></li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
 						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A rigorous type alias for a class.</p>
-						</div>
 					</div>
 				</section>
 			</section>
@@ -127,690 +116,532 @@
 					<a name="mixin" class="tsd-anchor"></a>
 					<h3>Mixin</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2, C3, S3&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2, C3, S3, C4, S4&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span>, c4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2, C3, S3, C4, S4, C5, S5&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span>, c4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span>, c5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2, C3, S3, C4, S4, C5, S5, C6, S6&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span>, c4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span>, c5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span>, c6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2, C3, S3, C4, S4, C5, S5, C6, S6, C7, S7&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span>, c4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span>, c5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span>, c6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span>, c7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2, C3, S3, C4, S4, C5, S5, C6, S6, C7, S7, C8, S8&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span>, c4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span>, c5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span>, c6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span>, c7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span>, c8<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, P1, S1, C2, S2, C3, S3, C4, S4, C5, S5, C6, S6, C7, S7, C8, S8, C9, S9&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span>, c4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span>, c5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span>, c6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span>, c7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span>, c8<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span>, c9<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">Mixin&lt;A, C1, S1, C2, S2, C3, S3, C4, S4, C5, S5, C6, S6, C7, S7, C8, S8, C9, S9, C10, S10&gt;<span class="tsd-signature-symbol">(</span>c1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span>, c2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span>, c3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span>, c4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span>, c5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span>, c6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span>, c7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span>, c8<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span>, c9<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol">&gt;</span>, c10<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S10</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S10</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3, C4&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span>, ctor4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3, C4, C5&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span>, ctor4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span>, ctor5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3, C4, C5, C6&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span>, ctor4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span>, ctor5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span>, ctor6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3, C4, C5, C6, C7&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span>, ctor4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span>, ctor5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span>, ctor6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span>, ctor7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3, C4, C5, C6, C7, C8&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span>, ctor4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span>, ctor5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span>, ctor6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span>, ctor7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span>, ctor8<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3, C4, C5, C6, C7, C8, C9&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span>, ctor4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span>, ctor5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span>, ctor6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span>, ctor7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span>, ctor8<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span>, ctor9<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Mixin&lt;C1, C2, C3, C4, C5, C6, C7, C8, C9, C10&gt;<span class="tsd-signature-symbol">(</span>ctor1<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span>, ctor2<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span>, ctor3<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span>, ctor4<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span>, ctor5<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span>, ctor6<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span>, ctor7<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span>, ctor8<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span>, ctor9<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">&gt;</span>, ctor10<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L32">mixins.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L30">mixins.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Mixes a number of classes together.  Overloads are provided for up to 10 inputs, which should be more than plenty.</p>
+									<p>The main mixin function; takes a number of constructors, and returns a new class that
+										1) applies each of the given constructors in its own constructor
+										2) applies each prototype (and parent prototypes) of the given constructors to its own prototype
+									3) links any static properties on the given constructors to the class via getters and setters</p>
 								</div>
+								<p>Note that there are overloads for up to 10 classes.  If you go beyond 10 classes the &quot;JavaScript side&quot; will still
+								work, but the &quot;TypeScript side&quot; will not.</p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L36">mixins.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L31">mixins.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
 								</li>
 								<li>
-									<h4>S1</h4>
-								</li>
-								<li>
 									<h4>C2</h4>
-								</li>
-								<li>
-									<h4>S2</h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L41">mixins.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L32">mixins.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
 								</li>
 								<li>
-									<h4>S1</h4>
-								</li>
-								<li>
 									<h4>C2</h4>
-								</li>
-								<li>
-									<h4>S2</h4>
 								</li>
 								<li>
 									<h4>C3</h4>
 								</li>
-								<li>
-									<h4>S3</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L47">mixins.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L33">mixins.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 								<li>
 									<h4>C2</h4>
 								</li>
 								<li>
-									<h4>S2</h4>
-								</li>
-								<li>
 									<h4>C3</h4>
-								</li>
-								<li>
-									<h4>S3</h4>
 								</li>
 								<li>
 									<h4>C4</h4>
 								</li>
-								<li>
-									<h4>S4</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c4: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor4: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L54">mixins.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L34">mixins.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 								<li>
 									<h4>C2</h4>
 								</li>
 								<li>
-									<h4>S2</h4>
-								</li>
-								<li>
 									<h4>C3</h4>
 								</li>
 								<li>
-									<h4>S3</h4>
-								</li>
-								<li>
 									<h4>C4</h4>
-								</li>
-								<li>
-									<h4>S4</h4>
 								</li>
 								<li>
 									<h4>C5</h4>
 								</li>
-								<li>
-									<h4>S5</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c4: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor4: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c5: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor5: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L62">mixins.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L35">mixins.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 								<li>
 									<h4>C2</h4>
 								</li>
 								<li>
-									<h4>S2</h4>
-								</li>
-								<li>
 									<h4>C3</h4>
-								</li>
-								<li>
-									<h4>S3</h4>
 								</li>
 								<li>
 									<h4>C4</h4>
 								</li>
 								<li>
-									<h4>S4</h4>
-								</li>
-								<li>
 									<h4>C5</h4>
-								</li>
-								<li>
-									<h4>S5</h4>
 								</li>
 								<li>
 									<h4>C6</h4>
 								</li>
-								<li>
-									<h4>S6</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c4: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor4: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c5: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor5: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c6: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor6: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L71">mixins.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L36">mixins.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 								<li>
 									<h4>C2</h4>
 								</li>
 								<li>
-									<h4>S2</h4>
-								</li>
-								<li>
 									<h4>C3</h4>
-								</li>
-								<li>
-									<h4>S3</h4>
 								</li>
 								<li>
 									<h4>C4</h4>
 								</li>
 								<li>
-									<h4>S4</h4>
-								</li>
-								<li>
 									<h4>C5</h4>
 								</li>
 								<li>
-									<h4>S5</h4>
-								</li>
-								<li>
 									<h4>C6</h4>
-								</li>
-								<li>
-									<h4>S6</h4>
 								</li>
 								<li>
 									<h4>C7</h4>
 								</li>
-								<li>
-									<h4>S7</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c4: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor4: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c5: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor5: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c6: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor6: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c7: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor7: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L81">mixins.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L37">mixins.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 								<li>
 									<h4>C2</h4>
 								</li>
 								<li>
-									<h4>S2</h4>
-								</li>
-								<li>
 									<h4>C3</h4>
-								</li>
-								<li>
-									<h4>S3</h4>
 								</li>
 								<li>
 									<h4>C4</h4>
 								</li>
 								<li>
-									<h4>S4</h4>
-								</li>
-								<li>
 									<h4>C5</h4>
-								</li>
-								<li>
-									<h4>S5</h4>
 								</li>
 								<li>
 									<h4>C6</h4>
 								</li>
 								<li>
-									<h4>S6</h4>
-								</li>
-								<li>
 									<h4>C7</h4>
-								</li>
-								<li>
-									<h4>S7</h4>
 								</li>
 								<li>
 									<h4>C8</h4>
 								</li>
-								<li>
-									<h4>S8</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c4: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor4: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c5: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor5: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c6: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor6: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c7: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor7: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c8: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor8: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L92">mixins.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L38">mixins.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>P1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 								<li>
 									<h4>C2</h4>
 								</li>
 								<li>
-									<h4>S2</h4>
-								</li>
-								<li>
 									<h4>C3</h4>
-								</li>
-								<li>
-									<h4>S3</h4>
 								</li>
 								<li>
 									<h4>C4</h4>
 								</li>
 								<li>
-									<h4>S4</h4>
-								</li>
-								<li>
 									<h4>C5</h4>
-								</li>
-								<li>
-									<h4>S5</h4>
 								</li>
 								<li>
 									<h4>C6</h4>
 								</li>
 								<li>
-									<h4>S6</h4>
-								</li>
-								<li>
 									<h4>C7</h4>
 								</li>
 								<li>
-									<h4>S7</h4>
-								</li>
-								<li>
 									<h4>C8</h4>
-								</li>
-								<li>
-									<h4>S8</h4>
 								</li>
 								<li>
 									<h4>C9</h4>
 								</li>
-								<li>
-									<h4>S9</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c4: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor4: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c5: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor5: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c6: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor6: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c7: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor7: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c8: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor8: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c9: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor9: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L104">mixins.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L39">mixins.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>A<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#arr" class="tsd-signature-type">Arr</a></h4>
-								</li>
-								<li>
 									<h4>C1</h4>
-								</li>
-								<li>
-									<h4>S1</h4>
 								</li>
 								<li>
 									<h4>C2</h4>
 								</li>
 								<li>
-									<h4>S2</h4>
-								</li>
-								<li>
 									<h4>C3</h4>
-								</li>
-								<li>
-									<h4>S3</h4>
 								</li>
 								<li>
 									<h4>C4</h4>
 								</li>
 								<li>
-									<h4>S4</h4>
-								</li>
-								<li>
 									<h4>C5</h4>
-								</li>
-								<li>
-									<h4>S5</h4>
 								</li>
 								<li>
 									<h4>C6</h4>
 								</li>
 								<li>
-									<h4>S6</h4>
-								</li>
-								<li>
 									<h4>C7</h4>
-								</li>
-								<li>
-									<h4>S7</h4>
 								</li>
 								<li>
 									<h4>C8</h4>
 								</li>
 								<li>
-									<h4>S8</h4>
-								</li>
-								<li>
 									<h4>C9</h4>
-								</li>
-								<li>
-									<h4>S9</h4>
 								</li>
 								<li>
 									<h4>C10</h4>
 								</li>
-								<li>
-									<h4>S10</h4>
-								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>c1: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor1: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c2: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor2: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c3: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor3: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c4: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor4: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c5: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor5: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c6: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor6: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c7: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor7: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c8: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor8: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c9: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor9: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>c10: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S10</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ctor10: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S9</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">S10</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C9</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">C10</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="mixindecorator" class="tsd-anchor"></a>
+					<h3>Mixin<wbr>Decorator</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">Mixin<wbr>Decorator<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>constructors<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L99">mixins.ts:99</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A decorator version of the <code>Mixin</code> function.  Instead of applying mixins like this,</p>
+								</div>
+								<pre><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Mixin</span>(<span class="hljs-params"><span class="hljs-type">Mixin1</span>, <span class="hljs-type">Mixin2</span>, <span class="hljs-type">Mixin3</span></span>) </span>{}</code></pre><p>you can apply mixins like this instead:</p>
+								<pre><code>@MixinDecorator(Mixin1, Mixin2, Mixin3)
+<span class="hljs-keyword">class</span> <span class="hljs-symbol">MyClass</span> {}
+
+<span class="hljs-comment">// This line is necessary for the typings to work</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-symbol">MyClass</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">Mixin1</span>, <span class="hljs-symbol">Mixin2</span>, <span class="hljs-symbol">Mixin3</span> {}</code></pre><p>The main reason you might want to use this over <code>Mixin</code> is for mixing generic classes.  See the main README for more
+								information.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>constructors: <a href="_mixins_.html#constructor" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -818,13 +649,13 @@
 					<a name="getprotochain" class="tsd-anchor"></a>
 					<h3>get<wbr>Proto<wbr>Chain</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Proto<wbr>Chain<span class="tsd-signature-symbol">(</span>proto<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Proto<wbr>Chain<span class="tsd-signature-symbol">(</span>proto<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L7">mixins.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/5ca345e/src/mixins.ts#L5">mixins.ts:5</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -839,35 +670,7 @@
 									<h5>proto: <span class="tsd-signature-type">object</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="mix" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> mix</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">mix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>ingredients<span class="tsd-signature-symbol">: </span><a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/tannerntannern/ts-mixer/blob/db0c301/src/mixins.ts#L168">mixins.ts:168</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>A decorator version of the <code>Mixin</code> function.  You&#39;ll want to use this instead of <code>Mixin</code> for mixing generic classes.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>ingredients: <a href="_mixins_.html#class" class="tsd-signature-type">Class</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -886,20 +689,17 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_mixins_.html#arr" class="tsd-kind-icon">Arr</a>
-					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="_mixins_.html#class" class="tsd-kind-icon">Class</a>
+						<a href="_mixins_.html#constructor" class="tsd-kind-icon">Constructor</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_mixins_.html#mixin" class="tsd-kind-icon">Mixin</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_mixins_.html#getprotochain" class="tsd-kind-icon">get<wbr>Proto<wbr>Chain</a>
+						<a href="_mixins_.html#mixindecorator" class="tsd-kind-icon">Mixin<wbr>Decorator</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_mixins_.html#mix" class="tsd-kind-icon">mix</a>
+						<a href="_mixins_.html#getprotochain" class="tsd-kind-icon">get<wbr>Proto<wbr>Chain</a>
 					</li>
 				</ul>
 			</nav>

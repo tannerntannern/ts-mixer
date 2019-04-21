@@ -67,28 +67,44 @@
 				<h1 id="ts-mixer">ts-mixer</h1>
 				<p><a href="https://travis-ci.org/tannerntannern/ts-mixer"><img src="https://travis-ci.org/tannerntannern/ts-mixer.svg?branch=master" alt="Build Status"></a>
 					<a href="https://coveralls.io/github/tannerntannern/ts-mixer?branch=master"><img src="https://coveralls.io/repos/github/tannerntannern/ts-mixer/badge.svg?branch=master" alt="Coverage Status"></a>
-				<a href="https://bundlephobia.com/result?p=ts-mixer"><img src="https://badgen.net/bundlephobia/min/ts-mixer" alt="Minified Size"></a></p>
-				<h3 id="what-is-it-">What is it?</h3>
-				<p><code>ts-mixer</code> is a lightweight package that brings mixins to TypeScript.  Mixins in JavaScript are easy, but TypeScript introduces complications.  <code>ts-mixer</code> deals with these complications for you and infers all of the intelligent typing you&#39;d expect, including instance properties, methods, static properties, <strong>generics</strong>, and more.</p>
-				<h3 id="why-another-mixin-implementation-">Why another Mixin implementation?</h3>
-				<p>It seems that no one has been able to implement TypeScript mixins gracefully.  Mixins as described by the <a href="https://www.typescriptlang.org/docs/handbook/mixins.html">TypeScript docs</a> are far less than ideal.  Countless online threads feature half-working snippets, each one simultaneously elegant but lacking in its own way.</p>
-				<p>My fruitless search has led me to believe that there is no perfect solution with the current state of TypeScript.  Instead, I present a &quot;tolerable&quot; solution that attempts to take the best from the many different implementations while mitigating their flaws as much as possible.</p>
+				<a href="https://david-dm.org/tannerntannern/ts-mixer"><img src="https://david-dm.org/tannerntannern/ts-mixer/status.svg" alt="dependencies Status"></a></p>
+				<h3 id="why-another-mixin-library-">Why another Mixin library?</h3>
+				<p>It seems that no one has been able to provide an acceptable way to gracefully implement
+					the mixin pattern with TypeScript.  Mixins as described by the
+					<a href="https://www.typescriptlang.org/docs/handbook/mixins.html">TypeScript docs</a> are far less
+					than ideal.  Countless online threads feature half-working snippets.  Some are elegant,
+					but fail to work properly with static properties.  Others solve static properties, but
+					they don&#39;t work well with generics.  Some are memory-optimized, but force you to write the
+				mixins in an awkward, cumbersome format.</p>
+				<p>My fruitless search has led me to believe that there is no perfect solution with the
+					current state of TypeScript.  Instead, I present a &quot;tolerable&quot; solution that attempts to
+					take the best from the many different implementations while mitigating their flaws as much
+				as possible.</p>
 				<h2 id="features">Features</h2>
 				<ul>
-					<li>Support for mixing plain TypeScript classes</li>
+					<li>Support for mixing plain TypeScript classes<a href="#caveats">¹</a></li>
 					<li>Support for mixing classes that extend other classes</li>
 					<li>Support for protected and private properties</li>
-					<li><strong>Support for classes with generics</strong><a href="#caveats">¹</a></li>
-					<li>Automatic inference of the mixed class type<a href="#caveats">¹</a></li>
-					<li>Proper handling of static properties</li>
+					<li><strong>Support for classes with generics</strong> (woot!)<a href="#caveats">²</a></li>
+					<li>Automatic inference of the mixed class type<a href="#caveats">²</a></li>
+					<li>Proper handling of static properties<a href="#caveats">³</a></li>
 				</ul>
 				<h4 id="caveats">Caveats</h4>
 				<ol>
+					<li>Only targeting ES5 is currently supported  Targeting ES6 (<code>&quot;target&quot;: &quot;es6&quot;</code> in your
+						<code>tsconfig.json</code>) will likely cause issues since ES6 doesn&#39;t allow you to call constructor
+						functions without the <code>new</code> keyword, which is crucial for mixins to work at all.  If you
+						must use ES6, you must define your classes &quot;the old way&quot; rather than with the new <code>class</code>
+					keyword to avoid runtime errors.</li>
 					<li>Some mixin implementations require you to do something like <code>Mixin&lt;A &amp; B&gt;(A, B)</code> in
 						order for the types to work correctly.  ts-mixer is able to infer these types, so you can
 						just do <code>Mixin(A, B)</code>, except when generics are involved.  See
 					<a href="#dealing-with-generics">Dealing with Generics</a>.</li>
-					<li>Due to a bug in the TypeScript compiler, this package only appears to work on TypeScript 3.4.4 and beyond.  With that said, it may still to simply use the package instead of compiling it yourself, which is where I ran into issues, but I did not test this extensively.</li>
+					<li>Due to the way constructor types work in TypeScript, it&#39;s impossible to specify a type
+						that is both a constructor and has specific properties.  Static properties are still
+						accessible &quot;on the JavaScript side,&quot; but you have to make some type assertions to convince
+						TypeScript that you can access them.  See
+					<a href="#dealing-with-static-properties">Dealing with Static Properties</a>.</li>
 				</ol>
 				<h2 id="non-features">Non-features</h2>
 				<ul>
@@ -100,9 +116,9 @@
 				</ul>
 				<h1 id="getting-started">Getting Started</h1>
 				<h2 id="installation">Installation</h2>
-				<p><code>npm i --save ts-mixer</code> or <code>yarn add ts-mixer</code></p>
+				<p><code>npm i --save ts-mixer</code></p>
 				<h2 id="documentation">Documentation</h2>
-				<p>If you&#39;re looking for the API documentation, <a href="https://tannerntannern.github.io/ts-mixer">go here</a>.
+				<p>If you&#39;re looking for more complete documentation, <a href="https://tannerntannern.github.io/ts-mixer">go here</a>.
 				If you just need a few tips to get started, keep reading.</p>
 				<h2 id="examples">Examples</h2>
 				<h3 id="basic-example">Basic Example</h3>
@@ -142,8 +158,40 @@
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'They landed'</span>, <span class="hljs-keyword">this</span>.runSpeed * <span class="hljs-keyword">this</span>.jumpHeight, <span class="hljs-string">'ft from the start!'</span>);
     }
 }</code></pre>
+				<h3 id="dealing-with-static-properties">Dealing with Static Properties</h3>
+				<p>Consider the following scenario:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {Mixin} <span class="hljs-keyword">from</span> <span class="hljs-string">'ts-mixer'</span>;
+
+<span class="hljs-keyword">class</span> Person {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> TOTAL: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        (&lt;<span class="hljs-keyword">typeof</span> Person&gt;<span class="hljs-keyword">this</span>.constructor).TOTAL ++;
+    }
+}
+
+<span class="hljs-keyword">class</span> StudentMixin {
+    <span class="hljs-keyword">public</span> study() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'I am studying so hard'</span>) }
+}
+
+<span class="hljs-keyword">class</span> CollegeStudent <span class="hljs-keyword">extends</span> Mixin(Person, StudentMixin) {}</code></pre>
+				<p>It would be expected that class <code>CollegeStudent</code> should have the property <code>TOTAL</code> since
+					<code>CollegeStudent</code> inherits from <code>Person</code>.  The <code>Mixin</code> function properly sets up the
+					inheritance of this static property, so that modifying it on the <code>CollegeStudent</code> class
+				will also affect the <code>Person</code> class:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">let</span> p1 = <span class="hljs-keyword">new</span> Person();
+<span class="hljs-keyword">let</span> cs1 = <span class="hljs-keyword">new</span> CollegeStudent();
+
+Person.TOTAL === <span class="hljs-number">2</span>;         <span class="hljs-comment">// true</span>
+CollegeStudent.TOTAL === <span class="hljs-number">2</span>;    <span class="hljs-comment">// true</span></code></pre>
+				<p>The only issue is that due to the impossibility of specifying properties on a constructor
+				type, you must use some type assertions to keep the TypeScript compiler from complaining:</p>
+				<pre><code class="language-typescript">CollegeStudent.TOTAL ++;                           <span class="hljs-comment">// error</span>
+(&lt;<span class="hljs-built_in">any</span>&gt;CollegeStudent).TOTAL ++;                    <span class="hljs-comment">// ok</span>
+(&lt;<span class="hljs-keyword">typeof</span> Person&gt;&lt;unknown&gt;CollegeStudent).TOTAL++;  <span class="hljs-comment">// ugly, but better</span></code></pre>
 				<h3 id="dealing-with-generics">Dealing with Generics</h3>
-				<p>Normally, the <code>Mixin</code> function is able to figure out the class types without help.  However, when generics are involved, the <code>Mixin</code> function is not able to correctly infer the type parameters.  Consider the following:</p>
+				<p>Normally, the <code>Mixin</code> function is able to figure out the class types and produce an
+					appropriately typed result.  However, when generics are involved, the <code>Mixin</code> function
+				is not able to correctly infer the type parameters.  Consider the following:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {Mixin} <span class="hljs-keyword">from</span> <span class="hljs-string">'ts-mixer'</span>;
 
 <span class="hljs-keyword">class</span> GenClassA&lt;T&gt; {
@@ -153,48 +201,87 @@
     methodB(input: T) {}
 }</code></pre>
 				<p>Now let&#39;s say that we want to mix these two generic classes together, like so:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">class</span> Mixed&lt;A, B&gt; <span class="hljs-keyword">extends</span> Mixin(GenClassA, GenClassB) {}</code></pre>
-				<p>But we run into trouble here because we can&#39;t pass our type parameters along with the arguments to the <code>Mixin</code> function.  To solve this issue, we can make simultaneous use of class decorators and interface merging to create the proper class typing.  Consider the following:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {mix} <span class="hljs-keyword">from</span> <span class="hljs-string">'ts-mixer'</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">class</span> Mixed <span class="hljs-keyword">extends</span> Mixin(GenClassA, GenClassB) {}</code></pre>
+				<p>But we run into trouble here because we can&#39;t pass our type parameters along with the
+				arguments to the <code>Mixin</code> function.  How can we resolve this?</p>
+				<h3 id="option-1-passing-type-parameters">Option 1: Passing Type Parameters</h3>
+				<p>One solution is to pass your type information as type parameters to the <code>Mixin</code> function
+				(note that the <code>string</code> and <code>number</code> types are arbitrary):</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">class</span> Mixed <span class="hljs-keyword">extends</span> Mixin&lt;GenClassA&lt;<span class="hljs-built_in">string</span>&gt;, GenClassB&lt;<span class="hljs-built_in">number</span>&gt;&gt;(GenClassA, GenClassB) {}</code></pre>
+				<p>This really works quite well.  However, it gets worse if you need the mixins to reference
+				type parameters on the class, because this won&#39;t work:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">class</span> Mixed&lt;A, B&gt; <span class="hljs-keyword">extends</span> Mixin&lt;GenClassA&lt;A&gt;, GenClassB&lt;B&gt;&gt;(GenClassA, GenClassB) {}
+<span class="hljs-comment">// Error: TS2562: Base class expressions cannot reference class type parameters.</span></code></pre>
+				<h3 id="option-2-using-class-decorators-and-interface-merging">Option 2: Using Class Decorators and Interface Merging</h3>
+				<p>To solve this issue, we can make simultaneous use of
+					class decorators and interface merging to create the proper class typing.  It has the benefit
+					of working without wrapping the class in a function, but because it depends on class
+				decorators, the solution may not last for future versions of TypeScript. (I tested on 3.1.3)</p>
+				<p>Either way, it&#39;s a super cool solution.  Consider the following:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {MixinDecorator} <span class="hljs-keyword">from</span> <span class="hljs-string">'ts-mixer'</span>;
 
-<span class="hljs-meta">@mix</span>(GenClassA, GenClassB)
+<span class="hljs-meta">@MixinDecorator</span>(GenClassA, GenClassB)
 <span class="hljs-keyword">class</span> Mixed&lt;A, B&gt; {
     someAdditonalMethod(input1: A, input2: B) {}
 }</code></pre>
-				<p>Note the <code>mix</code>, which is simply the <code>Mixin</code> function in <a href="https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators">class-decorator</a> form.  Decorators have the annoying property that even though they may modify the shape of the class they decorate &quot;on the JavaScript side,&quot; the types don&#39;t update &quot;on the TypeScript side.&quot;  So as far as the TypeScript compiler is concerned in the example above, class <code>Mixed</code> only has one method, even though the decorator is really adding methods from the mixed generic classes.</p>
-				<p>How do we convince TypeScript that <code>Mixed</code> has the additional methods?  An attempt at a solution might look like this:</p>
-				<pre><code class="language-typescript"><span class="hljs-meta">@mix</span>(GenClassA, GenClassB)
+				<p>The first thing to note is the <code>MixinDecorator</code> import.  This function is very similar to
+					the <code>Mixin</code> function, but in a <a href="https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators">decorator</a>
+					format.  Decorators have the annoying property that even though they may modify the shape
+					of the class they decorate &quot;on the JavaScript side,&quot; the types don&#39;t update &quot;on the
+					TypeScript side.&quot;  So as far as the TypeScript compiler is concerned in the example above,
+					class <code>Mixed</code> just has that one method, even though the decorator is really adding methods
+				from the mixed generic classes.</p>
+				<p>How do we convince TypeScript that <code>Mixed</code> has the additional methods?  An attempt at a
+				solution might look like this:</p>
+				<pre><code class="language-typescript"><span class="hljs-meta">@MixinDecorator</span>(GenClassA, GenClassB)
 <span class="hljs-keyword">class</span> Mixed&lt;A, B&gt; <span class="hljs-keyword">implements</span> GenClassA&lt;A&gt;, GenClassB&lt;B&gt; {
     someAdditonalMethod(input1: A, input2: B) {}
 }</code></pre>
-				<p>But now TypeScript will complain that <code>Mixed</code> doesn&#39;t implement <code>GenClassA</code> and <code>GenClassB</code> correctly, because it can&#39;t see the changes made by the decorator.  Instead, we can use <a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces">interface merging</a>:</p>
-				<pre><code class="language-typescript"><span class="hljs-meta">@mix</span>(GenClassA, GenClassB)
+				<p>But now TypeScript will complain that <code>Mixed</code> doesn&#39;t implement <code>GenClassA</code> and <code>GenClassB</code>
+					correctly, because it can&#39;t see the changes made by the decorator.  Instead, we can use
+				<a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces">interface merging</a>:</p>
+				<pre><code class="language-typescript"><span class="hljs-meta">@MixinDecorator</span>(GenClassA, GenClassB)
 <span class="hljs-keyword">class</span> Mixed&lt;A, B&gt; {
     someAdditonalMethod(input1: A, input2: B) {}
 }
 <span class="hljs-keyword">interface</span> Mixed&lt;A, B&gt; <span class="hljs-keyword">extends</span> GenClassA&lt;A&gt;, GenClassB&lt;B&gt; {}</code></pre>
-				<p>Boom.  Generic mixins solved.</p>
-				<h4 id="important-note">Important Note</h4>
-				<p>It&#39;s worth noting that it&#39;s <em>only through</em> TypeScript&#39;s failure to consider decorator return types <em>in conjunction</em> with interface merging that this works.  If we attempted interface merging without the decorator, we would run into trouble:</p>
+				<p>TADA! We now have a truly generic class that uses generic mixins!</p>
+				<p>It&#39;s worth noting however that it&#39;s <em>only</em> through the combination of TypeScript&#39;s failure
+					to consider type modifications with decorators in conjunction with interface merging that
+					this works.  If we attempted interface merging without the decorator, we would run into
+				trouble:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">interface</span> Mixed&lt;A, B&gt; <span class="hljs-keyword">extends</span> GenClassA&lt;A&gt;, GenClassB&lt;B&gt; {}
 <span class="hljs-keyword">class</span> Mixed&lt;A, B&gt; <span class="hljs-keyword">extends</span> Mixin(GenClassA, GenClassB) {
     newMethod(a: A, b: B) {}
-}</code></pre>
-				<pre><code><span class="hljs-keyword">Error</span>:TS2320: <span class="hljs-keyword">Interface</span> <span class="hljs-comment">'Mixed<span class="hljs-doctag">&lt;A, B&gt;</span>' cannot simultaneously extend types 'GenClassA<span class="hljs-doctag">&lt;{}&gt;</span> &amp; GenClassB<span class="hljs-doctag">&lt;{}&gt;</span>' and 'GenClassA<span class="hljs-doctag">&lt;A&gt;</span>'.</span>
-Named <span class="hljs-keyword">property</span> <span class="hljs-comment">'methodA' of types 'GenClassA<span class="hljs-doctag">&lt;{}&gt;</span> &amp; GenClassB<span class="hljs-doctag">&lt;{}&gt;</span>' and 'GenClassA<span class="hljs-doctag">&lt;A&gt;</span>' are not identical.</span></code></pre><p>We get this error because when generic classes are fed to the <code>Mixin</code> function, any generic parameters default to <code>{}</code>, since TypeScript can&#39;t infer them.  Unfortunately, these incorrect defaults can&#39;t be overridden with interface merging.  Even if you try to <code>@ts-ignore</code> it, the TypeScript will prefer the types of the <code>Mixin</code> function over those of the interface.</p>
-				<p>In other words, use the decorator instead!</p>
+}
+
+<span class="hljs-comment">// Error:TS2320: Interface 'Mixed&lt;A, B&gt;' cannot simultaneously extend types 'GenClassA&lt;{}&gt; &amp; GenClassB&lt;{}&gt;' and 'GenClassA&lt;A&gt;'.</span>
+<span class="hljs-comment">// Named property 'methodA' of types 'GenClassA&lt;{}&gt; &amp; GenClassB&lt;{}&gt;' and 'GenClassA&lt;A&gt;' are not identical.</span></code></pre>
+				<p>We get this error because when the <code>Mixin</code> function is used in an extends clause, TypeScript
+					is smart enough extract type information, which conflicts with the interface definition
+					above it; when <code>Mixin</code> is given the generic classes as arguments, it doesn&#39;t receive their
+					type parameters and they default to <code>{}</code>.  Even if you try to <code>// @ts-ignore</code> ignore it,
+				the type checker will prefer the types of the <code>Mixin</code> function over those of the interface.</p>
 				<h1 id="contributing">Contributing</h1>
-				<p>All contributions are welcome!  To get started, simply fork and clone the repo, run <code>yarn install</code>, and get to work.  Once you have something you&#39;d like to contribute, be sure to run <code>yarn lint &amp;&amp; yarn test</code> locally, then submit a PR.</p>
-				<p>Tests are very important to consider and I will not accept any PRs that are poorly tested.  Keep the following in mind:</p>
+				<p>All contributions are welcome!  To get started, simply fork and clone the repo, run
+					<code>npm install</code>, and get to work.  Once you have something you&#39;d like to contribute,
+				be sure to run <code>npm run lint &amp;&amp; npm run test</code> locally, then submit a PR.</p>
+				<p>Tests are very important to consider and I will not accept any PRs that are poorly
+				tested.  Keep the following in mind:</p>
 				<ul>
-					<li>If you add a new feature, please make sure it&#39;s covered by a test case.  Typically this should get a dedicated <code>*.test.ts</code> file in the <code>test</code> directory, so that all of the nuances of the feature can be adequately covered.</li>
-					<li>If you are contributing a bug fix, you must also write at least one test to verify that the bug is fixed.  If the bug is directly related to an existing feature, try to include the test in the relevant test file.  If the bug is highly specific, it may deserve a dedicated file; use discretion.</li>
+					<li>If you add a new feature, please make sure it&#39;s covered by a test case.  Typically
+						this should get a dedicated <code>*.test.ts</code> file in the <code>test</code> directory, so that all of
+					the nuances of the feature can be adequately covered.</li>
+					<li>If you are contributing a bug fix, you must also write at least one test to verify
+						that the bug is fixed.  If the bug is directly related to an existing feature, try
+						to include the test in the relevant existing file.  If the bug is highly specific,
+					it may make sense to give the test its own file; use discretion.</li>
 				</ul>
 				<h1 id="author">Author</h1>
-				<p>Tanner Nielsen <a href="mailto:&#116;&#x61;&#x6e;&#110;&#x65;&#x72;&#110;&#x74;&#x61;&#110;&#x6e;&#101;&#x72;&#110;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#116;&#x61;&#x6e;&#110;&#x65;&#x72;&#110;&#x74;&#x61;&#110;&#x6e;&#101;&#x72;&#110;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a></p>
+				<p>Tanner Nielsen <a href="mailto:&#x74;&#x61;&#x6e;&#110;&#x65;&#114;&#x6e;&#x74;&#97;&#110;&#110;&#101;&#114;&#110;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x74;&#x61;&#x6e;&#110;&#x65;&#114;&#x6e;&#x74;&#97;&#110;&#110;&#101;&#114;&#110;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
 				<ul>
 					<li>Website - <a href="http://tannernielsen.com">tannernielsen.com</a></li>
-					<li>Github - <a href="https://github.com/tannerntannern">tannerntannern</a></li>
+					<li>Github - <a href="https://github.com/tannerntannern">github.com/tannerntannern</a></li>
 				</ul>
 			</div>
 		</div>
