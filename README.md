@@ -1,7 +1,7 @@
 # ts-mixer
 [![Build Status](https://travis-ci.org/tannerntannern/ts-mixer.svg?branch=master)](https://travis-ci.org/tannerntannern/ts-mixer)
 [![Coverage Status](https://coveralls.io/repos/github/tannerntannern/ts-mixer/badge.svg?branch=master)](https://coveralls.io/github/tannerntannern/ts-mixer?branch=master)
-[![dependencies Status](https://david-dm.org/tannerntannern/ts-mixer/status.svg)](https://david-dm.org/tannerntannern/ts-mixer)
+[![Minified Size](https://badgen.net/bundlephobia/min/ts-mixer)](https://bundlephobia.com/result?p=ts-mixer)
 
 ### What is it?
 `ts-mixer` is a lightweight package that brings mixins to TypeScript.  Mixins in JavaScript are easy, but TypeScript introduces complications.  `ts-mixer` deals with these complications for you and infers all of the intelligent typing you'd expect, including instance properties, methods, static properties, **generics**, and more.
@@ -24,6 +24,7 @@ My fruitless search has led me to believe that there is no perfect solution with
 order for the types to work correctly.  ts-mixer is able to infer these types, so you can
 just do `Mixin(A, B)`, except when generics are involved.  See
 [Dealing with Generics](#dealing-with-generics).
+2. Due to a bug in the TypeScript compiler, this package only appears to work on TypeScript 3.4.4 and beyond.  With that said, it may still to simply use the package instead of compiling it yourself, which is where I ran into issues, but I did not test this extensively.
 
 ## Non-features
 * `instanceof` support;  Because this library is intended for use with TypeScript, running
