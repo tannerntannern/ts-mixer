@@ -19,6 +19,7 @@ interface Mixed<A, B> extends GenericClassA<A>, GenericClassB<B> {}
 
 let mm = new Mixed<string, number>();
 
+// TODO: this is broken in es6 (?)
 mm.testA('test');		// ok
 // mm.testA(2);				// will cause error
 
