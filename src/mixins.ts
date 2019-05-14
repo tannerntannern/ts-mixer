@@ -139,7 +139,16 @@ function Mixin(...ingredients: Class[]) {
 			let newProto = protoChain[i];
 
 			if (appliedPrototypes.indexOf(newProto) === -1) {
-				Object.assign(mixedClassProto, protoChain[i]);
+				// This chunk is equivalent to `Object.assign(mixedClassProto, protoChain[i])`, but for some reason that
+				// causes problems when compiling to ES6.  This may have something to do with methods on the prototype
+				// of an ES6 class not being enumerable (?), which causes Object.assign to not work as expected.
+				Object.getOwnPropertyNames(protoChain[i])
+					.filter(prop => prop !== 'constructor')
+					.forEach(prop => {
+						mixedClassProto[prop] = protoChain[i][prop];
+					});
+
+				// Mark this prototype as applied so we don't apply it again
 				appliedPrototypes.push(newProto);
 			}
 		}
