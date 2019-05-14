@@ -4,19 +4,21 @@ node_js:
 - '10'
 
 before_script:
-- npm install
+- yarn install
 script:
-- npm run lint
-- npm run test
+- yarn lint
+- yarn test
+- yarn build-clean
 after_success:
-- npm run coverage
-- npm run coveralls
+- yarn coverage
+- yarn coveralls
 
 cache:
   directories:
   - node_modules
 
 deploy:
+  skip_cleanup: true
   provider: npm
   email: tannerntannern@gmail.com
   api_key:
