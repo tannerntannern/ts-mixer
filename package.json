@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "build-clean": "rimraf dist && yarn build && git add dist",
+    "build-clean": "rimraf dist && yarn build",
     "docs": "typedoc --out ./docs --mode modules ./src --ignoreCompilerErrors",
     "docs-clean": "rimraf docs && yarn docs && touch docs/.nojekyll && git add docs",
     "lint": "eslint src/**/*.ts",
