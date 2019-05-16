@@ -22,7 +22,9 @@
     "coveralls": "cat coverage/lcov.info | coveralls",
     "version": "yarn build-clean && yarn docs-clean"
   },
-  "dependencies": {},
+  "dependencies": {
+    "is-class": "^0.0.6"
+  },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
@@ -31,7 +33,6 @@
     "coveralls": "^3.0.3",
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
-    "is-class": "^0.0.6",
     "mocha": "^6.1.3",
     "nyc": "12.x.x",
     "rimraf": "^2.6.3",
