@@ -10,7 +10,6 @@ script:
 - yarn test
 - yarn build-clean
 after_success:
-- yarn coverage
 - yarn coveralls
 
 cache:

@@ -1,13 +1,14 @@
 {
+  "all": true,
+  "cache": false,
   "extension": [
 	".ts"
   ],
   "include": [
-	"./src/**/*.ts"
+	"src/**/*.ts"
   ],
   "reporter": [
 	"html",
 	"lcov"
-  ],
-  "all": true
+  ]
 }

@@ -11,30 +11,28 @@
   "scripts": {
     "build": "tsc",
     "build-clean": "rimraf dist && yarn build",
-    "docs": "typedoc --out ./docs --mode modules ./src --ignoreCompilerErrors",
+    "docs": "typedoc --out docs --mode modules src --ignoreCompilerErrors",
     "docs-clean": "rimraf docs && yarn docs && touch docs/.nojekyll && git add docs",
     "lint": "eslint src/**/*.ts",
-    "test:base": "nyc mocha --recursive -r ts-node/register test/**/*.test.ts",
-    "test:es5": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"target\\\": \\\"es5\\\"}\" yarn test:base",
-    "test:es6": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"target\\\": \\\"es6\\\"}\" yarn test:base",
-    "test": "yarn test:es5 && yarn test:es6",
-    "coverage": "nyc report",
+    "test:es5": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"target\\\": \\\"es5\\\"}\" nyc --silent mocha",
+    "test:es6": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"target\\\": \\\"es6\\\"}\" nyc --silent --no-clean mocha",
+    "test": "yarn test:es5 && yarn test:es6 && nyc report",
     "coveralls": "cat coverage/lcov.info | coveralls",
-    "version": "yarn build-clean && yarn docs-clean"
+    "preversion": "yarn lint && yarn test"
   },
   "dependencies": {
-    "is-class": "^0.0.6"
+    "is-class": "^0.0.7"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
-    "@types/node": "^11.13.5",
+    "@types/node": "^12.0.2",
     "chai": "^4.2.0",
     "coveralls": "^3.0.3",
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
     "mocha": "^6.1.3",
-    "nyc": "12.x.x",
+    "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
     "ts-node": "^8.1.0",
     "typedoc": "^0.14.2",
