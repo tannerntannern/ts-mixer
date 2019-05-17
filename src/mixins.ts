@@ -16,6 +16,16 @@ function getProtoChain(proto: object): object[] {
 }
 
 /**
+ * Utility function that works like `Object.apply`, but copies properties with getters and setters properly as well.
+ * Additionally gives the option to exclude properties by name.
+ */
+function copyProps(dest, src, exclude: string[] = []) {
+	const props = Object.getOwnPropertyDescriptors(src);
+	for (let prop of exclude) delete props[prop];
+	Object.defineProperties(dest, props);
+}
+
+/**
  * Shorthand Array<any> type.
  */
 type Arr = Array<any>;
@@ -123,7 +133,7 @@ function Mixin(...ingredients: Class[]) {
 				if (!isClass(constructor)) constructor.apply(this, args);
 
 				// but if it's an ES6 class, we can't call it directly so we have to instantiate it and copy props
-				else Object.assign(this, new constructor(...args));
+				else copyProps(this, new constructor(...args));
 			}
 		}
 	}
@@ -139,16 +149,7 @@ function Mixin(...ingredients: Class[]) {
 			let newProto = protoChain[i];
 
 			if (appliedPrototypes.indexOf(newProto) === -1) {
-				// This chunk is equivalent to `Object.assign(mixedClassProto, protoChain[i])`, but for some reason that
-				// causes problems when compiling to ES6.  This may have something to do with methods on the prototype
-				// of an ES6 class not being enumerable (?), which causes Object.assign to not work as expected.
-				Object.getOwnPropertyNames(protoChain[i])
-					.filter(prop => prop !== 'constructor')
-					.forEach(prop => {
-						mixedClassProto[prop] = protoChain[i][prop];
-					});
-
-				// Mark this prototype as applied so we don't apply it again
+				copyProps(mixedClassProto, protoChain[i], ['constructor']);
 				appliedPrototypes.push(newProto);
 			}
 		}
