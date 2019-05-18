@@ -177,6 +177,6 @@ function Mixin(...ingredients: Class[]) {
  */
 const mix = (...ingredients: Class[]) =>
 	// @ts-ignore
-	baseClass => Mixin(baseClass, ...ingredients);
+	decoratedClass => Mixin(...(ingredients.concat([decoratedClass])));
 
 export {Mixin, mix};
