@@ -192,8 +192,8 @@ function Augment<A extends Arr, C1,S1, C2,S2>(
 
 function Augment(Base: Class, Extra: Class) {
   const Mixed = createMixinClass(Base, Extra);
-  copyPrototypes(Base, Extra);
-  copyStatics(Base, Extra);
+  copyPrototypes(Mixed, Extra);
+  copyStatics(Mixed, Extra);
 
 	return Mixed as any;
 }
