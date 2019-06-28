@@ -36,6 +36,59 @@ type Arr = Array<any>;
 type Class<CtorArgs extends Arr = Arr, InstanceType = {}, StaticType = {}> =
 	{new(...args: CtorArgs): InstanceType} & {[K in keyof StaticType]: StaticType[K]};
 
+function createMixinClass(Base: Class, ...ingredients: Class[]) {
+  // Start building a class that represents the mixture of the given Base and Class
+  class Mixed extends Base {
+    constructor(...args) {
+      super(...args);
+      for (const constructor of ingredients) {
+        // If the constructor is a callable JS function, we would prefer to apply it directly to `this`,
+        if (!isClass(constructor)) constructor.apply(this, args);
+
+        // but if it's an ES6 class, we can't call it directly so we have to instantiate it and copy props
+        else copyProps(this, new constructor(...args));
+      }
+    }
+  }
+  
+  return Mixed;
+}
+
+function copyPrototypes(Mixed: Class,...ingredients: Class[]) {
+  // Apply prototypes, including those up the chain
+  let mixedClassProto = Mixed.prototype, appliedPrototypes = [];
+  for (let item of ingredients) {
+    let protoChain = getProtoChain(item.prototype as any);
+
+    // Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
+    // that the same prototype is never applied more than once.
+    for(let i = protoChain.length - 1; i >= 0; i --) {
+      let newProto = protoChain[i];
+
+      if (appliedPrototypes.indexOf(newProto) === -1) {
+        copyProps(mixedClassProto, protoChain[i], ['constructor']);
+        appliedPrototypes.push(newProto);
+      }
+    }
+  }
+}
+
+function copyStatics(Mixed : Class, ...ingredients: Class[]) {
+  // Mix static properties by linking to the original static props with getters/setters
+  for (let constructor of ingredients) {
+    for (let prop in constructor) {
+      if (!Mixed.hasOwnProperty(prop)) {
+        Object.defineProperty(Mixed, prop, {
+          get() { return (constructor as any)[prop]; },
+          set(val) { (constructor as any)[prop] = val; },
+          enumerable: true,
+          configurable: false
+        });
+      }
+    }
+  }
+}
+
 /**
  * Mixes a number of classes together.  Overloads are provided for up to 10 inputs, which should be more than plenty.
  */
@@ -125,49 +178,22 @@ function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3, C4,S4, C5,S5, C6,S6, C7,S7, C
 ): Class<A, C1&C2&C3&C4&C5&C6&C7&C8&C9&C10, S1&S2&S3&S4&S5&S6&S7&S8&S9&S10>;
 
 function Mixin(...ingredients: Class[]) {
-	// Start building a class that represents the mixture of the given Base and Class
-	class Mixed {
-		constructor(...args) {
-			for (const constructor of ingredients) {
-				// If the constructor is a callable JS function, we would prefer to apply it directly to `this`,
-				if (!isClass(constructor)) constructor.apply(this, args);
+  const Mixed = createMixinClass(class {}, ...ingredients);
+  copyPrototypes(Mixed, ...ingredients);
+  copyStatics(Mixed, ...ingredients);
 
-				// but if it's an ES6 class, we can't call it directly so we have to instantiate it and copy props
-				else copyProps(this, new constructor(...args));
-			}
-		}
-	}
+	return Mixed as any;
+}
 
-	// Apply prototypes, including those up the chain
-	let mixedClassProto = Mixed.prototype, appliedPrototypes = [];
-	for (let item of ingredients) {
-		let protoChain = getProtoChain(item.prototype as any);
+function Augment<A extends Arr, C1,S1, C2,S2>(
+	c1: Class<A,C1,S1>,
+	c2: Class<A,C2,S2>,
+): Class<A, C1&C2, S1&S2>;
 
-		// Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
-		// that the same prototype is never applied more than once.
-		for(let i = protoChain.length - 1; i >= 0; i --) {
-			let newProto = protoChain[i];
-
-			if (appliedPrototypes.indexOf(newProto) === -1) {
-				copyProps(mixedClassProto, protoChain[i], ['constructor']);
-				appliedPrototypes.push(newProto);
-			}
-		}
-	}
-
-	// Mix static properties by linking to the original static props with getters/setters
-	for (let constructor of ingredients) {
-		for (let prop in constructor) {
-			if (!Mixed.hasOwnProperty(prop)) {
-				Object.defineProperty(Mixed, prop, {
-					get() { return constructor[prop]; },
-					set(val) { constructor[prop] = val; },
-					enumerable: true,
-					configurable: false
-				});
-			}
-		}
-	}
+function Augment(Base: Class, Extra: Class) {
+  const Mixed = createMixinClass(Base, Extra);
+  copyPrototypes(Base, Extra);
+  copyStatics(Base, Extra);
 
 	return Mixed as any;
 }
@@ -179,4 +205,20 @@ const mix = (...ingredients: Class[]) =>
 	// @ts-ignore
 	decoratedClass => Mixin(...(ingredients.concat([decoratedClass])));
 
-export {Mixin, mix};
+  /**
+ * A decorator version of the `Augment` function.  You'll want to use this instead of `Augment` for mixing generic classes.
+ */
+const base = (...ingredients: Class[]) =>
+decoratedClass => {
+  if (ingredients.length === 0) {
+    return Mixin(decoratedClass)
+  }
+
+  const Base = ingredients.shift();
+  // @ts-ignore
+  const Mixed = Mixin(...(ingredients.concat([decoratedClass])));
+
+  return Augment(Base, Mixed) as any;
+}
+
+export {Mixin, mix, Augment, base};
