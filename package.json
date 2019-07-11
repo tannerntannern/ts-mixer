@@ -18,7 +18,7 @@
     "test:es6": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"target\\\": \\\"es6\\\"}\" nyc --silent --no-clean mocha",
     "test": "yarn test:es5 && yarn test:es6 && nyc report",
     "coveralls": "cat coverage/lcov.info | coveralls",
-    "preversion": "yarn lint && yarn test"
+    "preversion": "yarn lint && yarn test && yarn docs-clean"
   },
   "dependencies": {
     "is-class": "^0.0.8"
