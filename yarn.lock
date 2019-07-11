@@ -1087,10 +1087,10 @@ is-callable@^1.1.4:
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.1.4.tgz#1e1adf219e1eeb684d691f9d6a05ff0d30a24d75"
   integrity sha512-r5p9sxJjYnArLjObpjA4xu5EKI3CuKHkJXMhT7kwbpUyIFD1n5PMAsoPvWnvtZiNz7LjkYDRZhd7FlI0eMijEA==
 
-is-class@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/is-class/-/is-class-0.0.7.tgz#8eca1823d47489cd543cb0c848f3b84bf80c7171"
-  integrity sha512-HXAKcoeWP+zzEGrqDvAVFOBc3nKoV/FbJN5Fa7/en9DakH2egTjEg4RQQZSs3ijUySPPR8s96XM93nQwloItcA==
+is-class@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/is-class/-/is-class-0.0.8.tgz#31b0514e4afde32dee9c6a60b1dc371211081f19"
+  integrity sha512-IdV2OjQu9FjFTnMovaPHlHAaFzJs0aWCL+2BhlTh6pP5J6EvSQ7d+7mgUG0g7xC4hTvqCl54ksNLU4VwdGYvsw==
 
 is-date-object@^1.0.1:
   version "1.0.1"
@@ -1524,7 +1524,7 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nyc@14.1.1:
+nyc@^14.1.1:
   version "14.1.1"
   resolved "https://registry.yarnpkg.com/nyc/-/nyc-14.1.1.tgz#151d64a6a9f9f5908a1b73233931e4a0a3075eeb"
   integrity sha512-OI0vm6ZGUnoGZv/tLdZ2esSVzDwUC88SNs+6JoSOMVxA+gKMB8Tk7jBwgemLx4O40lhhvZCVw1C+OYLOBOPXWw==
