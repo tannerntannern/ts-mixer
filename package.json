@@ -21,7 +21,7 @@
     "preversion": "yarn lint && yarn test"
   },
   "dependencies": {
-    "is-class": "^0.0.7"
+    "is-class": "^0.0.8"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
