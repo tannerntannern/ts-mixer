@@ -157,7 +157,14 @@ function Mixin(...ingredients: Class[]) {
 
 	// Mix static properties by linking to the original static props with getters/setters
 	for (let constructor of ingredients) {
-		for (let prop in constructor) {
+		// Get the static properties on the constructor.  Note that we must use getOwnPropertyNames because static
+		// static methods are not enumerable.  As a consequence, prototype, length, and name (inherited from Function)
+		// must be filtered out
+		const propNames = Object
+			.getOwnPropertyNames(constructor)
+			.filter(prop => !['prototype', 'length', 'name'].includes(prop));
+
+		for (let prop of propNames) {
 			if (!Mixed.hasOwnProperty(prop)) {
 				Object.defineProperty(Mixed, prop, {
 					get() { return constructor[prop]; },
