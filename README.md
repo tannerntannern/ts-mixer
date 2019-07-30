@@ -18,14 +18,15 @@ My fruitless search has led me to believe that there is no perfect solution with
 * Support for protected and private properties
 * **Support for classes with generics**[¹](#caveats)
 * Automatic inference of the mixed class type[¹](#caveats)
-* Proper handling of static properties
+* Proper handling of static properties [³](#caveats)
 
 #### Caveats
 1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
 order for the types to work correctly.  ts-mixer is able to infer these types, so you can
 just do `Mixin(A, B)`, except when generics are involved.  See
 [Dealing with Generics](#dealing-with-generics).
-2. Due to a bug in the TypeScript compiler, this package only appears to work on TypeScript 3.4.4 and beyond.  With that said, it may still to simply use the package instead of compiling it yourself, which is where I ran into issues, but I did not test this extensively.
+2. Due to a bug in the TypeScript compiler, this package only appears to work on TypeScript 3.4.4 and beyond.  With that said, it may still work to simply use the package instead of compiling it yourself, which is where I ran into issues, but I did not test this extensively.
+3. Due how ES6 handles static properties, you should not use `length` or `name` as names for your static properties.  See [this commit](https://github.com/tannerntannern/ts-mixer/commit/4f80f788b45383a8560766d1672abd2877c70723) for the technical reason.
 
 ## Non-features
 * `instanceof` support;  Because this library is intended for use with TypeScript, running
