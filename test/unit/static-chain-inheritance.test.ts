@@ -5,8 +5,8 @@ import { Mixin } from '../../src/mixins';
 class TEST0 {
 	static scope = 10;
 }
-const TEST1 = Mixin(TEST0, class {});
-const TEST2 = Mixin(TEST1, class {});
+class TEST1 extends TEST0 {}
+class TEST2 extends Mixin(TEST1) {}
 
 describe('Static chain inheritance', () => {
 	it('should inherit static properties correctly in an A extends B extends C scenario', () => {

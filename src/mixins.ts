@@ -26,6 +26,28 @@ function copyProps(dest, src, exclude: string[] = []) {
 }
 
 /**
+ * Utility function for mixing a number of prototypes into a target object.  Utilizes getProtoChain() to intelligently
+ * apply the mixing.
+ */
+function mixPrototypes(target, ingredients: any[], exclude: string[] = []) {
+	let appliedPrototypes = [];
+	for (let prototype of ingredients) {
+		let protoChain = getProtoChain(prototype);
+
+		// Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
+		// that the same prototype is never applied more than once.
+		for(let i = protoChain.length - 1; i >= 0; i --) {
+			let newProto = protoChain[i];
+
+			if (appliedPrototypes.indexOf(newProto) === -1) {
+				copyProps(target, protoChain[i], exclude);
+				appliedPrototypes.push(newProto);
+			}
+		}
+	}
+}
+
+/**
  * Shorthand Array<any> type.
  */
 type Arr = Array<any>;
@@ -139,52 +161,10 @@ function Mixin(...ingredients: Class[]) {
 	}
 
 	// Apply prototypes, including those up the chain
-	let mixedClassProto = Mixed.prototype, appliedPrototypes = [];
-	for (let item of ingredients) {
-		let protoChain = getProtoChain(item.prototype as any);
+	mixPrototypes(Mixed.prototype, ingredients.map(ctor => ctor.prototype), ['constructor']);
 
-		// Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
-		// that the same prototype is never applied more than once.
-		for(let i = protoChain.length - 1; i >= 0; i --) {
-			let newProto = protoChain[i];
-
-			if (appliedPrototypes.indexOf(newProto) === -1) {
-				copyProps(mixedClassProto, protoChain[i], ['constructor']);
-				appliedPrototypes.push(newProto);
-			}
-		}
-	}
-
-	// Mix static properties by linking to the original static props with getters/setters
-	for (let constructor of ingredients) {
-		// Get the static properties on the constructor.  Note that we must use getOwnPropertyDescriptors because static
-		// methods are not enumerable and we also want to take special care of getters/setters.  As a consequence,
-		// prototype, length, and name (inherited from Function) must be filtered out
-		const props = Object.getOwnPropertyDescriptors(constructor);
-		['prototype', 'length', 'name'].forEach(prop => delete props[prop]);
-
-		for (let prop in props) {
-			if (!Mixed.hasOwnProperty(prop)) {
-				const descriptor = props[prop];
-
-				// If we are dealing with a plain property (i.e., no getter/setter), create a getter/setter property
-				// that just links back to the original
-				if (!(descriptor.get || descriptor.set)) {
-					Object.defineProperty(Mixed, prop, {
-						get() { return constructor[prop]; },
-						set(val) { constructor[prop] = val; },
-						enumerable: true,
-						configurable: false
-					});
-				}
-
-				// Otherwise, replicate the property
-				else {
-					Object.defineProperty(Mixed, prop, descriptor);
-				}
-			}
-		}
-	}
+	// Mix static properties
+	mixPrototypes(Mixed, ingredients, ['prototype', 'length', 'name']);
 
 	return Mixed as any;
 }
