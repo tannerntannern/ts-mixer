@@ -18,7 +18,7 @@ My fruitless search has led me to believe that there is no perfect solution with
 * Support for protected and private properties
 * **Support for classes with generics**[¹](#caveats)
 * Automatic inference of the mixed class type[¹](#caveats)
-* Proper handling of static properties [³](#caveats)
+* Support for static properties [³](#caveats)
 
 #### Caveats
 1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
