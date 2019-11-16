@@ -4,7 +4,7 @@ env:
   es6: true
   node: true
 extends: 'eslint:recommended'
-parser: 'typescript-eslint-parser'
+parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2015
   sourceType: module
