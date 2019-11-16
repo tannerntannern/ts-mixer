@@ -1,4 +1,4 @@
-import * as isClass from 'is-class';
+import { isClass } from 'is-class';
 
 /**
  * Utility function that returns the full chain of prototypes (excluding Object.prototype) from the given prototype.
@@ -152,7 +152,9 @@ function Mixin(...ingredients: Class[]) {
 		constructor(...args) {
 			for (const constructor of ingredients) {
 				// If the constructor is a callable JS function, we would prefer to apply it directly to `this`,
-				if (!isClass(constructor)) constructor.apply(this, args);
+				if (!isClass(constructor))
+					// @ts-ignore
+					constructor.apply(this, args);
 
 				// but if it's an ES6 class, we can't call it directly so we have to instantiate it and copy props
 				else copyProps(this, new constructor(...args));
