@@ -1,19 +1,5 @@
 import { isClass } from 'is-class';
-
-/**
- * Utility function that returns the full chain of prototypes (excluding Object.prototype) from the given prototype.
- * The order will be [proto, protoParent, protoGrandparent, ...]
- */
-function getProtoChain(proto: object): object[] {
-	let protoChain = [];
-
-	while(proto !== Object.prototype) {
-		protoChain.push(proto);
-		proto = Object.getPrototypeOf(proto);
-	}
-
-	return protoChain;
-}
+import { getProtoChain } from './proto';
 
 /**
  * Utility function that works like `Object.apply`, but copies properties with getters and setters properly as well.
