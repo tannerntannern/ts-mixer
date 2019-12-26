@@ -50,7 +50,10 @@
   },
   "keywords": [
     "typescript",
-    "mixins"
+    "mixin",
+    "mixins",
+    "multiple inheritance",
+    "mixin classes"
   ],
   "author": "Tanner Nielsen",
   "license": "MIT"
