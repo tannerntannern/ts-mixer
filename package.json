@@ -18,26 +18,30 @@
     "test:es6": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"target\\\": \\\"es6\\\"}\" nyc --silent --no-clean mocha",
     "test": "yarn test:es5 && yarn test:es6 && nyc report",
     "coveralls": "cat coverage/lcov.info | coveralls",
-    "preversion": "yarn lint && yarn test && yarn docs-clean"
+    "release": "standard-version"
   },
   "dependencies": {
     "is-class": "^0.0.9"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.5",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.12.8",
-    "@typescript-eslint/parser": "^2.7.0",
+    "@types/node": "^13.1.0",
+    "@typescript-eslint/parser": "^2.13.0",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.7",
+    "coveralls": "^3.0.9",
     "cross-env": "^6.0.3",
-    "eslint": "^6.6.0",
+    "eslint": "^6.8.0",
+    "husky": "^3.1.0",
     "mocha": "^6.2.2",
     "nyc": "14.1.1",
     "rimraf": "^3.0.0",
-    "ts-node": "^8.5.2",
-    "typedoc": "^0.15.2",
-    "typescript": "^3.7.2"
+    "standard-version": "^7.0.1",
+    "ts-node": "^8.5.4",
+    "typedoc": "^0.15.5",
+    "typescript": "^3.7.4"
   },
   "homepage": "https://github.com/tannerntannern/ts-mixer#readme",
   "repository": {
