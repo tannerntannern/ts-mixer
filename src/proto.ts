@@ -9,3 +9,26 @@ export const getProtoChain = (obj: object, currentChain: object[] = []): object[
 
 	return getProtoChain(proto, [...currentChain, proto]);
 };
+
+/**
+ * Identifies the nearest ancestor common to all the given objects in their prototype chains.  For most unrelated
+ * objects, this function should return Object.
+ */
+export const nearestCommonAncestor = (...objs: object[]): object => {
+	if (objs.length === 0) return undefined;
+
+	let commonAncestorProto = undefined;
+	const protoChains = objs.map(obj => getProtoChain(obj));
+
+	while (protoChains.every(protoChain => protoChain.length > 0)) {
+		const protos = protoChains.map(protoChain => protoChain.pop());
+		const potentialCommonAncestor = protos[0];
+
+		if (protos.every(proto => proto === potentialCommonAncestor))
+			commonAncestorProto = potentialCommonAncestor;
+		else
+			break;
+	}
+
+	return commonAncestorProto ? commonAncestorProto.constructor : commonAncestorProto;
+};
