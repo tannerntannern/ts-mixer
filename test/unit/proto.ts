@@ -1,21 +1,21 @@
 import 'mocha';
 import { expect } from 'chai';
 
-import { getProtoChain, nearestCommonAncestor } from '../../src/proto';
+import { protoChain, ancestors, nearestCommonAncestor } from '../../src/proto';
 
-describe('getProtoChain', () => {
+describe('protoChain', () => {
 	it('should return an empty list for Object.prototype', () => {
-		expect(getProtoChain(Object.prototype)).to.deep.equal([]);
+		expect(protoChain(Object.prototype)).to.deep.equal([]);
 	});
 
 	it('should return [Object.prototype] for direct instances of Object', () => {
-		expect(getProtoChain({})).to.deep.equal([Object.prototype]);
+		expect(protoChain({})).to.deep.equal([Object.prototype]);
 	});
 
 	it('should return the proper chain for a 1-layer deep class', () => {
 		class Foo {}
 
-		expect(getProtoChain(new Foo())).to.deep.equal([Foo.prototype, Object.prototype]);
+		expect(protoChain(new Foo())).to.deep.equal([Foo.prototype, Object.prototype]);
 	});
 
 	it('should return the proper chain for an N-layer deep class', () => {
@@ -23,7 +23,17 @@ describe('getProtoChain', () => {
 		class Bar extends Foo {}
 		class Baz extends Bar {}
 
-		expect(getProtoChain(new Baz())).to.deep.equal([Baz.prototype, Bar.prototype, Foo.prototype, Object.prototype]);
+		expect(protoChain(new Baz())).to.deep.equal([Baz.prototype, Bar.prototype, Foo.prototype, Object.prototype]);
+	});
+});
+
+describe('ancestors', () => {
+	it('should return the proper ancestors for an N-layer deep class', () => {
+		class Foo {}
+		class Bar extends Foo {}
+		class Baz extends Bar {}
+
+		expect(ancestors(new Baz())).to.deep.equal([Baz, Bar, Foo, Object]);
 	});
 });
 

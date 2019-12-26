@@ -1,5 +1,5 @@
 import { isClass } from 'is-class';
-import { getProtoChain } from './proto';
+import { protoChain } from './proto';
 
 /**
  * Utility function that works like `Object.apply`, but copies properties with getters and setters properly as well.
@@ -18,15 +18,15 @@ function copyProps(dest, src, exclude: string[] = []) {
 function mixPrototypes(target, ingredients: any[], exclude: string[] = []) {
 	let appliedPrototypes = [];
 	for (let prototype of ingredients) {
-		let protoChain = getProtoChain(prototype);
+		let protos = protoChain(prototype);
 
 		// Apply the prototype chain in reverse order, so that old methods don't override newer ones; also make sure
 		// that the same prototype is never applied more than once.
-		for(let i = protoChain.length - 1; i >= 0; i --) {
-			let newProto = protoChain[i];
+		for(let i = protos.length - 1; i >= 0; i --) {
+			let newProto = protos[i];
 
 			if (appliedPrototypes.indexOf(newProto) === -1) {
-				copyProps(target, protoChain[i], exclude);
+				copyProps(target, protos[i], exclude);
 				appliedPrototypes.push(newProto);
 			}
 		}

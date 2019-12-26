@@ -2,13 +2,18 @@
  * Returns the full chain of prototypes up until Object.prototype given a starting object.  The order of prototypes will
  * be closest to farthest in the chain.
  */
-export const getProtoChain = (obj: object, currentChain: object[] = []): object[] => {
+export const protoChain = (obj: object, currentChain: object[] = []): object[] => {
 	const proto = Object.getPrototypeOf(obj);
 	if (proto === null)
 		return currentChain;
 
-	return getProtoChain(proto, [...currentChain, proto]);
+	return protoChain(proto, [...currentChain, proto]);
 };
+
+/**
+ * Similar to protoChain, but returns a list of classes rather than prototypes.
+ */
+export const ancestors = (obj: object) => protoChain(obj).map(proto => proto.constructor);
 
 /**
  * Identifies the nearest ancestor common to all the given objects in their prototype chains.  For most unrelated
@@ -17,18 +22,18 @@ export const getProtoChain = (obj: object, currentChain: object[] = []): object[
 export const nearestCommonAncestor = (...objs: object[]): object => {
 	if (objs.length === 0) return undefined;
 
-	let commonAncestorProto = undefined;
-	const protoChains = objs.map(obj => getProtoChain(obj));
+	let commonAncestor = undefined;
+	const ancestorChains = objs.map(obj => ancestors(obj));
 
-	while (protoChains.every(protoChain => protoChain.length > 0)) {
-		const protos = protoChains.map(protoChain => protoChain.pop());
-		const potentialCommonAncestor = protos[0];
+	while (ancestorChains.every(ancestorChain => ancestorChain.length > 0)) {
+		const ancestors = ancestorChains.map(ancestorChain => ancestorChain.pop());
+		const potentialCommonAncestor = ancestors[0];
 
-		if (protos.every(proto => proto === potentialCommonAncestor))
-			commonAncestorProto = potentialCommonAncestor;
+		if (ancestors.every(ancestor => ancestor === potentialCommonAncestor))
+			commonAncestor = potentialCommonAncestor;
 		else
 			break;
 	}
 
-	return commonAncestorProto ? commonAncestorProto.constructor : commonAncestorProto;
+	return commonAncestor;
 };
