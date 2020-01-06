@@ -34,103 +34,98 @@ function mixPrototypes(target, ingredients: any[], exclude: string[] = []) {
 }
 
 /**
- * Shorthand Array<any> type.
- */
-type Arr = Array<any>;
-
-/**
  * A rigorous type alias for a class.
  */
-type Class<CtorArgs extends Arr = Arr, InstanceType = {}, StaticType = {}> =
+type Class<CtorArgs extends any[] = any[], InstanceType = {}, StaticType = {}> =
 	{new(...args: CtorArgs): InstanceType} & {[K in keyof StaticType]: StaticType[K]};
 
 /**
  * Mixes a number of classes together.  Overloads are provided for up to 10 inputs, which should be more than plenty.
  */
-function Mixin<A extends Arr, C1,S1>(
-	c1: Class<A,C1,S1>,
-): Class<A,C1,S1>;
+function Mixin<A extends any[], I1,S1>(
+	c1: Class<A,I1,S1>,
+): Class<A,I1,S1>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-): Class<A, C1&C2, S1&S2>;
+function Mixin<A extends any[], I1,S1, I2,S2>(
+	c1: Class<Partial<A>,I1,S1>,
+	c2: Class<Partial<A>,I2,S2>,
+): Class<A, I1&I2, S1&S2>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>
-): Class<A, C1&C2&C3, S1&S2&S3>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3>(
+	c1: Class<Partial<A>,I1,S1>,
+	c2: Class<Partial<A>,I2,S2>,
+	c3: Class<Partial<A>,I3,S3>,
+): Class<A, I1&I2&I3, S1&S2&S3>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3, C4,S4>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>,
-	c4: Class<A,C4,S4>,
-): Class<A, C1&C2&C3&C4, S1&S2&S3&S4>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3, I4,S4>(
+	c1: Class<A,I1,S1>,
+	c2: Class<A,I2,S2>,
+	c3: Class<A,I3,S3>,
+	c4: Class<A,I4,S4>,
+): Class<A, I1&I2&I3&I4, S1&S2&S3&S4>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3, C4,S4, C5,S5>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>,
-	c4: Class<A,C4,S4>,
-	c5: Class<A,C5,S5>,
-): Class<A, C1&C2&C3&C4&C5, S1&S2&S3&S4&S5>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3, I4,S4, I5,S5>(
+	c1: Class<A,I1,S1>,
+	c2: Class<A,I2,S2>,
+	c3: Class<A,I3,S3>,
+	c4: Class<A,I4,S4>,
+	c5: Class<A,I5,S5>,
+): Class<A, I1&I2&I3&I4&I5, S1&S2&S3&S4&S5>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3, C4,S4, C5,S5, C6,S6>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>,
-	c4: Class<A,C4,S4>,
-	c5: Class<A,C5,S5>,
-	c6: Class<A,C6,S6>
-): Class<A, C1&C2&C3&C4&C5&C6, S1&S2&S3&S4&S5&S6>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3, I4,S4, I5,S5, I6,S6>(
+	c1: Class<A,I1,S1>,
+	c2: Class<A,I2,S2>,
+	c3: Class<A,I3,S3>,
+	c4: Class<A,I4,S4>,
+	c5: Class<A,I5,S5>,
+	c6: Class<A,I6,S6>,
+): Class<A, I1&I2&I3&I4&I5&I6, S1&S2&S3&S4&S5&S6>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3, C4,S4, C5,S5, C6,S6, C7,S7>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>,
-	c4: Class<A,C4,S4>,
-	c5: Class<A,C5,S5>,
-	c6: Class<A,C6,S6>,
-	c7: Class<A,C7,S7>,
-): Class<A, C1&C2&C3&C4&C5&C6&C7, S1&S2&S3&S4&S5&S6&S7>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3, I4,S4, I5,S5, I6,S6, I7,S7>(
+	c1: Class<A,I1,S1>,
+	c2: Class<A,I2,S2>,
+	c3: Class<A,I3,S3>,
+	c4: Class<A,I4,S4>,
+	c5: Class<A,I5,S5>,
+	c6: Class<A,I6,S6>,
+	c7: Class<A,I7,S7>,
+): Class<A, I1&I2&I3&I4&I5&I6&I7, S1&S2&S3&S4&S5&S6&S7>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3, C4,S4, C5,S5, C6,S6, C7,S7, C8,S8>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>,
-	c4: Class<A,C4,S4>,
-	c5: Class<A,C5,S5>,
-	c6: Class<A,C6,S6>,
-	c7: Class<A,C7,S7>,
-	c8: Class<A,C8,S8>,
-): Class<A, C1&C2&C3&C4&C5&C6&C7&C8, S1&S2&S3&S4&S5&S6&S7&S8>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3, I4,S4, I5,S5, I6,S6, I7,S7, I8,S8>(
+	c1: Class<A,I1,S1>,
+	c2: Class<A,I2,S2>,
+	c3: Class<A,I3,S3>,
+	c4: Class<A,I4,S4>,
+	c5: Class<A,I5,S5>,
+	c6: Class<A,I6,S6>,
+	c7: Class<A,I7,S7>,
+	c8: Class<A,I8,S8>,
+): Class<A, I1&I2&I3&I4&I5&I6&I7&I8, S1&S2&S3&S4&S5&S6&S7&S8>;
 
-function Mixin<A extends Arr, C1,P1,S1, C2,S2, C3,S3, C4,S4, C5,S5, C6,S6, C7,S7, C8,S8, C9,S9>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>,
-	c4: Class<A,C4,S4>,
-	c5: Class<A,C5,S5>,
-	c6: Class<A,C6,S6>,
-	c7: Class<A,C7,S7>,
-	c8: Class<A,C8,S8>,
-	c9: Class<A,C9,S9>,
-): Class<A, C1&C2&C3&C4&C5&C6&C7&C8&C9, S1&S2&S3&S4&S5&S6&S7&S8&S9>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3, I4,S4, I5,S5, I6,S6, I7,S7, I8,S8, I9,S9>(
+	c1: Class<A,I1,S1>,
+	c2: Class<A,I2,S2>,
+	c3: Class<A,I3,S3>,
+	c4: Class<A,I4,S4>,
+	c5: Class<A,I5,S5>,
+	c6: Class<A,I6,S6>,
+	c7: Class<A,I7,S7>,
+	c8: Class<A,I8,S8>,
+	c9: Class<A,I9,S9>,
+): Class<A, I1&I2&I3&I4&I5&I6&I7&I8&I9, S1&S2&S3&S4&S5&S6&S7&S8&S9>;
 
-function Mixin<A extends Arr, C1,S1, C2,S2, C3,S3, C4,S4, C5,S5, C6,S6, C7,S7, C8,S8, C9,S9, C10,S10>(
-	c1: Class<A,C1,S1>,
-	c2: Class<A,C2,S2>,
-	c3: Class<A,C3,S3>,
-	c4: Class<A,C4,S4>,
-	c5: Class<A,C5,S5>,
-	c6: Class<A,C6,S6>,
-	c7: Class<A,C7,S7>,
-	c8: Class<A,C8,S8>,
-	c9: Class<A,C9,S9>,
-	c10: Class<A,C10,S10>,
-): Class<A, C1&C2&C3&C4&C5&C6&C7&C8&C9&C10, S1&S2&S3&S4&S5&S6&S7&S8&S9&S10>;
+function Mixin<A extends any[], I1,S1, I2,S2, I3,S3, I4,S4, I5,S5, I6,S6, I7,S7, I8,S8, I9,S9, I10,S10>(
+	c1: Class<A,I1,S1>,
+	c2: Class<A,I2,S2>,
+	c3: Class<A,I3,S3>,
+	c4: Class<A,I4,S4>,
+	c5: Class<A,I5,S5>,
+	c6: Class<A,I6,S6>,
+	c7: Class<A,I7,S7>,
+	c8: Class<A,I8,S8>,
+	c9: Class<A,I9,S9>,
+	c10: Class<A,I10,S10>,
+): Class<A, I1&I2&I3&I4&I5&I6&I7&I8&I9&I10, S1&S2&S3&S4&S5&S6&S7&S8&S9&S10>;
 
 function Mixin(...ingredients: Class[]) {
 	// Start building a class that represents the mixture of the given Base and Class
