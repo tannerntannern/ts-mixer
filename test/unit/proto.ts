@@ -1,7 +1,7 @@
 import 'mocha';
 import { expect } from 'chai';
 
-import { protoChain, ancestors, nearestCommonAncestor, uniqueAncestors } from '../../src/proto';
+import { protoChain, ancestors, nearestCommonAncestor } from '../../src/proto';
 
 describe('protoChain', () => {
 	it('should return an empty list for Object.prototype', () => {
@@ -84,41 +84,5 @@ describe('nearestCommonAncestor', () => {
 		class C extends AlmostCommon {}
 
 		expect(nearestCommonAncestor(new A(), new B(), new C())).to.equal(ActualCommon);
-	});
-});
-
-describe('uniqueAncestors', () => {
-	it('should return an empty list when no objects are passed', () => {
-		expect(uniqueAncestors()).to.deep.equal([]);
-	});
-
-	it('should just return the ancestor chain when one object is passed', () => {
-		class Foo {}
-
-		expect(uniqueAncestors(new Foo())).to.deep.equal([[Foo, Object]]);
-	});
-
-	it('should return a list of empty lists when to instances of the same class are passed', () => {
-		class Foo {}
-
-		expect(uniqueAncestors(new Foo(), new Foo())).to.deep.equal([[], []]);
-	});
-
-	it('should properly filter out one shared common ancestor', () => {
-		class Common {}
-		class A extends Common {}
-		class B extends Common {}
-
-		expect(uniqueAncestors(new A(), new B())).to.deep.equal([[A], [B]]);
-	});
-
-	it('should properly filter out multiple shared ancestors', () => {
-		class Common1 {}
-		class Common2 extends Common1 {}
-		class A extends Common2 {}
-		class AA extends A {}
-		class B extends Common2 {}
-
-		expect(uniqueAncestors(new AA(), new B())).to.deep.equal([[AA, A], [B]]);
 	});
 });

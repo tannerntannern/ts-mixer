@@ -11,6 +11,6 @@
 	"experimentalDecorators": true
   },
   "include": [
-	"./src/mixins.ts"
+	"src/**/*.ts"
   ]
 }
