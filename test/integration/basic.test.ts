@@ -1,72 +1,48 @@
 import 'mocha';
-import {expect} from 'chai';
-import {Mixin} from '../../src/mixins';
+import { expect } from 'chai';
+import { Mixin } from '../../src/mixins';
 
-class Person {
-	protected name: string;
+class BaseClass {
+	public readonly hasBase: boolean = true;
+}
 
-	constructor(name: string) {
-		this.name = name;
-	}
+class FooMixin {
+	public readonly foo: string = 'foo';
 
-	public introduce(){
-		return `This is ${this.name}`;
+	public makeFoo(): string {
+		return this.foo;
 	}
 }
 
-class RunnerMixin {
-	protected runSpeed: number = 10;
+class BarMixin {
+	public readonly bar: string = 'bar';
 
-	public run(){
-		return `They are running at ${this.runSpeed} ft/sec`;
+	public makeBar(): string {
+		return this.bar;
 	}
 }
 
-class JumperMixin {
-	protected jumpHeight: number = 3;
-
-	public jump(){
-		return `They are jumping ${this.jumpHeight} ft in the air`;
-	}
-}
-
-class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin) {
-	protected stateDistance() {
-		return 'They landed ' + this.runSpeed * this.jumpHeight + ' ft from the start!';
-	}
-
-	public longJump() {
-		let msg = "";
-		msg += this.introduce() + '\n';
-		msg += this.run() + '\n';
-		msg += this.jump() + '\n';
-		msg += this.stateDistance() + '\n';
-
-		return msg;
+class FooBar extends Mixin(BaseClass, FooMixin, BarMixin) {
+	public makeFooBar() {
+		return this.makeFoo() + this.makeBar();
 	}
 }
 
 describe('Basic use case', function(){
-	let lj;
+	let fb: FooBar;
 	beforeEach(function(){
-		lj = new LongJumper('Bob');
+		fb = new FooBar();
 	});
 
 	it('should inherit all instance properties', function(){
-		expect(lj.name).to.equal('Bob');
-		expect(lj.runSpeed).to.equal(10);
-		expect(lj.jumpHeight).to.equal(3);
+		expect(fb.hasBase).to.equal(true);
+		expect(fb.foo).to.equal('foo');
+		expect(fb.bar).to.equal('bar');
 	});
 
 	it('should inherit all methods', function(){
-		expect(lj.introduce()).to.equal('This is Bob');
-		expect(lj.run()).to.equal('They are running at 10 ft/sec');
-		expect(lj.jump()).to.equal('They are jumping 3 ft in the air');
-		expect(lj.longJump()).to.equal(
-			'This is Bob\n' +
-			'They are running at 10 ft/sec\n' +
-			'They are jumping 3 ft in the air\n' +
-			'They landed 30 ft from the start!\n'
-		);
+		expect(fb.makeFoo()).to.equal('foo');
+		expect(fb.makeBar()).to.equal('bar');
+		expect(fb.makeFooBar()).to.equal('foobar');
 	});
 });

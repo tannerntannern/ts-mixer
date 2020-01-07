@@ -1,53 +1,53 @@
 import 'mocha';
-import {expect} from 'chai';
-import {mix, Mixin} from '../../src/mixins';
+import { expect } from 'chai';
+import { mix, Mixin } from '../../src/mixins';
 
-class MixinA {
-	foo = 'a';
+class Foo {
+	foo = 'foo';
 	method() {
-		return 'method from A';
+		return 'foo';
 	}
 }
 
-class MixinB {
-	foo = 'b';
+class Bar {
+	bar = 'bar';
 	method() {
-		return 'method from B';
+		return 'bar';
 	}
 }
 
 describe('Overriding values provided by mixin', () => {
 	describe('using `extends Mixin(...)`', () => {
-		class MixedWithExtends extends Mixin(MixinA, MixinB) {
-			foo = 'mixed';
+		class MixedWithExtends extends Mixin(Foo, Bar) {
+			foo = 'not foo';
 			method() {
-				return 'method from Mixed';
+				return 'not foo';
 			}
 		}
 
 		let m = new MixedWithExtends();
 
 		it('should prefer properties on the class over the mixed classes', () => {
-			expect(m.foo).to.equal('mixed');
-			expect(m.method()).to.equal('method from Mixed');
+			expect(m.foo).to.equal('not foo');
+			expect(m.method()).to.equal('not foo');
 		});
 	});
 
 	describe('using `@mix(...)`', () => {
-		@mix(MixinA, MixinB)
+		@mix(Foo, Bar)
 		class MixedWithDecorator {
-			foo = 'mixed';
+			foo = 'not foo';
 			method() {
-				return 'method from Mixed';
+				return 'not foo';
 			}
 		}
-		interface MixedWithDecorator extends MixinA, MixinB {}
+		interface MixedWithDecorator extends Foo, Bar {}
 
 		let m = new MixedWithDecorator();
 
 		it('should prefer properties on the class over the mixed classes', () => {
-			expect(m.foo).to.equal('mixed');
-			expect(m.method()).to.equal('method from Mixed');
+			expect(m.foo).to.equal('not foo');
+			expect(m.method()).to.equal('not foo');
 		});
 	});
 });

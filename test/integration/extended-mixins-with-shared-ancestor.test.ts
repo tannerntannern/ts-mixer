@@ -1,6 +1,6 @@
 import 'mocha';
-import {expect} from 'chai';
-import {Mixin} from '../../src/mixins';
+import { expect } from 'chai';
+import { Mixin } from '../../src/mixins';
 
 class Base {
 	methodA() { return 'a' }
@@ -8,18 +8,18 @@ class Base {
 	methodC() { return 'c' }
 }
 
-class Sub1 extends Base {
+class Foo extends Base {
 	methodA() { return 'A' }
 }
 
-class Sub2 extends Base {
+class Bar extends Base {
 	methodB() { return 'B' }
 }
 
-class Mixed extends Mixin(Sub1, Sub2) {}
+class Mixed extends Mixin(Foo, Bar) {}
 
 describe('Using mixins that share a common ancestor', function(){
-	let m;
+	let m: Mixed;
 	beforeEach(function(){
 		m = new Mixed();
 	});
@@ -27,16 +27,14 @@ describe('Using mixins that share a common ancestor', function(){
 	/**
 	 * This is what we're trying to test:
 	 *
-	 * The Mixin function applies prototypes in the order that they are given, methods in Sub1 will be overridden by
-	 * Sub2.  However, before each mixin prototype is applied, the Mixin function will apply the entire prototype chain
-	 * of that Mixin.
+	 * The Mixin function applies prototypes in the order that they are given, so methods in Foo will be overridden by
+	 * Bar.  Since both Foo and Bar inherit from Base, the theoretical order of prototype application would be:
+	 * Base, Foo, Base, Bar.
 	 *
-	 * Since both Sub1 and Sub2 inherit from Base, the theoretical order of prototype application would be:
-	 * Base, Sub1, Base, Sub2.
-	 *
-	 * This re-application of the shared ancestor (Base) may cause the methods that Sub1 overrides to be re-overridden
-	 * with the Base methods, which is undesirable.  To fix this, the Mixin function keeps track of the mixin prototypes
-	 * that it has already applied, and doesn't re-apply them.
+	 * This order would cause issues: because Base is re-applied AFTER Foo, Base's methods would take priority over
+	 * those of Foo, even though Foo extends Base and overrides some of its methods.  This is clearly undesirable.  To
+	 * prevent this from happening, hardMixProtos(...) keeps track of which prototypes have already been applied and
+	 * doesn't re-apply them if it encounters them again.
 	 *
 	 * If this check wasn't in place, we would expect the following:
 	 * 		Mixed#methodA() -> 'a'	// re-overridden by Base

@@ -1,6 +1,6 @@
 import 'mocha';
-import {expect} from 'chai';
-import {Mixin} from '../../src/mixins';
+import { expect } from 'chai';
+import { Mixin } from '../../src/mixins';
 
 describe('Mixins with getters and setters', () => {
 	it('should copy props correctly when the prototype has a getter/setter', () => {

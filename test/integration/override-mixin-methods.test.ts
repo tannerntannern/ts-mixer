@@ -1,56 +1,40 @@
 import 'mocha';
-import {expect} from 'chai';
-import {Mixin} from '../../src/mixins';
+import { expect } from 'chai';
+import { Mixin } from '../../src/mixins';
 
-class Person {
-	protected name: string;
-
-	constructor(name: string) {
-		this.name = name;
-	}
-
-	public introduce(){
-		return `This is ${this.name}`;
+class Foo {
+	public getFoo(){
+		return 'foo'
 	}
 }
 
-class RunnerMixin {
-	protected runSpeed: number = 10;
-
-	public run(){
-		return `They are running at ${this.runSpeed} ft/sec`;
+class Bar {
+	public getBar(){
+		return 'bar';
 	}
 }
 
-class JumperMixin {
-	protected jumpHeight: number = 3;
-
-	public jump(){
-		return `They are jumping ${this.jumpHeight} ft in the air`;
-	}
-}
-
-class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin) {
-	public introduce() {
-		return "This is " + this.name;
+class FooBar extends Mixin(Foo, Bar) {
+	public getFoo() {
+		return 'not foo'
 	}
 
-	public jump() {
-		return this.name + ' has jumped ' + this.jumpHeight + ' ft high!';
+	public getBar() {
+		return 'not bar';
 	}
 }
 
 describe('Overriding use case', function(){
-	let lj;
+	let fb: FooBar;
 	beforeEach(function(){
-		lj = new LongJumper('Bob');
+		fb = new FooBar();
 	});
 
 	it('should properly override base methods', function(){
-		expect(lj.introduce()).to.equal('This is Bob');
+		expect(fb.getFoo()).to.equal('not foo');
 	});
 
 	it('should properly override mixed in methods', function(){
-		expect(lj.jump()).to.equal('Bob has jumped 3 ft high!');
+		expect(fb.getBar()).to.equal('not bar');
 	});
 });
