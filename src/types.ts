@@ -37,3 +37,8 @@ _Longest<
 	_Longest<T9, T10>
 >;
 
+/**
+ * A rigorous type alias for a class.
+ */
+export type Class<CtorArgs extends any[] = any[], InstanceType = {}, StaticType = {}> =
+	{ new(...args: CtorArgs): InstanceType } & { [K in keyof StaticType]: StaticType[K] };
