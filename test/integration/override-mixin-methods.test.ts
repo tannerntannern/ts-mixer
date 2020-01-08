@@ -1,40 +1,44 @@
 import 'mocha';
 import { expect } from 'chai';
-import { Mixin } from '../../src/mixins';
+import { forEachSettings } from '../util';
 
-class Foo {
-	public getFoo(){
-		return 'foo'
-	}
-}
+import { Mixin } from '../../src';
 
-class Bar {
-	public getBar(){
-		return 'bar';
-	}
-}
+describe('Overriding use case', () => {
+	forEachSettings(() => {
+		class Foo {
+			public getFoo(){
+				return 'foo'
+			}
+		}
 
-class FooBar extends Mixin(Foo, Bar) {
-	public getFoo() {
-		return 'not foo'
-	}
+		class Bar {
+			public getBar(){
+				return 'bar';
+			}
+		}
 
-	public getBar() {
-		return 'not bar';
-	}
-}
+		class FooBar extends Mixin(Foo, Bar) {
+			public getFoo() {
+				return 'not foo'
+			}
 
-describe('Overriding use case', function(){
-	let fb: FooBar;
-	beforeEach(function(){
-		fb = new FooBar();
-	});
+			public getBar() {
+				return 'not bar';
+			}
+		}
 
-	it('should properly override base methods', function(){
-		expect(fb.getFoo()).to.equal('not foo');
-	});
+		let fb: FooBar;
+		beforeEach(() => {
+			fb = new FooBar();
+		});
 
-	it('should properly override mixed in methods', function(){
-		expect(fb.getBar()).to.equal('not bar');
+		it('should properly override base methods', () => {
+			expect(fb.getFoo()).to.equal('not foo');
+		});
+
+		it('should properly override mixed in methods', () => {
+			expect(fb.getBar()).to.equal('not bar');
+		});
 	});
 });

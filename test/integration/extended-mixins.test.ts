@@ -1,32 +1,36 @@
 import 'mocha';
 import { expect } from 'chai';
-import { Mixin } from '../../src/mixins';
+import { forEachSettings } from '../util';
 
-class Foo {
-	public readonly foo: string = 'foo';
+import { Mixin } from '../../src';
 
-	public getFoo() {
-		return this.foo;
-	}
-}
+describe('Using a mixin that extends another class', () => {
+	forEachSettings(() => {
+		class Foo {
+			public readonly foo: string = 'foo';
 
-class Bar extends Foo {}
+			public getFoo() {
+				return this.foo;
+			}
+		}
 
-class Baz {}
+		class Bar extends Foo {}
 
-class BarBaz extends Mixin(Bar, Baz) {}
+		class Baz {}
 
-describe('Using a mixin that extends another class', function(){
-	let bb: BarBaz;
-	beforeEach(function(){
-		bb = new BarBaz();
-	});
+		class BarBaz extends Mixin(Bar, Baz) {}
 
-	it('should be able to access properties from the class that the Mixin extends', function(){
-		expect(bb.foo).to.equal('foo');
-	});
+		let bb: BarBaz;
+		beforeEach(() => {
+			bb = new BarBaz();
+		});
 
-	it('should be able to use methods available on the class that the Mixin extends', function(){
-		expect(bb.getFoo()).to.equal('foo');
+		it('should be able to access properties from the class that the Mixin extends', () => {
+			expect(bb.foo).to.equal('foo');
+		});
+
+		it('should be able to use methods available on the class that the Mixin extends', () => {
+			expect(bb.getFoo()).to.equal('foo');
+		});
 	});
 });

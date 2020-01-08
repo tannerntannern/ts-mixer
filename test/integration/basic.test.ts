@@ -1,48 +1,52 @@
 import 'mocha';
 import { expect } from 'chai';
-import { Mixin } from '../../src/mixins';
+import { forEachSettings } from '../util';
 
-class BaseClass {
-	public readonly hasBase: boolean = true;
-}
+import { Mixin } from '../../src';
 
-class FooMixin {
-	public readonly foo: string = 'foo';
+describe('Basic use case', () => {
+	forEachSettings(() => {
+		class BaseClass {
+			public readonly hasBase: boolean = true;
+		}
 
-	public makeFoo(): string {
-		return this.foo;
-	}
-}
+		class FooMixin {
+			public readonly foo: string = 'foo';
 
-class BarMixin {
-	public readonly bar: string = 'bar';
+			public makeFoo(): string {
+				return this.foo;
+			}
+		}
 
-	public makeBar(): string {
-		return this.bar;
-	}
-}
+		class BarMixin {
+			public readonly bar: string = 'bar';
 
-class FooBar extends Mixin(BaseClass, FooMixin, BarMixin) {
-	public makeFooBar() {
-		return this.makeFoo() + this.makeBar();
-	}
-}
+			public makeBar(): string {
+				return this.bar;
+			}
+		}
 
-describe('Basic use case', function(){
-	let fb: FooBar;
-	beforeEach(function(){
-		fb = new FooBar();
-	});
+		class FooBar extends Mixin(BaseClass, FooMixin, BarMixin) {
+			public makeFooBar() {
+				return this.makeFoo() + this.makeBar();
+			}
+		}
 
-	it('should inherit all instance properties', function(){
-		expect(fb.hasBase).to.equal(true);
-		expect(fb.foo).to.equal('foo');
-		expect(fb.bar).to.equal('bar');
-	});
+		let fb: FooBar;
+		beforeEach(() => {
+			fb = new FooBar();
+		});
 
-	it('should inherit all methods', function(){
-		expect(fb.makeFoo()).to.equal('foo');
-		expect(fb.makeBar()).to.equal('bar');
-		expect(fb.makeFooBar()).to.equal('foobar');
+		it('should inherit all instance properties', () => {
+			expect(fb.hasBase).to.equal(true);
+			expect(fb.foo).to.equal('foo');
+			expect(fb.bar).to.equal('bar');
+		});
+
+		it('should inherit all methods', () => {
+			expect(fb.makeFoo()).to.equal('foo');
+			expect(fb.makeBar()).to.equal('bar');
+			expect(fb.makeFooBar()).to.equal('foobar');
+		});
 	});
 });

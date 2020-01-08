@@ -1,29 +1,33 @@
 import 'mocha';
 import { expect } from 'chai';
-import { Mixin } from '../../src/mixins';
+import { forEachSettings } from '../util';
+
+import { Mixin } from '../../src';
 
 describe('Mixins with getters and setters', () => {
-	it('should copy props correctly when the prototype has a getter/setter', () => {
-		let externalValue = 0;
+	forEachSettings(() => {
+		it('should copy props correctly when the prototype has a getter/setter', () => {
+			let externalValue = 0;
 
-		class Base {}
-		class HasGetter {
-			public get externalValue() {
-				return externalValue;
+			class Base {}
+			class HasGetter {
+				public get externalValue() {
+					return externalValue;
+				}
 			}
-		}
 
-		const Mixed = Mixin(Base, HasGetter);
+			const Mixed = Mixin(Base, HasGetter);
 
-		let hg = new HasGetter();
-		let mx = new Mixed();
+			let hg = new HasGetter();
+			let mx = new Mixed();
 
-		expect(hg.externalValue).to.equal(0);
-		expect(mx.externalValue).to.equal(0);
+			expect(hg.externalValue).to.equal(0);
+			expect(mx.externalValue).to.equal(0);
 
-		externalValue ++;
+			externalValue ++;
 
-		expect(hg.externalValue).to.equal(1);
-		expect(mx.externalValue).to.equal(1);
+			expect(hg.externalValue).to.equal(1);
+			expect(mx.externalValue).to.equal(1);
+		});
 	});
 });
