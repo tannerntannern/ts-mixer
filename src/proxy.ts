@@ -1,10 +1,10 @@
 /**
  * Finds the ingredient with the given prop, searching in reverse order.
  */
-const getIngredientWithProp = (prop: string | number | symbol, ingredients: any[]) => {
-	for (let i = ingredients.length - 1; i > 0; i --) {
+export const getIngredientWithProp = (prop: string | number | symbol, ingredients: any[]) => {
+	for (let i = ingredients.length - 1; i >= 0; i --) {
 		const ingredient = ingredients[i];
-		if (prop in ingredient)  // TODO: will this work for non-enumerable props?
+		if (ingredient[prop] !== undefined)
 			return ingredient;
 	}
 
@@ -22,12 +22,6 @@ export const proxyMix = (ingredients: any[], prototype) => new Proxy({}, {
 	setPrototypeOf() {
 		throw Error('Cannot set prototype of Proxies created by ts-mixer');
 	},
-	isExtensible() {
-		return false;
-	},
-	preventExtensions() {
-		return true;
-	},
 	getOwnPropertyDescriptor(_, prop) {
 		return Object.getOwnPropertyDescriptor(getIngredientWithProp(prop, ingredients) || {}, prop);
 	},
@@ -35,10 +29,10 @@ export const proxyMix = (ingredients: any[], prototype) => new Proxy({}, {
 		throw new Error('Cannot define new properties on Proxies created by ts-mixer');
 	},
 	has(_, prop) {
-		return getIngredientWithProp(prop, ingredients) !== undefined;
+		return getIngredientWithProp(prop, ingredients) !== undefined || prototype[prop] !== undefined;
 	},
 	get(_, prop) {
-		return (getIngredientWithProp(prop, ingredients) || {})[prop];
+		return (getIngredientWithProp(prop, ingredients) || prototype)[prop];
 	},
 	set(_, prop, value) {
 		const containingIngredient = getIngredientWithProp(prop, ingredients);
@@ -53,7 +47,7 @@ export const proxyMix = (ingredients: any[], prototype) => new Proxy({}, {
 	},
 	ownKeys() {
 		return ingredients
-			.map(Object.getOwnPropertySymbols)
+			.map(Object.getOwnPropertyNames)
 			.reduce(
 				(prev, curr) => curr.concat(prev.filter(key => curr.indexOf(key) < 0))
 			);
