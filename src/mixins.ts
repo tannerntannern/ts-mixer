@@ -1,6 +1,7 @@
-import { copyProps, hardMixProtos, softMixProtos } from './util';
+import { proxyMix } from './proxy';
 import { Class, Longest } from './types'; // TODO: need something more than just Longest: also forces all to be subset of longest
-import { DefaultSettings } from './settings';
+import { settings } from './settings';
+import { copyProps, hardMixProtos, softMixProtos } from './util';
 
 function Mixin<
 	A extends any[], I1, S1
@@ -200,12 +201,17 @@ function Mixin(...constructors: Class[]) {
 			copyProps(this, new constructor(...args));
 	}
 
-	MixedClass.prototype = DefaultSettings.prototypeStrategy === 'copy'
+	MixedClass.prototype = settings.prototypeStrategy === 'copy'
 		? hardMixProtos(prototypes, MixedClass)
 		: softMixProtos(prototypes, MixedClass);
 
-	// Mix static properties
-	// hardMixProtos(MixedClass, constructors, ['prototype', 'length', 'name']);
+	if (settings.staticsStrategy === 'copy') {
+		for (let constructor of constructors) {
+			copyProps(MixedClass, constructor, ['prototype', 'length', 'name']);
+		}
+	} else {
+		Object.setPrototypeOf(MixedClass, proxyMix(constructors, Function.prototype));
+	}
 
 	return MixedClass as any;
 }

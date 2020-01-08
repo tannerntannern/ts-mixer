@@ -3,7 +3,7 @@ export type Settings = {
 	prototypeStrategy: 'copy' | 'proxy',
 };
 
-export const DefaultSettings: Settings = {
+export const settings: Settings = {
 	staticsStrategy: 'copy',
 	prototypeStrategy: 'copy',
 };
