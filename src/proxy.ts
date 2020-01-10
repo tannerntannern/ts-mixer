@@ -1,11 +1,38 @@
+import { protoChain } from './util';
+
 /**
- * Finds the ingredient with the given prop, searching in reverse order.
+ * Finds the ingredient with the given prop, searching in reverse order and breadth-first if searching ingredient
+ * prototypes is required.
  */
 export const getIngredientWithProp = (prop: string | number | symbol, ingredients: any[]) => {
-	for (let i = ingredients.length - 1; i >= 0; i --) {
-		const ingredient = ingredients[i];
-		if (ingredient[prop] !== undefined)
-			return ingredient;
+	const protoChains = ingredients.map(ingredient => protoChain(ingredient));
+
+	// since we search breadth-first, we need to keep track of our depth in the prototype chains
+	let protoDepth = 0;
+
+	// not all prototype chains are the same depth, so this remains true as long as at least one of the ingredients'
+	// prototype chains has an object at this depth
+	let protosAreLeftToSearch = true;
+
+	while (protosAreLeftToSearch) {
+		// with the start of each horizontal slice, we assume this is the one that's deeper than any of the proto chains
+		protosAreLeftToSearch = false;
+
+		// scan through the ingredients right to left
+		for (let i = ingredients.length - 1; i >= 0; i --) {
+			const searchTarget = protoChains[i][protoDepth];
+			if (searchTarget !== undefined && searchTarget !== null) {
+				// if we find something, this is proof that this horizontal slice potentially more objects to search
+				protosAreLeftToSearch = true;
+
+				// eureka, we found it
+				if (Object.getOwnPropertyDescriptor(searchTarget, prop) != undefined) {
+					return protoChains[i][0];
+				}
+			}
+		}
+
+		protoDepth ++;
 	}
 
 	return undefined;
@@ -34,13 +61,8 @@ export const proxyMix = (ingredients: any[], prototype) => new Proxy({}, {
 	get(_, prop) {
 		return (getIngredientWithProp(prop, ingredients) || prototype)[prop];
 	},
-	set(_, prop, value) {
-		const containingIngredient = getIngredientWithProp(prop, ingredients);
-		if (containingIngredient === undefined)
-			return false;
-
-		containingIngredient[prop] = value;
-		return true;
+	set() {
+		throw new Error('Cannot set properties on Proxies created by ts-mixer');
 	},
 	deleteProperty() {
 		throw new Error('Cannot delete properties on Proxies created by ts-mixer');

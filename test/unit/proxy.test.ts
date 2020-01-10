@@ -70,18 +70,8 @@ describe('proxyMix', () => {
 		});
 	});
 
-	describe('setting values by key', () => {
-		it('should be able to update properties directly on their respective sources', () => {
-			expect(foo.isFoo).to.equal(true);
-			expect(pm.isFoo).to.equal(true);
-			pm.isFoo = false;
-			expect(foo.isFoo).to.equal(false);
-			expect(pm.isFoo).to.equal(false);
-		});
-
-		it('should throw an error if trying to update (i.e., create) a nonexistent property', () => {
-			expect(() => { pm.isSomethingElse = true }).to.throw;
-		});
+	it('should throw an error when attempting to set a property', () => {
+		expect(() => { pm.isFoo = false }).to.throw;
 	});
 
 	it('should throw an error when attempting to delete a property', () => {

@@ -19,7 +19,6 @@ rules:
   semi:
     - error
     - always
-  no-var:
-    - error
-  space-before-blocks:
-    - error
+  no-var: error
+  no-unused-vars: off
+  space-before-blocks: error
