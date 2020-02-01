@@ -205,13 +205,12 @@ function Mixin(...constructors: Class[]) {
 		? hardMixProtos(prototypes, MixedClass)
 		: softMixProtos(prototypes, MixedClass);
 
-	if (settings.staticsStrategy === 'copy') {
-		for (let constructor of constructors) {
-			copyProps(MixedClass, constructor, ['prototype', 'length', 'name']);
-		}
-	} else {
-		Object.setPrototypeOf(MixedClass, proxyMix(constructors, Function.prototype));
-	}
+	Object.setPrototypeOf(
+		MixedClass,
+		settings.staticsStrategy === 'copy'
+			? hardMixProtos(constructors, null, ['prototype'])
+			: proxyMix(constructors, Function.prototype)
+	);
 
 	return MixedClass as any;
 }

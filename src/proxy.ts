@@ -39,10 +39,10 @@ export const getIngredientWithProp = (prop: string | number | symbol, ingredient
 };
 
 /**
- * "Mixes" ingredients by wrapping them in a Proxy.  "Properties" cannot be added or deleted, but they may be modified.
- * Note that modification happens directly on the source object.
+ * "Mixes" ingredients by wrapping them in a Proxy.  The optional prototype argument allows the mixed object to sit
+ * downstream of an existing prototype chain.  Note that "properties" cannot be added, deleted, or modified.
  */
-export const proxyMix = (ingredients: any[], prototype) => new Proxy({}, {
+export const proxyMix = (ingredients: any[], prototype = Object.prototype) => new Proxy({}, {
 	getPrototypeOf() {
 		return prototype;
 	},

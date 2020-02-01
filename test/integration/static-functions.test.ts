@@ -16,7 +16,7 @@ describe('Static functions', () => {
 
 		// Note: the reason this test exists is because static functions aren't enumerable, unlike non-function static props
 		it('should inherit static functions properly', () => {
-			expect(ClassB.staticFunction()).to.equal('A');
+			expect(ClassB.staticFunction).to.equal(ClassA.staticFunction);
 		});
 	});
 });

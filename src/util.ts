@@ -1,8 +1,8 @@
 import { proxyMix } from './proxy';
 
 /**
- * Utility function that works like `Object.apply`, but copies properties getters and setters properly as well.
- * Additionally gives the option to exclude properties by name.
+ * Utility function that works like `Object.apply`, but copies getters and setters properly as well.  Additionally gives
+ * the option to exclude properties by name.
  */
 export const copyProps = (dest: object, src: object, exclude: string[] = []) => {
 	const props = Object.getOwnPropertyDescriptors(src);
@@ -51,10 +51,10 @@ export const nearestCommonProto = (...objs: object[]): Function => {
  * downstream of this prototype (ONLY downstream) are copied into the new object.
  *
  * The resulting prototype is more performant than softMixProtos(...), as well as ES5 compatible.  However, it's not as
- * flexible, as updates to the source prototypes aren't captured by the mixed result.  See softMixProtos for why you may
+ * flexible as updates to the source prototypes aren't captured by the mixed result.  See softMixProtos for why you may
  * want to use that instead.
  */
-export const hardMixProtos = (ingredients: any[], constructor: Function): object => {
+export const hardMixProtos = (ingredients: any[], constructor: Function, exclude: string[] = []): object => {
 	const base = nearestCommonProto(...ingredients);
 	const mixedProto = Object.create(base);
 
@@ -71,7 +71,7 @@ export const hardMixProtos = (ingredients: any[], constructor: Function): object
 			let newProto = protos[i];
 
 			if (visitedProtos.indexOf(newProto) === -1) {
-				copyProps(mixedProto, newProto, ['constructor']);
+				copyProps(mixedProto, newProto, ['constructor', ...exclude]);
 				visitedProtos.push(newProto);
 			}
 		}
