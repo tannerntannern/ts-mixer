@@ -7,8 +7,9 @@ cache:
   directories:
     - node_modules
 
-before_script:
+install:
   - yarn install --ignore-engines
+
 script:
   - yarn lint
   - yarn test
