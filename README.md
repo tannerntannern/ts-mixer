@@ -8,162 +8,138 @@
 ### What is it?
 `ts-mixer` is a lightweight package that brings mixins to TypeScript.  Mixins in JavaScript are easy, but TypeScript introduces complications.  `ts-mixer` deals with these complications for you and infers all of the intelligent typing you'd expect, including instance properties, methods, static properties, **generics**, and more.
 
+[Quick start guide](#getting-started)
+
 ### Why another Mixin implementation? 
-It seems that no one has been able to implement TypeScript mixins gracefully.  Mixins as described by the [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less than ideal.  Countless online threads feature half-working snippets, each one simultaneously elegant but lacking in its own way.
+It seems that no one has been able to implement TypeScript mixins gracefully.  Mixins as described by the [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less than ideal.  Countless online threads feature half-working snippets, each one interesting but lacking in its own way.
 
 My fruitless search has led me to believe that there is no perfect solution with the current state of TypeScript.  Instead, I present a "tolerable" solution that attempts to take the best from the many different implementations while mitigating their flaws as much as possible.
 
 ## Features
-* Support for mixing plain TypeScript classes
-* Support for mixing classes that extend other classes
-* Support for protected and private properties
-* **Support for classes with generics**[¹](#caveats)
-* Automatic inference of the mixed class type[¹](#caveats)
-* Support for static properties [³](#caveats)
+* dead-simple API
+* mix plain classes
+* mix classes that extend other classes
+* mix abstract classes (with caveats)
+* mix generic classes (with caveats)
+* proper handling of protected/private properties
+* proper handling of static properties
 
 #### Caveats
-1. Some mixin implementations require you to do something like `Mixin<A & B>(A, B)` in
-order for the types to work correctly.  ts-mixer is able to infer these types, so you can
-just do `Mixin(A, B)`, except when generics are involved.  See
-[Dealing with Generics](#dealing-with-generics).
-2. Due to a bug in the TypeScript compiler, this package only appears to work on TypeScript 3.4.4 and beyond.  With that said, it may still work to simply use the package instead of compiling it yourself, which is where I ran into issues, but I did not test this extensively.
-3. Due how ES6 handles static properties, you should not use `length` or `name` as names for your static properties.  See [this commit](https://github.com/tannerntannern/ts-mixer/commit/4f80f788b45383a8560766d1672abd2877c70723) for the technical reason.
+* Mixing abstract classes requires a bit of a hack that may break in future versions of TypeScript.  See [dealing with abstract classes](#dealing-with-abstract-classes) below.
+* Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [dealing with generics](#dealing-with-generics) below.
 
 ## Non-features
-* `instanceof` support;  Because this library is intended for use with TypeScript, running
-an `instanceof` check is generally not needed.  Additionally, adding support can have
-[negative effects on performance](https://stackoverflow.com/a/1919670).  See the
-[MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/hasInstance)
+* `instanceof` support;  Because this library is intended for use with TypeScript, running an `instanceof` check is generally not needed.  Additionally, adding support can have [negative effects on performance](https://stackoverflow.com/a/1919670).  See the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/hasInstance)
 for more information.
 
 # Getting Started
 ## Installation
-`npm i --save ts-mixer` or `yarn add ts-mixer`
+```
+$ npm install ts-mixer
+```
 
-## Documentation
-If you're looking for the API documentation, [go here](https://tannerntannern.github.io/ts-mixer).
-If you just need a few tips to get started, keep reading.
+or if you prefer [Yarn](https://yarnpkg.com):
+
+```
+$ yarn add ts-mixer
+```
 
 ## Examples
-### Basic Example
+### Minimal Example
 ```typescript
-import {Mixin} from 'ts-mixer';
+import { Mixin } from 'ts-mixer';
 
-class Person {
-	protected name: string;
-
-	constructor(name: string) {
-		this.name = name;
-	}
+class Foo {
+    protected makeFoo() {
+        return 'foo';
+    }
 }
 
-class RunnerMixin {
-	protected runSpeed: number = 10;
-
-	public run(){
-		console.log('They are running at', this.runSpeed, 'ft/sec');
-	}
+class Bar {
+    protected makeBar() {
+        return 'bar';
+    }
 }
 
-class JumperMixin {
-	protected jumpHeight: number = 3;
-
-	public jump(){
-		console.log('They are jumping', this.jumpHeight, 'ft in the air');
-	}
+class FooBar extends Mixin(Foo, Bar) {
+    public makeFooBar() {
+        return this.makeFoo() + this.makeBar();
+    }
 }
 
-class LongJumper extends Mixin(Person, RunnerMixin, JumperMixin) {
-	public longJump() {
-		console.log(this.name, 'is stepping up to the event.');
-		
-		this.run();
-		this.jump();
-		
-		console.log('They landed', this.runSpeed * this.jumpHeight, 'ft from the start!');
-	}
-}
+const fooBar = new FooBar();
+
+console.log(fooBar.makeFooBar());  // "foobar"
 ```
 
-### Dealing with Generics
-Normally, the `Mixin` function is able to figure out the class types without help.  However, when generics are involved, the `Mixin` function is not able to correctly infer the type parameters.  Consider the following:
+[Play with this example](https://www.typescriptlang.org/play/index.html?ssl=1&ssc=1&pln=4&pc=2#code/JYWwDg9gTgLgBAbzgWWAD2AOzgXzgMyghDgHIYBnAWhHQFMpSBuAKBYGMAbAQworgBiECIhZxxcMERh12MgCZwQ3ANZ0hEABQBKURP1wodGAFco2UvmHMxEnC3scefOACFuUPRKkQZcuorKau5QOl4GhsZmFgBGHjb69o5cvPwaIXB0aDKY8vyoGJiaGgA0bh66CLbiYCYxnMDsSqrqwiFhVRHiRqbmcDAAFsAUAHRBrVq6ANT9Q6Pj7dqsiQ5s7BCYFPBWEBkAvHCYdADugm0eOqwcGxQQnHQjnBAA5po7IWMt6RfaS+IA9P84AAiHZxKDAoA)
+
+### Mixing Abstract Classes
+Abstract classes, by definition, cannot be constructed, which means they cannot take on the type, `new(...args) => any`, and by extension, are incompatible with `ts-mixer`.  BUT, you can "trick" TypeScript into giving you all the benefits of an abstract class without making it technically abstract.  The trick is just some strategic `// @ts-ignore`'s:
 
 ```typescript
-import {Mixin} from 'ts-mixer';
+import { Mixin } from 'ts-mixer';
 
-class GenClassA<T> {
-	methodA(input: T) {}
+// note that Foo is not marked as an abstract class
+class Foo {
+    // @ts-ignore: "Abstract methods can only appear within an abstract class"
+    public abstract makeFoo(): string;
 }
-class GenClassB<T> {
-	methodB(input: T) {}
+
+class Bar {
+    public makeBar() {
+        return 'bar';
+    }
+}
+
+class FooBar extends Mixin(Foo, Bar) {
+    // we still get all the benefits of abstract classes here, because TypeScript
+    // will still complain if this method isn't implemented
+    public makeFoo() {
+        return 'foo';
+    }
 }
 ```
 
-Now let's say that we want to mix these two generic classes together, like so:
+[Play with this example](https://www.typescriptlang.org/play/index.html#code/JYWwDg9gTgLgBAbzgWWAD2AOzgXzgMyghDgHIYBnAWhHQFMpSBuAKBYHp25MIY64YACwCG8AGIQIcYBW684IYVADWdACZxhs4dmEAjCjCjCAxvBMAbLRRaXrcCVIQs4ruJzgABSlWABzHig6AC44ACIAQQMjU3gQOiEINVkTHTgITAsAT00wMDolOAB3YCEsTV1o4zM4OwoKMJc3MABXPQtgE00q2IVhVUcACgBKUMMoLD9WHDY62QAhQuc3OFb2zr7VRagRxCaV1yCYFqhsUj0lZn3cFhnbK3qHSW24OjQ+TGSUdCxBxwAaODbYZ7FYeIr8QzACwWOB+BKaGECQT8PR0TB0fClWQQfDdca9OZ0WQooKAtGpFoUfgAFSy+QAyiYJmAYNdwdDYVCkSZiGArOVgHiyrJ4okNDJMORpOALHR4pg+GprmsOl1FANJLtlgdDgkTmd8JIrisZjMgA)
+
+Do note that while this does work quite well, it is a bit of a hack and I can't promise that it will continue to work in future TypeScript versions.
+
+### Mixing Generic Classes
+Frustratingly, it is _impossible_ for generic parameters to be referenced in base class expressions.  No matter how you try to slice it, you will eventually run into `Base class expressions cannot reference class type parameters.`
+
+The way to get around this is to leverage [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html), and a slightly different mixing function from ts-mixer: `mix`.  It works exactly like `Mixin`, except it's a decorator, which means it doesn't affect the type information of the class being decorated.  See it in action below:
 
 ```typescript
-class Mixed<A, B> extends Mixin(GenClassA, GenClassB) {}
-```
+import { mix } from 'ts-mixer';
 
-But we run into trouble here because we can't pass our type parameters along with the arguments to the `Mixin` function.  To solve this issue, we can make simultaneous use of class decorators and interface merging to create the proper class typing.  Consider the following:
+class Foo<T> {
+    public fooMethod(input: T): T {
+        return input;
+    }
+}
 
-```typescript
-import {mix} from 'ts-mixer';
+class Bar<T> {
+    public barMethod(input: T): T {
+        return input;
+    }
+}
 
-@mix(GenClassA, GenClassB)
-class Mixed<A, B> {
-	someAdditonalMethod(input1: A, input2: B) {}
+interface FooBar<T1, T2> extends Foo<T1>, Bar<T2> { }
+@mix(Foo, Bar)
+class FooBar<T1, T2> {
+    public fooBarMethod(input1: T1, input2: T2) {
+        return [this.fooMethod(input1), this.barMethod(input2)];
+    }
 }
 ```
 
-Note the `mix`, which is simply the `Mixin` function in [class-decorator](https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators) form.  Decorators have the annoying property that even though they may modify the shape of the class they decorate "on the JavaScript side," the types don't update "on the TypeScript side."  So as far as the TypeScript compiler is concerned in the example above, class `Mixed` only has one method, even though the decorator is really adding methods from the mixed generic classes.
+[Play with this example](https://www.typescriptlang.org/play/index.html?experimentalDecorators=true&ssl=1&ssc=1&pln=22&pc=1#code/JYWwDg9gTgLgBAbziYAPOBfOAzKERwDkMAzgLQqoCmUhA3AFAMDGANgIYklwBiEEAHgAqAPkQM4kuGACuAI1bBmOfgFkqMABYQAJgApgAO1kwAXHCEBKc0PFT7cKBplRDcIycb2MDHyw5ccABC7FDCYggSUrIKSnByoepaugbGMmYW1hZ2DpJOMC5uHuleUj5+RjA02OzMVLz8IWFCAIwANBYATGJUqFWGOtx8gq0iHU3C3YiYDAAClHrD46GW-pxDjaHC7V0RUZIxisrYm1BJ2vrFMC02O1edNp2WObn5hXAA2lrAJAB0JxBzikri1LB1vn8EmcNBdUiYngBdUqScoMIA)
 
-How do we convince TypeScript that `Mixed` has the additional methods?  An attempt at a solution might look like this:
-
-```typescript
-@mix(GenClassA, GenClassB)
-class Mixed<A, B> implements GenClassA<A>, GenClassB<B> {
-	someAdditonalMethod(input1: A, input2: B) {}
-}
-```
-
-But now TypeScript will complain that `Mixed` doesn't implement `GenClassA` and `GenClassB` correctly, because it can't see the changes made by the decorator.  Instead, we can use [interface merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces):
-
-```typescript
-@mix(GenClassA, GenClassB)
-class Mixed<A, B> {
-	someAdditonalMethod(input1: A, input2: B) {}
-}
-interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
-```
-
-Boom.  Generic mixins solved.
-
-#### Important Note
-It's worth noting that it's _only through_ TypeScript's failure to consider decorator return types _in conjunction_ with interface merging that this works.  If we attempted interface merging without the decorator, we would run into trouble:
-
-```typescript
-interface Mixed<A, B> extends GenClassA<A>, GenClassB<B> {}
-class Mixed<A, B> extends Mixin(GenClassA, GenClassB) {
-	newMethod(a: A, b: B) {}
-}
-```
-
-```
-Error:TS2320: Interface 'Mixed<A, B>' cannot simultaneously extend types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>'.
-Named property 'methodA' of types 'GenClassA<{}> & GenClassB<{}>' and 'GenClassA<A>' are not identical.
-```
-
-We get this error because when generic classes are fed to the `Mixin` function, any generic parameters default to `{}`, since TypeScript can't infer them.  Unfortunately, these incorrect defaults can't be overridden with interface merging.  Even if you try to `@ts-ignore` it, the TypeScript will prefer the types of the `Mixin` function over those of the interface.
-
-In other words, use the decorator instead!
-
-# Contributing
-All contributions are welcome!  To get started, simply fork and clone the repo, run `yarn install`, and get to work.  Once you have something you'd like to contribute, be sure to run `yarn lint && yarn test` locally, then submit a PR.
-
-Tests are very important to consider and I will not accept any PRs that are poorly tested.  Keep the following in mind:
-* If you add a new feature, please make sure it's covered by a test case.  Typically this should get a dedicated `*.test.ts` file in the `test` directory, so that all of the nuances of the feature can be adequately covered.
-* If you are contributing a bug fix, you must also write at least one test to verify that the bug is fixed.  If the bug is directly related to an existing feature, try to include the test in the relevant test file.  If the bug is highly specific, it may deserve a dedicated file; use discretion.
+Key takeaways from this example:
+* `interface FooBar<T1, T2> extends Foo<T1>, Bar<T2> { }` makes sure `FooBar` has the typing we want, thanks to declaration merging
+* `@mix(Foo, Bar)` wires things up "on the JavaScript side", since the interface declaration has nothing to do with runtime behavior.
+* The reason we have to use the `mix` decorator is that the typing produced by `Mixin(Foo, Bar)` would conflict with the typing of the interface.  `mix` has no effect "on the TypeScript side," thus avoiding type conflicts.
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>
