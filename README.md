@@ -8,7 +8,7 @@
 ### What is it?
 `ts-mixer` is a lightweight package that brings mixins to TypeScript.  Mixins in JavaScript are easy, but TypeScript introduces complications.  `ts-mixer` deals with these complications for you and infers all of the intelligent typing you'd expect, including instance properties, methods, static properties, **generics**, and more.
 
-[Quick start guide](#getting-started)
+[Quick start guide](#quick-start)
 
 ### Why another Mixin implementation? 
 It seems that no one has been able to implement TypeScript mixins gracefully.  Mixins as described by the [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less than ideal.  Countless online threads feature half-working snippets, each one interesting but lacking in its own way.
@@ -16,23 +16,24 @@ It seems that no one has been able to implement TypeScript mixins gracefully.  M
 My fruitless search has led me to believe that there is no perfect solution with the current state of TypeScript.  Instead, I present a "tolerable" solution that attempts to take the best from the many different implementations while mitigating their flaws as much as possible.
 
 ## Features
-* dead-simple API
-* mix plain classes
-* mix classes that extend other classes
-* mix abstract classes (with caveats)
-* mix generic classes (with caveats)
+* can mix plain classes
+* can mix classes that extend other classes
+* can mix abstract classes (with caveats)
+* can mix generic classes (with caveats)
+* proper constructor argument typing (with caveats)
 * proper handling of protected/private properties
 * proper handling of static properties
+* [multiple options](#settings) for mixing (ES6 proxies vs copying properties)
 
 #### Caveats
 * Mixing abstract classes requires a bit of a hack that may break in future versions of TypeScript.  See [dealing with abstract classes](#dealing-with-abstract-classes) below.
 * Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [dealing with generics](#dealing-with-generics) below.
+* ES6 made it impossible to use `.apply(...)` on class constructors, which means the only way to mix instance properties is to instantiate all the base classes, then copy the properties over to a new object.  This means that (beyond initializing properties on `this`), constructors cannot have [side-effects](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29) involving `this`, or you will get unexpected results.  Note that constructors need not be _completey_ side-effect free; just when dealing with `this`.
 
 ## Non-features
-* `instanceof` support;  Because this library is intended for use with TypeScript, running an `instanceof` check is generally not needed.  Additionally, adding support can have [negative effects on performance](https://stackoverflow.com/a/1919670).  See the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/hasInstance)
-for more information.
+* `instanceof` support.  Difficult to implement, and not hard to work around (if even needed at all).
 
-# Getting Started
+# Quick Start
 ## Installation
 ```
 $ npm install ts-mixer
@@ -140,6 +141,29 @@ Key takeaways from this example:
 * `interface FooBar<T1, T2> extends Foo<T1>, Bar<T2> { }` makes sure `FooBar` has the typing we want, thanks to declaration merging
 * `@mix(Foo, Bar)` wires things up "on the JavaScript side", since the interface declaration has nothing to do with runtime behavior.
 * The reason we have to use the `mix` decorator is that the typing produced by `Mixin(Foo, Bar)` would conflict with the typing of the interface.  `mix` has no effect "on the TypeScript side," thus avoiding type conflicts.
+
+## Settings
+ts-mixer has multiple strategies for mixing classes which can be configured by modifying `Settings` from ts-mixer.  For example:
+
+```typescript
+import { Settings, Mixin } from 'ts-mixer';
+
+Settings.prototypeStrategy = 'proxy';
+
+// then use `Mixin` as normal...
+```
+
+### `Settings.prototypeStrategy`
+* Determines how ts-mixer will mix class prototypes together
+* Possible values:
+    - `'copy'` (default) - Copies all methods from the classes being mixed into a new prototype object.  (This will include all methods up the prototype chains as well.)  This is the default for ES5 compatibility, but it has the downside of stale references.  For example, if you mix `Foo` and `Bar` to make `FooBar`, then redefine a method on `Foo`, `FooBar` will not have the latest methods from `Foo`.  If this is not a concern for you, `'copy'` is the best value for this setting.
+    - `'proxy'` - Uses an ES6 Proxy to "soft mix" prototypes.  Unlike `'copy'`, updates to the base classes _will_ be reflected in the mixed class, which may be desirable.  The downside is that method access is not as performant, nor is it ES5 compatible.
+
+### `Settings.staticsStrategy`
+* Determines how static properties are inherited
+* Possible values:
+    - `'copy'` (default) - Simply copies all properties (minus `prototype`) from the base classes/constructor functions onto the mixed class.  Like `Settings.prototypeStrategy = 'copy'`, this strategy also suffers from stale references, but shouldn't be a concern if you don't redefine static methods after mixing.
+    - `'proxy'` - Similar to `Settings.prototypeStrategy`, proxy's static method access to base classes.  Has the same benefits/downsides.
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>

@@ -1,3 +1,6 @@
+// TODO: optional init function support
+// TODO: class-validators support
+
 import { proxyMix } from './proxy';
 import { Class, Longest } from './types'; // TODO: need something more than just Longest: also forces all to be subset of longest
 import { settings } from './settings';
