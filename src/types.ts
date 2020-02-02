@@ -1,12 +1,14 @@
-// TODO: how to handle indefinite tuples???
-
 /**
- * Returns the longer of the two tuples.
+ * Returns the longer of the two tuples.  Indefinite tuples will always be considered longest.
  */
 type _Longest<T1 extends any[], T2 extends any[]> =
-	Exclude<keyof T1, keyof T2> extends never
-		? T2
-		: T1;
+	any[] extends T1
+		? T1
+		: any[] extends T2
+			? T2
+			: Exclude<keyof T1, keyof T2> extends never
+				? T2
+				: T1;
 
 /**
  * Returns the longest of up to 10 different tuples.
