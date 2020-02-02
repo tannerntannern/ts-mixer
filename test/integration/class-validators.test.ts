@@ -19,7 +19,7 @@ describe('gh-issue #15', () => {
 
 		class ExtendedObject extends Mixin(Disposable, Statusable) {}
 
-		it('should inherit class-validators properly', async () => {
+		xit('should inherit class-validators properly', async () => {
 			const extendedObject = new ExtendedObject();
 
 			const errors = await validate(extendedObject);
