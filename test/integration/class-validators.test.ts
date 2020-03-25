@@ -3,23 +3,23 @@ import { expect } from 'chai';
 import { forEachSettings } from '../util';
 
 import { IsBoolean, IsIn, validate } from 'class-validator';
-import { Mixin } from '../../src';
+import { Mixin, decorate } from '../../src';
 
 describe('gh-issue #15', () => {
 	forEachSettings(() => {
 		class Disposable {
-			@IsBoolean()
+			@decorate(IsBoolean())
 			isDisposed: boolean = false;
 		}
 
 		class Statusable {
-			@IsIn(['bound', 'open'])
+			@decorate(IsIn(['bound', 'open']))
 			status: string = 'test';
 		}
 
 		class ExtendedObject extends Mixin(Disposable, Statusable) {}
 
-		xit('should inherit class-validators properly', async () => {
+		it('should inherit class-validators properly', async () => {
 			const extendedObject = new ExtendedObject();
 
 			const errors = await validate(extendedObject);

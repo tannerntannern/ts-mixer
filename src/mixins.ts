@@ -5,6 +5,7 @@ import { proxyMix } from './proxy';
 import { Class, Longest } from './types'; // TODO: need something more than just Longest: also forces all to be subset of longest
 import { settings } from './settings';
 import { copyProps, hardMixProtos, softMixProtos } from './util';
+import {decorators, PropertyAndMethodDecorators} from './decorator';
 
 function Mixin<
 	A extends any[], I1, S1
@@ -215,8 +216,39 @@ function Mixin(...constructors: Class[]) {
 			: proxyMix(constructors, Function.prototype)
 	);
 
-	return MixedClass as any;
+	let DecoratedMixedClass: any = MixedClass;
+	for (let constructor of constructors) {
+		const classDecorators = decorators.get(constructor);
+		if (classDecorators) {
+			if (classDecorators.class)
+				for (let decorator of classDecorators.class)
+					DecoratedMixedClass = decorator(DecoratedMixedClass);
+
+			if (classDecorators.static)
+				applyPropAndMethodDecorators(classDecorators.static, DecoratedMixedClass);
+
+			if (classDecorators.instance)
+				applyPropAndMethodDecorators(classDecorators.instance, DecoratedMixedClass.prototype);
+		}
+	}
+
+	return DecoratedMixedClass;
 }
+
+const applyPropAndMethodDecorators = (propAndMethodDecorators: PropertyAndMethodDecorators, target: Object) => {
+	const propDecorators = propAndMethodDecorators.property;
+	const methodDecorators = propAndMethodDecorators.method;
+
+	if (propDecorators)
+		for (let key in propDecorators)
+			for (let decorator of propDecorators[key])
+				decorator(target, key);
+
+	if (methodDecorators)
+		for (let key in methodDecorators)
+			for (let decorator of methodDecorators[key])
+				decorator(target, key, Object.getOwnPropertyDescriptor(target, key));
+};
 
 /**
  * A decorator version of the `Mixin` function.  You'll want to use this instead of `Mixin` for mixing generic classes.

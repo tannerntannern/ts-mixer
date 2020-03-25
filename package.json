@@ -22,6 +22,7 @@
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.3",
+    "@types/sinon": "^7.5.2",
     "@typescript-eslint/parser": "^2.25.0",
     "chai": "^4.2.0",
     "class-validator": "^0.11.0",
@@ -31,6 +32,7 @@
     "mocha": "^7.1.1",
     "nyc": "14.1.1",
     "rimraf": "^3.0.2",
+    "sinon": "^9.0.1",
     "standard-version": "^7.1.0",
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
