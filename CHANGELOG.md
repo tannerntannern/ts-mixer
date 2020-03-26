@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v5.0.0...v5.1.0-beta.0) (2020-03-26)
+
+
+### Features
+
+* decorator support for class-validators, typeORM, etc ([2c14812](https://github.com/tannerntannern/ts-mixer/commit/2c1481237b325916ca95dbb9e33141b3220f8068))
+
 ## [5.0.0](https://github.com/tannerntannern/ts-mixer/compare/v5.0.0-beta.0...v5.0.0) (2020-03-01)
 
 ## [5.0.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v4.0.0...v5.0.0-beta.0) (2020-02-02)
