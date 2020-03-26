@@ -20,14 +20,16 @@ My fruitless search has led me to believe that there is no perfect solution with
 * can mix classes that extend other classes
 * can mix abstract classes (with caveats)
 * can mix generic classes (with caveats)
+* supports class, method, and property decorators (with caveats)
 * proper constructor argument typing (with caveats)
 * proper handling of protected/private properties
 * proper handling of static properties
 * [multiple options](#settings) for mixing (ES6 proxies vs copying properties)
 
 #### Caveats
-* Mixing abstract classes requires a bit of a hack that may break in future versions of TypeScript.  See [dealing with abstract classes](#dealing-with-abstract-classes) below.
-* Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [dealing with generics](#dealing-with-generics) below.
+* Mixing abstract classes requires a bit of a hack that may break in future versions of TypeScript.  See [dealing with abstract classes](#mixing-abstract-classes) below.
+* Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [dealing with generics](#mixing-generics) below.
+* Using decorators in mixed classes also requires a more cumbersome notation.  See [dealing with decorators](#mixing-with-decorators) below.
 * ES6 made it impossible to use `.apply(...)` on class constructors, which means the only way to mix instance properties is to instantiate all the base classes, then copy the properties over to a new object.  This means that (beyond initializing properties on `this`), constructors cannot have [side-effects](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29) involving `this`, or you will get unexpected results.  Note that constructors need not be _completey_ side-effect free; just when dealing with `this`.
 
 ## Non-features
@@ -141,6 +143,24 @@ Key takeaways from this example:
 * `interface FooBar<T1, T2> extends Foo<T1>, Bar<T2> { }` makes sure `FooBar` has the typing we want, thanks to declaration merging
 * `@mix(Foo, Bar)` wires things up "on the JavaScript side", since the interface declaration has nothing to do with runtime behavior.
 * The reason we have to use the `mix` decorator is that the typing produced by `Mixin(Foo, Bar)` would conflict with the typing of the interface.  `mix` has no effect "on the TypeScript side," thus avoiding type conflicts.
+
+### Mixing with Decorators
+Popular libraries such as [class-validator](https://github.com/typestack/class-validator) and [TypeORM](https://github.com/typeorm/typeorm) use decorators to add functionality.  Unfortunately, `ts-mixer` has no way of knowing what these libraries do with the decorators behind the scenes.  So if you want these decorators to be "inherited" with classes you plan to mix, you first have to wrap them with a special `decorate` function export by `ts-mixer`.  Here's an example using `class-validator`:
+
+```typescript
+import { IsBoolean, IsIn } from 'class-validator';
+import { Mixin, decorate } from 'ts-mixer';
+
+class Disposable {
+    @decorate(IsBoolean())  // instead of @IsBoolean()
+    isDisposed: boolean = false;
+}
+
+class Statusable {
+    @decorate(IsIn(['red', 'green']))  // instead of @IsIn(['red', 'green'])
+    status: string = 'green';
+}
+```
 
 ## Settings
 ts-mixer has multiple strategies for mixing classes which can be configured by modifying `Settings` from ts-mixer.  For example:
