@@ -148,7 +148,7 @@ Key takeaways from this example:
 Popular libraries such as [class-validator](https://github.com/typestack/class-validator) and [TypeORM](https://github.com/typeorm/typeorm) use decorators to add functionality.  Unfortunately, `ts-mixer` has no way of knowing what these libraries do with the decorators behind the scenes.  So if you want these decorators to be "inherited" with classes you plan to mix, you first have to wrap them with a special `decorate` function export by `ts-mixer`.  Here's an example using `class-validator`:
 
 ```typescript
-import { IsBoolean, IsIn } from 'class-validator';
+import { IsBoolean, IsIn, validate } from 'class-validator';
 import { Mixin, decorate } from 'ts-mixer';
 
 class Disposable {
@@ -160,6 +160,15 @@ class Statusable {
     @decorate(IsIn(['red', 'green']))  // instead of @IsIn(['red', 'green'])
     status: string = 'green';
 }
+
+class ExtendedObject extends Mixin(Disposable, Statusable) {}
+
+const extendedObject = new ExtendedObject();
+extendedObject.status = 'blue';
+
+validate(extendedObject).then(errors => {
+    console.log(errors);
+});
 ```
 
 ## Settings
