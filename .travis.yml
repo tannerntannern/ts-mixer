@@ -18,6 +18,17 @@ script:
 after_success:
   - "[ $TRAVIS_NODE_VERSION == '12' ] && yarn coveralls"
 
+before_deploy: |
+  function npm_tag() {
+    CURRENT_VERSION=$(yarn info . version --silent)
+    PRERELEASE_TAG_REGEX="[0-9]+\.[0-9]+\.[0-9]+-([a-z]+)\.[0-9]+"
+    if [[ $CURRENT_VERSION =~ $PRERELEASE_TAG_REGEX ]]; then
+      echo "${BASH_REMATCH[1]}"
+    else
+      echo "latest"
+    fi
+  }
+
 deploy:
   skip_cleanup: true
   provider: npm
@@ -28,3 +39,4 @@ deploy:
     tags: true
     node: '12'
     repo: tannerntannern/ts-mixer
+  tag: $(npm_tag)
