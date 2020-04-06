@@ -145,7 +145,7 @@ Key takeaways from this example:
 * The reason we have to use the `mix` decorator is that the typing produced by `Mixin(Foo, Bar)` would conflict with the typing of the interface.  `mix` has no effect "on the TypeScript side," thus avoiding type conflicts.
 
 ### Mixing with Decorators
-Popular libraries such as [class-validator](https://github.com/typestack/class-validator) and [TypeORM](https://github.com/typeorm/typeorm) use decorators to add functionality.  Unfortunately, `ts-mixer` has no way of knowing what these libraries do with the decorators behind the scenes.  So if you want these decorators to be "inherited" with classes you plan to mix, you first have to wrap them with a special `decorate` function export by `ts-mixer`.  Here's an example using `class-validator`:
+Popular libraries such as [class-validator](https://github.com/typestack/class-validator) and [TypeORM](https://github.com/typeorm/typeorm) use decorators to add functionality.  Unfortunately, `ts-mixer` has no way of knowing what these libraries do with the decorators behind the scenes.  So if you want these decorators to be "inherited" with classes you plan to mix, you first have to wrap them with a special `decorate` function exported by `ts-mixer`.  Here's an example using `class-validator`:
 
 ```typescript
 import { IsBoolean, IsIn, validate } from 'class-validator';
@@ -172,27 +172,27 @@ validate(extendedObject).then(errors => {
 ```
 
 ## Settings
-ts-mixer has multiple strategies for mixing classes which can be configured by modifying `Settings` from ts-mixer.  For example:
+ts-mixer has multiple strategies for mixing classes which can be configured by modifying `settings` from ts-mixer.  For example:
 
 ```typescript
-import { Settings, Mixin } from 'ts-mixer';
+import { settings, Mixin } from 'ts-mixer';
 
-Settings.prototypeStrategy = 'proxy';
+settings.prototypeStrategy = 'proxy';
 
 // then use `Mixin` as normal...
 ```
 
-### `Settings.prototypeStrategy`
+### `settings.prototypeStrategy`
 * Determines how ts-mixer will mix class prototypes together
 * Possible values:
     - `'copy'` (default) - Copies all methods from the classes being mixed into a new prototype object.  (This will include all methods up the prototype chains as well.)  This is the default for ES5 compatibility, but it has the downside of stale references.  For example, if you mix `Foo` and `Bar` to make `FooBar`, then redefine a method on `Foo`, `FooBar` will not have the latest methods from `Foo`.  If this is not a concern for you, `'copy'` is the best value for this setting.
     - `'proxy'` - Uses an ES6 Proxy to "soft mix" prototypes.  Unlike `'copy'`, updates to the base classes _will_ be reflected in the mixed class, which may be desirable.  The downside is that method access is not as performant, nor is it ES5 compatible.
 
-### `Settings.staticsStrategy`
+### `settings.staticsStrategy`
 * Determines how static properties are inherited
 * Possible values:
-    - `'copy'` (default) - Simply copies all properties (minus `prototype`) from the base classes/constructor functions onto the mixed class.  Like `Settings.prototypeStrategy = 'copy'`, this strategy also suffers from stale references, but shouldn't be a concern if you don't redefine static methods after mixing.
-    - `'proxy'` - Similar to `Settings.prototypeStrategy`, proxy's static method access to base classes.  Has the same benefits/downsides.
+    - `'copy'` (default) - Simply copies all properties (minus `prototype`) from the base classes/constructor functions onto the mixed class.  Like `settings.prototypeStrategy = 'copy'`, this strategy also suffers from stale references, but shouldn't be a concern if you don't redefine static methods after mixing.
+    - `'proxy'` - Similar to `settings.prototypeStrategy`, proxy's static method access to base classes.  Has the same benefits/downsides.
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>
