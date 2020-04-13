@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v5.1.0...v5.2.0-beta.0) (2020-04-13)
+
+
+### Features
+
+* adds init func feature for impure constructors ([99a946b](https://github.com/tannerntannern/ts-mixer/commit/99a946b8e272773f6bafd7a7e8bf8313517dec16))
+
 ## [5.1.0](https://github.com/tannerntannern/ts-mixer/compare/v5.1.0-beta.0...v5.1.0) (2020-03-27)
 
 ## [5.1.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v5.0.0...v5.1.0-beta.0) (2020-03-26)
