@@ -1,11 +1,8 @@
-// TODO: optional init function support
-// TODO: class-validators support
-
 import { proxyMix } from './proxy';
 import { Class, Longest } from './types'; // TODO: need something more than just Longest: also forces all to be subset of longest
 import { settings } from './settings';
 import { copyProps, hardMixProtos, softMixProtos } from './util';
-import {decorators, PropertyAndMethodDecorators} from './decorator';
+import { decorators, PropertyAndMethodDecorators } from './decorator';
 
 function Mixin<
 	A extends any[], I1, S1
@@ -200,9 +197,17 @@ function Mixin<
 function Mixin(...constructors: Class[]) {
 	const prototypes = constructors.map(constructor => constructor.prototype);
 
+	// NOTE: we save the init function name here because MixedClass could be called with different settings than Mixin
+	const initFunctionName = settings.initFunction;
+
 	function MixedClass(...args) {
 		for (const constructor of constructors)
 			copyProps(this, new constructor(...args));
+
+		if (initFunctionName !== null)
+			for (const constructor of constructors)
+				if (typeof constructor.prototype[initFunctionName] === 'function')
+					constructor.prototype[initFunctionName].apply(this, args);
 	}
 
 	MixedClass.prototype = settings.prototypeStrategy === 'copy'

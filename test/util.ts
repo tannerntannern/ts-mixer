@@ -2,17 +2,20 @@ import 'mocha';
 import { settings, Settings } from '../src/settings';
 
 export const forEachSettings = (runTests: () => void) => {
-	const options: Settings[] = [
+	const options: Partial<Settings>[] = [
 		{ staticsStrategy: 'copy', prototypeStrategy: 'copy' },
 		{ staticsStrategy: 'copy', prototypeStrategy: 'proxy' },
 		{ staticsStrategy: 'proxy', prototypeStrategy: 'copy' },
 		{ staticsStrategy: 'proxy', prototypeStrategy: 'proxy' },
 	];
 
-	options.forEach(runSettings => {
-		Object.assign(settings, runSettings);
-		describe(`Settings: { protoStrategy: ${settings.prototypeStrategy}, staticStrategy: ${settings.staticsStrategy} }`, () => {
+	for (let runSettings of options) {
+		describe(`Settings: { proto: ${runSettings.prototypeStrategy}, static: ${runSettings.staticsStrategy} }`, () => {
+			beforeEach(() => {
+				Object.assign(settings, runSettings);
+			});
+
 			runTests();
-		})
-	});
+		});
+	}
 };
