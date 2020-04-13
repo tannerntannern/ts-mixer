@@ -5,38 +5,35 @@
 [![Minified Size](https://badgen.net/bundlephobia/min/ts-mixer)](https://bundlephobia.com/result?p=ts-mixer)
 [![Conventional Commits](https://badgen.net/badge/conventional%20commits/1.0.0/yellow)](https://conventionalcommits.org)
 
-### What is it?
-`ts-mixer` is a lightweight package that brings mixins to TypeScript.  Mixins in JavaScript are easy, but TypeScript introduces complications.  `ts-mixer` deals with these complications for you and infers all of the intelligent typing you'd expect, including instance properties, methods, static properties, **generics**, and more.
+## Overview
+`ts-mixer` brings mixins to TypeScript.  "Mixins" to `ts-mixer` are just classes, so you already know how to write them, and you can probably mix classes from your favorite library without trouble.
+
+The mixin problem is more nuanced than it appears.  I've seen countless code snippets that work for certain situations, but fails in others.  `ts-mixer` tries to take the best from all these solutions while accounting for all the situations you might not have considered.
 
 [Quick start guide](#quick-start)
 
-### Why another Mixin implementation? 
-It seems that no one has been able to implement TypeScript mixins gracefully.  Mixins as described by the [TypeScript docs](https://www.typescriptlang.org/docs/handbook/mixins.html) are far less than ideal.  Countless online threads feature half-working snippets, each one interesting but lacking in its own way.
+### Features
+* mixes plain classes
+* mixes classes that extend other classes
+* supports static properties
+* supports protected/private properties (the popular function-that-returns-a-class solution does not)
+* mixes abstract classes (with caveats [[1](#caveats)])
+* mixes generic classes (with caveats [[2](#caveats)])
+* supports class, method, and property decorators (with caveats [[3](#caveats)])
+* mostly supports the complexity presented by constructor functions (with caveats [[4](#caveats)])
+* [multiple mixing strategies](#settings) (ES6 proxies vs hard copy)
 
-My fruitless search has led me to believe that there is no perfect solution with the current state of TypeScript.  Instead, I present a "tolerable" solution that attempts to take the best from the many different implementations while mitigating their flaws as much as possible.
+### Caveats
+1. Mixing abstract classes requires a bit of a hack that may break in future versions of TypeScript.  See [mixing abstract classes](#mixing-abstract-classes) below.
+2. Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [mixing generic classes](#mixing-generic-classes) below.
+3. Using decorators in mixed classes also requires a more cumbersome notation.  See [mixing with decorators](#mixing-with-decorators) below.
+4. ES6 made it impossible to use `.apply(...)` on class constructors (or any means of calling them without `new`), which makes it impossible for `ts-mixer` to pass the proper `this` to your constructors.  This may or may not be an issue for your code, but there are options to work around it.  See [dealing with constructors](#dealing-with-constructors) below.
 
-## Features
-* can mix plain classes
-* can mix classes that extend other classes
-* can mix abstract classes (with caveats)
-* can mix generic classes (with caveats)
-* supports class, method, and property decorators (with caveats)
-* proper constructor argument typing (with caveats)
-* proper handling of protected/private properties
-* proper handling of static properties
-* [multiple options](#settings) for mixing (ES6 proxies vs copying properties)
-
-#### Caveats
-* Mixing abstract classes requires a bit of a hack that may break in future versions of TypeScript.  See [dealing with abstract classes](#mixing-abstract-classes) below.
-* Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [dealing with generics](#mixing-generics) below.
-* Using decorators in mixed classes also requires a more cumbersome notation.  See [dealing with decorators](#mixing-with-decorators) below.
-* ES6 made it impossible to use `.apply(...)` on class constructors, which means the only way to mix instance properties is to instantiate all the base classes, then copy the properties over to a new object.  This means that (beyond initializing properties on `this`), constructors cannot have [side-effects](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29) involving `this`, or you will get unexpected results.  Note that constructors need not be _completey_ side-effect free; just when dealing with `this`.
-
-## Non-features
+### Non-features
 * `instanceof` support.  Difficult to implement, and not hard to work around (if even needed at all).
 
-# Quick Start
-## Installation
+## Quick Start
+### Installation
 ```
 $ npm install ts-mixer
 ```
@@ -47,8 +44,7 @@ or if you prefer [Yarn](https://yarnpkg.com):
 $ yarn add ts-mixer
 ```
 
-## Examples
-### Minimal Example
+### Basic Example
 ```typescript
 import { Mixin } from 'ts-mixer';
 
@@ -75,8 +71,7 @@ const fooBar = new FooBar();
 console.log(fooBar.makeFooBar());  // "foobar"
 ```
 
-[Play with this example](https://www.typescriptlang.org/play/index.html?ssl=1&ssc=1&pln=4&pc=2#code/JYWwDg9gTgLgBAbzgWWAD2AOzgXzgMyghDgHIYBnAWhHQFMpSBuAKBYGMAbAQworgBiECIhZxxcMERh12MgCZwQ3ANZ0hEABQBKURP1wodGAFco2UvmHMxEnC3scefOACFuUPRKkQZcuorKau5QOl4GhsZmFgBGHjb69o5cvPwaIXB0aDKY8vyoGJiaGgA0bh66CLbiYCYxnMDsSqrqwiFhVRHiRqbmcDAAFsAUAHRBrVq6ANT9Q6Pj7dqsiQ5s7BCYFPBWEBkAvHCYdADugm0eOqwcGxQQnHQjnBAA5po7IWMt6RfaS+IA9P84AAiHZxKDAoA)
-
+## Special Cases
 ### Mixing Abstract Classes
 Abstract classes, by definition, cannot be constructed, which means they cannot take on the type, `new(...args) => any`, and by extension, are incompatible with `ts-mixer`.  BUT, you can "trick" TypeScript into giving you all the benefits of an abstract class without making it technically abstract.  The trick is just some strategic `// @ts-ignore`'s:
 
@@ -104,12 +99,10 @@ class FooBar extends Mixin(Foo, Bar) {
 }
 ```
 
-[Play with this example](https://www.typescriptlang.org/play/index.html#code/JYWwDg9gTgLgBAbzgWWAD2AOzgXzgMyghDgHIYBnAWhHQFMpSBuAKBYHp25MIY64YACwCG8AGIQIcYBW684IYVADWdACZxhs4dmEAjCjCjCAxvBMAbLRRaXrcCVIQs4ruJzgABSlWABzHig6AC44ACIAQQMjU3gQOiEINVkTHTgITAsAT00wMDolOAB3YCEsTV1o4zM4OwoKMJc3MABXPQtgE00q2IVhVUcACgBKUMMoLD9WHDY62QAhQuc3OFb2zr7VRagRxCaV1yCYFqhsUj0lZn3cFhnbK3qHSW24OjQ+TGSUdCxBxwAaODbYZ7FYeIr8QzACwWOB+BKaGECQT8PR0TB0fClWQQfDdca9OZ0WQooKAtGpFoUfgAFSy+QAyiYJmAYNdwdDYVCkSZiGArOVgHiyrJ4okNDJMORpOALHR4pg+GprmsOl1FANJLtlgdDgkTmd8JIrisZjMgA)
-
 Do note that while this does work quite well, it is a bit of a hack and I can't promise that it will continue to work in future TypeScript versions.
 
 ### Mixing Generic Classes
-Frustratingly, it is _impossible_ for generic parameters to be referenced in base class expressions.  No matter how you try to slice it, you will eventually run into `Base class expressions cannot reference class type parameters.`
+Frustratingly, it is _impossible_ for generic parameters to be referenced in base class expressions.  No matter what, you will eventually run into `Base class expressions cannot reference class type parameters.`
 
 The way to get around this is to leverage [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html), and a slightly different mixing function from ts-mixer: `mix`.  It works exactly like `Mixin`, except it's a decorator, which means it doesn't affect the type information of the class being decorated.  See it in action below:
 
@@ -136,8 +129,6 @@ class FooBar<T1, T2> {
     }
 }
 ```
-
-[Play with this example](https://www.typescriptlang.org/play/index.html?experimentalDecorators=true&ssl=1&ssc=1&pln=22&pc=1#code/JYWwDg9gTgLgBAbziYAPOBfOAzKERwDkMAzgLQqoCmUhA3AFAMDGANgIYklwBiEEAHgAqAPkQM4kuGACuAI1bBmOfgFkqMABYQAJgApgAO1kwAXHCEBKc0PFT7cKBplRDcIycb2MDHyw5ccABC7FDCYggSUrIKSnByoepaugbGMmYW1hZ2DpJOMC5uHuleUj5+RjA02OzMVLz8IWFCAIwANBYATGJUqFWGOtx8gq0iHU3C3YiYDAAClHrD46GW-pxDjaHC7V0RUZIxisrYm1BJ2vrFMC02O1edNp2WObn5hXAA2lrAJAB0JxBzikri1LB1vn8EmcNBdUiYngBdUqScoMIA)
 
 Key takeaways from this example:
 * `interface FooBar<T1, T2> extends Foo<T1>, Bar<T2> { }` makes sure `FooBar` has the typing we want, thanks to declaration merging
@@ -171,6 +162,57 @@ validate(extendedObject).then(errors => {
 });
 ```
 
+### Dealing with Constructors
+As mentioned in the [caveats section](#caveats), ES6 disallowed calling constructor functions without `new`.  This means that the only way for `ts-mixer` to mix instance properties is to instantiate each base class separately, then copy the instance properties into a common object.  The consequence of this is that constructors mixed by `ts-mixer` will _not_ receive the proper `this`.
+
+**This very well may not be an issue for you!**  It only means that your constructors need to be "mostly pure" in terms of how they handle `this`.  Specifically, your constructors cannot produce [side effects](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29) involving `this`, _other than adding properties to `this`_ (the most common side effect in JavaScript constructors).
+
+If you simply cannot eliminate `this` side effects from your constructor, there is a workaround available:  `ts-mixer` will automatically forward constructor parameters to a predesignated init function (`settings.initFunction`) if it's present on the class.  Unlike constructors, functions can be called with an arbitrary `this`, so this predesignated init function _will_ have the proper `this`.  Here's a basic example:
+
+```typescript
+import { Mixin, settings } from 'ts-mixer';
+
+settings.initFunction = 'init';
+
+class Person {
+    public static allPeople: Set<Person> = new Set();
+    
+    protected init() {
+        Person.allPeople.add(this);
+    }
+}
+
+type PartyAffiliation = 'democrat' | 'republican';
+
+class PoliticalParticipant {
+    public static democrats: Set<PoliticalParticipant> = new Set();
+    public static republicans: Set<PoliticalParticipant> = new Set();
+    
+    public party: PartyAffiliation;
+    
+    // note that these same args will also be passed to init function
+    public constructor(party: PartyAffiliation) {
+        this.party = party;
+    }
+    
+    protected init(party: PartyAffiliation) {
+        if (party === 'democrat')
+            PoliticalParticipant.democrats.add(this);
+        else
+            PoliticalParticipant.republicans.add(this);
+    }
+}
+
+class Voter extends Mixin(Person, PoliticalParticipant) {}
+
+const v1 = new Voter('democrat');
+const v2 = new Voter('democrat');
+const v3 = new Voter('republican');
+const v4 = new Voter('republican');
+```
+
+Note the above `.add(this)` statements.  These would not work as expected if they were placed in the constructor instead, since `this` is not the same between the constructor and `init`, as explained above.
+
 ## Settings
 ts-mixer has multiple strategies for mixing classes which can be configured by modifying `settings` from ts-mixer.  For example:
 
@@ -193,6 +235,13 @@ settings.prototypeStrategy = 'proxy';
 * Possible values:
     - `'copy'` (default) - Simply copies all properties (minus `prototype`) from the base classes/constructor functions onto the mixed class.  Like `settings.prototypeStrategy = 'copy'`, this strategy also suffers from stale references, but shouldn't be a concern if you don't redefine static methods after mixing.
     - `'proxy'` - Similar to `settings.prototypeStrategy`, proxy's static method access to base classes.  Has the same benefits/downsides.
+
+### `settings.initFunction`
+* If set, `ts-mixer` will automatically call the function with this name upon construction
+* Possible values:
+    - `null` (default) - disables the behavior
+    - a string - function name to call upon construction
+* Read more about why you would want this in [dealing with constructors](#dealing-with-constructors)
 
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>

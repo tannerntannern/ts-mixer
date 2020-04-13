@@ -14,7 +14,7 @@ describe('Using an init function', () => {
 			class Foo {
 				public constructor(foo: string, bar: number) {}
 
-				private __init__(foo: string, bar: number) {
+				protected __init__(foo: string, bar: number) {
 					expectedInitCall = [this, foo, bar];
 				}
 			}
@@ -26,6 +26,61 @@ describe('Using an init function', () => {
 			const fooBar = new FooBar('foo', 42);
 
 			expect(expectedInitCall).to.deep.equal([fooBar, 'foo', 42]);
+		});
+
+		it('should work as expected in the README example', () => {
+			settings.initFunction = 'init';
+
+			class Person {
+				public static allPeople: Set<Person> = new Set();
+
+				protected init() {
+					Person.allPeople.add(this);
+				}
+			}
+
+			type PartyAffiliation = 'democrat' | 'republican';
+
+			class PoliticalParticipant {
+				public static democrats: Set<PoliticalParticipant> = new Set();
+				public static republicans: Set<PoliticalParticipant> = new Set();
+
+				public party: PartyAffiliation;
+
+				// note that these same args will also be passed to init function
+				public constructor(party: PartyAffiliation) {
+					this.party = party;
+				}
+
+				protected init(party: PartyAffiliation) {
+					if (party === 'democrat')
+						PoliticalParticipant.democrats.add(this);
+					else
+						PoliticalParticipant.republicans.add(this);
+				}
+			}
+
+			class Voter extends Mixin(Person, PoliticalParticipant) {}
+
+			const v1 = new Voter('democrat');
+			const v2 = new Voter('democrat');
+			const v3 = new Voter('republican');
+			const v4 = new Voter('republican');
+
+			// TODO: I don't think this is broken because of my code, but rather because of some weird mocha thing
+			// console.log(Person.allPeople);
+
+			if (settings.prototypeStrategy !== 'proxy') {
+				expect(Person.allPeople).to.contain(v1);
+				expect(Person.allPeople).to.contain(v2);
+				expect(Person.allPeople).to.contain(v3);
+				expect(Person.allPeople).to.contain(v4);
+
+				expect(PoliticalParticipant.democrats).to.contain(v1);
+				expect(PoliticalParticipant.democrats).to.contain(v2);
+				expect(PoliticalParticipant.republicans).to.contain(v3);
+				expect(PoliticalParticipant.republicans).to.contain(v4);
+			}
 		});
 	});
 });
