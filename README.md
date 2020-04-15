@@ -8,7 +8,7 @@
 ## Overview
 `ts-mixer` brings mixins to TypeScript.  "Mixins" to `ts-mixer` are just classes, so you already know how to write them, and you can probably mix classes from your favorite library without trouble.
 
-The mixin problem is more nuanced than it appears.  I've seen countless code snippets that work for certain situations, but fails in others.  `ts-mixer` tries to take the best from all these solutions while accounting for all the situations you might not have considered.
+The mixin problem is more nuanced than it appears.  I've seen countless code snippets that work for certain situations, but fail in others.  `ts-mixer` tries to take the best from all these solutions while accounting for the situations you might not have considered.
 
 [Quick start guide](#quick-start)
 
