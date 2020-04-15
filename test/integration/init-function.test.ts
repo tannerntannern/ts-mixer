@@ -82,5 +82,59 @@ describe('Using an init function', () => {
 				expect(PoliticalParticipant.republicans).to.contain(v4);
 			}
 		});
+
+		it('should work with multiple layers of inheritance', () => {
+			settings.initFunction = 'init';
+
+			abstract class ClassA {
+				public name;
+				protected init() {
+					this.name = this.constructor.name;
+				}
+			}
+
+			class ClassB extends ClassA {
+				public name1;
+				protected init() {
+					super.init();
+					this.name1 = this.name + 1;
+				}
+			}
+
+			class ClassC extends ClassA {
+				public name2;
+				protected init() {
+					super.init();
+					this.name2 = this.name + 2;
+				}
+			}
+
+			class ClassD extends ClassA {
+				public name3;
+				protected init() {
+					super.init();
+					this.name3 = this.name + 3;
+				}
+			}
+
+			class ClassE extends Mixin(ClassB, ClassC) {}
+			class ClassF extends Mixin(ClassD, ClassE) {}
+
+			const e = new ClassE();
+			const f = new ClassF();
+
+			expect(e).to.deep.equal({
+				name: 'ClassE',
+				name1: 'ClassE1',
+				name2: 'ClassE2',
+			});
+
+			expect(f).to.deep.equal({
+				name: 'ClassF',
+				name1: 'ClassF1',
+				name2: 'ClassF2',
+				name3: 'ClassF3',
+			});
+		});
 	});
 });

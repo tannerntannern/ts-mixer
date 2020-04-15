@@ -61,8 +61,13 @@ export const proxyMix = (ingredients: any[], prototype = Object.prototype) => ne
 	get(_, prop) {
 		return (getIngredientWithProp(prop, ingredients) || prototype)[prop];
 	},
-	set() {
-		throw new Error('Cannot set properties on Proxies created by ts-mixer');
+	set(_, prop, val) {
+		const ingredientWithProp = getIngredientWithProp(prop, ingredients);
+		if (ingredientWithProp === undefined)
+			throw new Error('Cannot set new properties on Proxies created by ts-mixer');
+
+		ingredientWithProp[prop] = val;
+		return true;
 	},
 	deleteProperty() {
 		throw new Error('Cannot delete properties on Proxies created by ts-mixer');
