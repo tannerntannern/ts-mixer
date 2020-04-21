@@ -12,15 +12,16 @@ install:
   - yarn install --ignore-engines
 
 script:
+  - echo $(npm_tag)
   - yarn lint
   - yarn test
   - yarn build-clean
 after_success:
   - "[ $TRAVIS_NODE_VERSION == '12' ] && yarn coveralls"
 
-before_deploy: |
+before_script: |
   function npm_tag() {
-    CURRENT_VERSION=$(yarn info . version --silent)
+    CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
     PRERELEASE_TAG_REGEX="[0-9]+\.[0-9]+\.[0-9]+-([a-z]+)\.[0-9]+"
     if [[ $CURRENT_VERSION =~ $PRERELEASE_TAG_REGEX ]]; then
       echo "${BASH_REMATCH[1]}"
@@ -39,4 +40,5 @@ deploy:
     tags: true
     node: '12'
     repo: tannerntannern/ts-mixer
+  # TODO: this isn't working
   tag: $(npm_tag)
