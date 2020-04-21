@@ -12,14 +12,13 @@ install:
   - yarn install --ignore-engines
 
 script:
-  - echo $(npm_tag)
   - yarn lint
   - yarn test
   - yarn build-clean
 after_success:
   - "[ $TRAVIS_NODE_VERSION == '12' ] && yarn coveralls"
 
-before_script: |
+before_deploy: |
   function npm_tag() {
     CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
     PRERELEASE_TAG_REGEX="[0-9]+\.[0-9]+\.[0-9]+-([a-z]+)\.[0-9]+"
@@ -40,5 +39,4 @@ deploy:
     tags: true
     node: '12'
     repo: tannerntannern/ts-mixer
-  # TODO: this isn't working
   tag: $(npm_tag)
