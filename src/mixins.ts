@@ -197,17 +197,28 @@ function Mixin<
 function Mixin(...constructors: Class[]) {
 	const prototypes = constructors.map(constructor => constructor.prototype);
 
-	// NOTE: we save the init function name here because MixedClass could be called with different settings than Mixin
 	const initFunctionName = settings.initFunction;
+	if (initFunctionName !== null) {
+		const initFunctions: Function[] = prototypes
+			.map(proto => proto[initFunctionName])
+			.filter(func => typeof func === 'function');
+
+		const combinedInitFunction = function(...args) {
+			for (let initFunction of initFunctions)
+				initFunction.apply(this, args);
+		};
+
+		const extraProto = { [initFunctionName]: combinedInitFunction };
+
+		prototypes.push(extraProto);
+	}
 
 	function MixedClass(...args) {
 		for (const constructor of constructors)
 			copyProps(this, new constructor(...args));
 
-		if (initFunctionName !== null)
-			for (const constructor of constructors)
-				if (typeof constructor.prototype[initFunctionName] === 'function')
-					constructor.prototype[initFunctionName].apply(this, args);
+		if (initFunctionName !== null && typeof this[initFunctionName] === 'function')
+			this[initFunctionName].apply(this, args);
 	}
 
 	MixedClass.prototype = settings.prototypeStrategy === 'copy'

@@ -83,58 +83,37 @@ describe('Using an init function', () => {
 			}
 		});
 
-		it('should work with multiple layers of inheritance', () => {
+		it('should receive proper `this` in the Mixin(A, Mixin(B, C)) scenario', () => {
 			settings.initFunction = 'init';
 
-			abstract class ClassA {
-				public name;
+			class ClassA {
+				public initContextA = null;
 				protected init() {
-					this.name = this.constructor.name;
+					this.initContextA = this;
 				}
 			}
 
-			class ClassB extends ClassA {
-				public name1;
+			class ClassB {
+				public initContextB = null;
 				protected init() {
-					super.init();
-					this.name1 = this.name + 1;
+					this.initContextB = this;
 				}
 			}
 
-			class ClassC extends ClassA {
-				public name2;
+			class ClassC {
+				public initContextC = null;
 				protected init() {
-					super.init();
-					this.name2 = this.name + 2;
+					this.initContextC = this;
 				}
 			}
 
-			class ClassD extends ClassA {
-				public name3;
-				protected init() {
-					super.init();
-					this.name3 = this.name + 3;
-				}
-			}
+			class ClassD extends Mixin(ClassA, Mixin(ClassB, ClassC)) {}
 
-			class ClassE extends Mixin(ClassB, ClassC) {}
-			class ClassF extends Mixin(ClassD, ClassE) {}
+			const d = new ClassD();
 
-			const e = new ClassE();
-			const f = new ClassF();
-
-			expect(e).to.deep.equal({
-				name: 'ClassE',
-				name1: 'ClassE1',
-				name2: 'ClassE2',
-			});
-
-			expect(f).to.deep.equal({
-				name: 'ClassF',
-				name1: 'ClassF1',
-				name2: 'ClassF2',
-				name3: 'ClassF3',
-			});
+			expect(d.initContextA).to.equal(d);
+			expect(d.initContextB).to.equal(d);
+			expect(d.initContextC).to.equal(d);
 		});
 	});
 });
