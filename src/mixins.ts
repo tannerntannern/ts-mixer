@@ -197,6 +197,9 @@ function Mixin<
 function Mixin(...constructors: Class[]) {
 	const prototypes = constructors.map(constructor => constructor.prototype);
 
+	// Here we gather up the init functions of the ingredient prototypes, combine them into one init function, and
+	// attach it to the mixed class prototype.  The reason we do this is because we want the init functions to mix
+	// similarly to constructors -- not methods, which simply override each other.
 	const initFunctionName = settings.initFunction;
 	if (initFunctionName !== null) {
 		const initFunctions: Function[] = prototypes
