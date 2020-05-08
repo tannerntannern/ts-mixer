@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.1](https://github.com/tannerntannern/ts-mixer/compare/v5.2.0...v5.2.1) (2020-05-08)
+
+
+### Bug Fixes
+
+* mix decorator not preserving constructor name ([7274fa2](https://github.com/tannerntannern/ts-mixer/commit/7274fa26a68e05cc59cde1108610e6a1ab51b430))
+
 ## [5.2.0](https://github.com/tannerntannern/ts-mixer/compare/v5.2.0-beta.1...v5.2.0) (2020-04-29)
 
 ## [5.2.0-beta.1](https://github.com/tannerntannern/ts-mixer/compare/v5.2.0-beta.0...v5.2.0-beta.1) (2020-04-23)
