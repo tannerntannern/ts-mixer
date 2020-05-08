@@ -273,7 +273,16 @@ const applyPropAndMethodDecorators = (propAndMethodDecorators: PropertyAndMethod
  * A decorator version of the `Mixin` function.  You'll want to use this instead of `Mixin` for mixing generic classes.
  */
 const mix = (...ingredients: Class[]) =>
-	// @ts-ignore
-	decoratedClass => Mixin(...(ingredients.concat([decoratedClass])));
+	decoratedClass => {
+		// @ts-ignore
+		const mixedClass = Mixin(...ingredients.concat([decoratedClass]));
+
+		Object.defineProperty(mixedClass, 'name', {
+			value: decoratedClass.name,
+			writable: false,
+		});
+
+		return mixedClass;
+	};
 
 export { Mixin, mix };
