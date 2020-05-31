@@ -3,6 +3,7 @@ import { Class, Longest } from './types'; // TODO: need something more than just
 import { settings } from './settings';
 import { copyProps, hardMixProtos, softMixProtos } from './util';
 import { decorators, PropertyAndMethodDecorators } from './decorator';
+import { registerMixins } from './mixin-tracking';
 
 function Mixin<
 	A extends any[], I1, S1
@@ -250,6 +251,8 @@ function Mixin(...constructors: Class[]) {
 				applyPropAndMethodDecorators(classDecorators.instance, DecoratedMixedClass.prototype);
 		}
 	}
+
+	registerMixins(DecoratedMixedClass, constructors);
 
 	return DecoratedMixedClass;
 }
