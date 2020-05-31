@@ -15,12 +15,14 @@ The mixin problem is more nuanced than it appears.  I've seen countless code sni
 ### Features
 * mixes plain classes
 * mixes classes that extend other classes
+* mixes classes that were mixed with `ts-mixer`
 * supports static properties
 * supports protected/private properties (the popular function-that-returns-a-class solution does not)
 * mixes abstract classes (with caveats [[1](#caveats)])
 * mixes generic classes (with caveats [[2](#caveats)])
-* supports class, method, and property decorators (with caveats [[3](#caveats)])
+* supports class, method, and property decorators (with caveats [[3, 6](#caveats)])
 * mostly supports the complexity presented by constructor functions (with caveats [[4](#caveats)])
+* comes with an `instanceof`-like replacement (with caveats [[5, 6](#caveats)])
 * [multiple mixing strategies](#settings) (ES6 proxies vs hard copy)
 
 ### Caveats
@@ -28,9 +30,8 @@ The mixin problem is more nuanced than it appears.  I've seen countless code sni
 2. Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [mixing generic classes](#mixing-generic-classes) below.
 3. Using decorators in mixed classes also requires a more cumbersome notation.  See [mixing with decorators](#mixing-with-decorators) below.
 4. ES6 made it impossible to use `.apply(...)` on class constructors (or any means of calling them without `new`), which makes it impossible for `ts-mixer` to pass the proper `this` to your constructors.  This may or may not be an issue for your code, but there are options to work around it.  See [dealing with constructors](#dealing-with-constructors) below.
-
-### Non-features
-* `instanceof` support.  Difficult to implement, and not hard to work around (if even needed at all).
+5. `ts-mixer` does not support `instanceof` for mixins, but it does offer a replacement.  See the [hasMixin function](#hasmixin) for more details.
+6. Certain features (specifically, `@dectorator` and `hasMixin`) make use of ES6 `Map`s, which means you must either use ES6+ or polyfill `Map` to use them.  If you don't need these features, you should be fine without.
 
 ## Quick Start
 ### Installation
@@ -212,6 +213,44 @@ const v4 = new Voter('republican');
 ```
 
 Note the above `.add(this)` statements.  These would not work as expected if they were placed in the constructor instead, since `this` is not the same between the constructor and `init`, as explained above.
+
+## Other Features
+### hasMixin
+As mentioned above, `ts-mixer` does not support `instanceof` for mixins.  While it is possible to implement [custom `instanceof` behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/hasInstance), this library does not do so because it would require modifying the source classes, which is deliberately avoided.
+
+You can fill this missing functionality with `hasMixin(instance, mixinClass)` instead.  See the below example:
+
+```typescript
+import { Mixin, hasMixin } from 'ts-mixer';
+
+class Foo {}
+class Bar {}
+class FooBar extends Mixin(Foo, Bar) {}
+
+const instance = new FooBar();
+
+// doesn't work with instanceof...
+console.log(instance instanceof FooBar)  // true
+console.log(instance instanceof Foo)     // false
+console.log(instance instanceof Bar)     // false
+
+// but everything works nicely with hasMixin!
+console.log(hasMixin(instance, FooBar))  // true
+console.log(hasMixin(instance, Foo))     // true
+console.log(hasMixin(instance, Bar))     // true
+```
+
+`hasMixin(instance, mixinClass)` will work anywhere that `instance instanceof mixinClass` works.  Additionally, like `instanceof`, you get the same [type narrowing benefits](https://www.typescriptlang.org/docs/handbook/advanced-types.html#instanceof-type-guards):
+
+```typescript
+if (hasMixin(instance, Foo)) {
+    // inferred type of instance is "Foo"
+}
+
+if (hasMixin(instance, Bar)) {
+    // inferred type of instance of "Bar"
+}
+```
 
 ## Settings
 ts-mixer has multiple strategies for mixing classes which can be configured by modifying `settings` from ts-mixer.  For example:
