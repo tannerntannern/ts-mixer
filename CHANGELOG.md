@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v5.2.1...v5.3.0-beta.0) (2020-05-31)
+
+
+### Features
+
+* add hasMixin function ([#27](https://github.com/tannerntannern/ts-mixer/issues/27)) ([c8bfc2d](https://github.com/tannerntannern/ts-mixer/commit/c8bfc2d48854808755088332636e8d166007ed9f))
+
 ### [5.2.1](https://github.com/tannerntannern/ts-mixer/compare/v5.2.0...v5.2.1) (2020-05-08)
 
 
