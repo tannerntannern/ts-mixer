@@ -12,7 +12,9 @@ install:
   - yarn install --ignore-engines
 
 script:
-  - yarn lint
+  # NOTE: some eslint dependency update broke something for node 8.  It's really only important that the lint check
+  # passes *somewhere*, so I've disabled lint on node 8.
+  - "if [[ $TRAVIS_NODE_VERSION != '8' ]]; then yarn lint; fi"
   - yarn test
   - yarn build-clean
 after_success:
