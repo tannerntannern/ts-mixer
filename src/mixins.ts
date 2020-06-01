@@ -285,7 +285,7 @@ const mix = (...ingredients: Class[]) =>
 			writable: false,
 		});
 
-		return mixedClass;
+		return mixedClass as any;
 	};
 
 export { Mixin, mix };
