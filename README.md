@@ -31,7 +31,7 @@ The mixin problem is more nuanced than it appears.  I've seen countless code sni
 3. Using decorators in mixed classes also requires a more cumbersome notation.  See [mixing with decorators](#mixing-with-decorators) below.
 4. ES6 made it impossible to use `.apply(...)` on class constructors (or any means of calling them without `new`), which makes it impossible for `ts-mixer` to pass the proper `this` to your constructors.  This may or may not be an issue for your code, but there are options to work around it.  See [dealing with constructors](#dealing-with-constructors) below.
 5. `ts-mixer` does not support `instanceof` for mixins, but it does offer a replacement.  See the [hasMixin function](#hasmixin) for more details.
-6. Certain features (specifically, `@dectorator` and `hasMixin`) make use of ES6 `Map`s, which means you must either use ES6+ or polyfill `Map` to use them.  If you don't need these features, you should be fine without.
+6. Certain features (specifically, `@decorator` and `hasMixin`) make use of ES6 `Map`s, which means you must either use ES6+ or polyfill `Map` to use them.  If you don't need these features, you should be fine without.
 
 ## Quick Start
 ### Installation
