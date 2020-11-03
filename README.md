@@ -1,7 +1,10 @@
 # ts-mixer
-[![npm version](https://badgen.net/npm/v/ts-mixer)](https://npmjs.com/package/ts-mixer)
-[![Build Status](https://travis-ci.org/tannerntannern/ts-mixer.svg?branch=master)](https://travis-ci.org/tannerntannern/ts-mixer)
-[![Coverage Status](https://coveralls.io/repos/github/tannerntannern/ts-mixer/badge.svg?branch=master)](https://coveralls.io/github/tannerntannern/ts-mixer?branch=master)
+[version-badge]: https://badgen.net/npm/v/ts-mixer
+[version-link]: https://npmjs.com/package/ts-mixer
+[build-badge]: https://img.shields.io/github/workflow/status/tannerntannern/ts-mixer/ts-mixer%20CI
+[build-link]: https://github.com/tannerntannern/ts-mixer/actions
+[![npm version][version-badge]][version-link]
+[![github actions][build-badge]][build-link]
 [![Minified Size](https://badgen.net/bundlephobia/min/ts-mixer)](https://bundlephobia.com/result?p=ts-mixer)
 [![Conventional Commits](https://badgen.net/badge/conventional%20commits/1.0.0/yellow)](https://conventionalcommits.org)
 

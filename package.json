@@ -13,7 +13,6 @@
     "build-clean": "rimraf dist && yarn build",
     "lint": "eslint src/**/*.ts",
     "test": "nyc mocha",
-    "coveralls": "cat coverage/lcov.info | coveralls",
     "release": "standard-version"
   },
   "devDependencies": {

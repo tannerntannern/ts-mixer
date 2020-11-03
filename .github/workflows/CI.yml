@@ -1,0 +1,48 @@
+name: ts-mixer CI
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+        typescript-version: [3.8.x, 3.9.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --ignore-engines
+      - name: TypeScript ${{ matrix.typescript-version }}
+        run: yarn add -D typescript@${{matrix.typescript-version}}
+      - run: yarn lint
+      - run: yarn test
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn install
+      - run: yarn build-clean
+      - id: prerelease_tag
+        uses: satackey/action-js-inline@v0.0.2
+        with:
+          script: |
+            const core = require('@actions/core');
+            const { resolve } = require('path');
+            const { version } = require(resolve(process.env.GITHUB_WORKSPACE, 'package.json'));
+            const prereleaseTagMatch = /[0-9]+\.[0-9]+\.[0-9]+-([a-z]+)\.[0-9]+/.exec(version);
+            if (prereleaseTagMatch !== null)
+              core.setOutput('npm_tag', prereleaseTagMatch[1]);
+            else
+              core.setOutput('npm_tag', 'latest')
+      - run: npm publish --tag ${{ steps.prerelease_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_TOKEN }}
