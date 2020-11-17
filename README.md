@@ -3,8 +3,12 @@
 [version-link]: https://npmjs.com/package/ts-mixer
 [build-badge]: https://img.shields.io/github/workflow/status/tannerntannern/ts-mixer/ts-mixer%20CI
 [build-link]: https://github.com/tannerntannern/ts-mixer/actions
+[ts-versions]: https://badgen.net/badge/icon/3.8,3.9,4.0?icon=typescript&label&list=|
+[node-versions]: https://badgen.net/badge/node/10%2C12%2C14/blue/?list=|
 [![npm version][version-badge]][version-link]
 [![github actions][build-badge]][build-link]
+[![TS Versions][ts-versions]][build-link]
+[![Node.js Versions][node-versions]][build-link]
 [![Minified Size](https://badgen.net/bundlephobia/min/ts-mixer)](https://bundlephobia.com/result?p=ts-mixer)
 [![Conventional Commits](https://badgen.net/badge/conventional%20commits/1.0.0/yellow)](https://conventionalcommits.org)
 
