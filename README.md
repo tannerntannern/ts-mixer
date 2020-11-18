@@ -289,6 +289,13 @@ settings.prototypeStrategy = 'proxy';
     - a string - function name to call upon construction
 * Read more about why you would want this in [dealing with constructors](#dealing-with-constructors)
 
+### `settings.decoratorInheritance`
+* Determines how decorators are inherited from classes passed to `Mixin(...)`
+* Possible values:
+    - `'deep'` (default) - Deeply inherits decorators from all given classes and their ancestors
+    - `'direct'` - Only inherits decorators defined directly on the given classes
+    - `'none'` - Skips decorator inheritance
+
 # Author
 Tanner Nielsen <tannerntannern@gmail.com>
 * Website - [tannernielsen.com](http://tannernielsen.com)
