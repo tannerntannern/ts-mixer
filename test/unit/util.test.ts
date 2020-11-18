@@ -1,7 +1,7 @@
 import 'mocha';
 import { expect } from 'chai';
 
-import { copyProps, protoChain, nearestCommonProto } from '../../src/util';
+import { copyProps, protoChain, nearestCommonProto, unique, flatten } from '../../src/util';
 
 describe('copyProps', () => {
 	// TODO: ...
@@ -36,7 +36,7 @@ describe('nearestCommonProto', () => {
 	it('should return undefined when no objects are passed', () => {
 		expect(nearestCommonProto()).to.equal(undefined);
 	});
-	
+
 	it('should return undefined when objects share no common lineage (not even Object)', () => {
 		const a = Object.create(null);
 		const b = {};
@@ -99,4 +99,28 @@ describe('hardMixProtos', () => {
 
 describe('sofMixProtos', () => {
 	// TODO: ...
+});
+
+describe('unique', () => {
+	it('should leave already-dupe-free arrays alone', () => {
+		expect(unique([1, 2, 3])).to.deep.equal([1, 2, 3]);
+	});
+
+	it('should filter duplicates', () => {
+		expect(unique(['a', 'b', 'c', 'c', 'd'])).to.deep.equal(['a', 'b', 'c', 'd']);
+	});
+});
+
+describe('flatten', () => {
+	it('should passthrough an empty array', () => {
+		expect(flatten([])).to.deep.equal([]);
+	});
+
+	it('should work with single nested array', () => {
+		expect(flatten([['a', 'b', 'c']])).to.deep.equal(['a', 'b', 'c']);
+	});
+
+	it('should work with multiple nested arrays', () => {
+		expect(flatten([[1, 2, 3], [4, 5, 6]])).to.deep.equal([1, 2, 3, 4, 5, 6]);
+	});
 });

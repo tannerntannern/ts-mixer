@@ -87,21 +87,21 @@ describe('Using an init function', () => {
 			settings.initFunction = 'init';
 
 			class ClassA {
-				public initContextA = null;
+				public initContextA: any = null;
 				protected init() {
 					this.initContextA = this;
 				}
 			}
 
 			class ClassB {
-				public initContextB = null;
+				public initContextB: any = null;
 				protected init() {
 					this.initContextB = this;
 				}
 			}
 
 			class ClassC {
-				public initContextC = null;
+				public initContextC: any = null;
 				protected init() {
 					this.initContextC = this;
 				}

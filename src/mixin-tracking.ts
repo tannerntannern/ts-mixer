@@ -1,9 +1,11 @@
-/**
- * Keeps track of constituent classes for every mixin class created by ts-mixer.
- */
-import {protoChain} from './util';
+import { protoChain } from './util';
+import { Class } from './types';
 
+// Keeps track of constituent classes for every mixin class created by ts-mixer.
 const mixins = new Map<any, Function[]>();
+
+export const getMixinsForClass = (clazz: Class) =>
+	mixins.get(clazz);
 
 export const registerMixins = (mixedClass: any, constituents: Function[]) =>
 	mixins.set(mixedClass, constituents);

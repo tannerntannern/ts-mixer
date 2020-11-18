@@ -2,7 +2,7 @@ import { proxyMix } from './proxy';
 import { Class, Longest } from './types'; // TODO: need something more than just Longest: also forces all to be subset of longest
 import { settings } from './settings';
 import { copyProps, hardMixProtos, softMixProtos } from './util';
-import { decorators, PropertyAndMethodDecorators } from './decorator';
+import { directDecoratorSearch, deepDecoratorSearch, PropertyAndMethodDecorators } from './decorator';
 import { registerMixins } from './mixin-tracking';
 
 function Mixin<
@@ -237,19 +237,17 @@ function Mixin(...constructors: Class[]) {
 	);
 
 	let DecoratedMixedClass: any = MixedClass;
-	for (let constructor of constructors) {
-		const classDecorators = decorators.get(constructor);
-		if (classDecorators) {
-			if (classDecorators.class)
-				for (let decorator of classDecorators.class)
-					DecoratedMixedClass = decorator(DecoratedMixedClass);
 
-			if (classDecorators.static)
-				applyPropAndMethodDecorators(classDecorators.static, DecoratedMixedClass);
+	if (settings.decoratorInheritance !== 'none') {
+		const classDecorators = settings.decoratorInheritance === 'deep'
+			? deepDecoratorSearch(...constructors)
+			: directDecoratorSearch(...constructors);
 
-			if (classDecorators.instance)
-				applyPropAndMethodDecorators(classDecorators.instance, DecoratedMixedClass.prototype);
-		}
+		for (let decorator of classDecorators?.class ?? [])
+			DecoratedMixedClass = decorator(DecoratedMixedClass);
+
+		applyPropAndMethodDecorators(classDecorators?.static ?? {}, DecoratedMixedClass);
+		applyPropAndMethodDecorators(classDecorators?.instance ?? {}, DecoratedMixedClass.prototype);
 	}
 
 	registerMixins(DecoratedMixedClass, constructors);
@@ -269,7 +267,7 @@ const applyPropAndMethodDecorators = (propAndMethodDecorators: PropertyAndMethod
 	if (methodDecorators)
 		for (let key in methodDecorators)
 			for (let decorator of methodDecorators[key])
-				decorator(target, key, Object.getOwnPropertyDescriptor(target, key));
+				decorator(target, key, Object.getOwnPropertyDescriptor(target, key)!);
 };
 
 /**

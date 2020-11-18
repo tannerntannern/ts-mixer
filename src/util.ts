@@ -26,10 +26,10 @@ export const protoChain = (obj: object, currentChain: object[] = [obj]): object[
  * Identifies the nearest ancestor common to all the given objects in their prototype chains.  For most unrelated
  * objects, this function should return Object.prototype.
  */
-export const nearestCommonProto = (...objs: object[]): Function => {
+export const nearestCommonProto = (...objs: object[]): object | undefined => {
 	if (objs.length === 0) return undefined;
 
-	let commonProto = undefined;
+	let commonProto: object | undefined = undefined;
 	const protoChains = objs.map(obj => protoChain(obj));
 
 	while (protoChains.every(protoChain => protoChain.length > 0)) {
@@ -54,8 +54,8 @@ export const nearestCommonProto = (...objs: object[]): Function => {
  * flexible as updates to the source prototypes aren't captured by the mixed result.  See softMixProtos for why you may
  * want to use that instead.
  */
-export const hardMixProtos = (ingredients: any[], constructor: Function, exclude: string[] = []): object => {
-	const base = nearestCommonProto(...ingredients);
+export const hardMixProtos = (ingredients: any[], constructor: Function | null, exclude: string[] = []): object => {
+	const base = nearestCommonProto(...ingredients) ?? Object.prototype;
 	const mixedProto = Object.create(base);
 
 	// Keeps track of prototypes we've already visited to avoid copying the same properties multiple times.  We init the
@@ -88,5 +88,15 @@ export const hardMixProtos = (ingredients: any[], constructor: Function, exclude
  * changes made to the source prototypes will be reflected in the proxy-prototype, which may be desirable.
  */
 export const softMixProtos = (ingredients: any[], constructor: Function): object => {
-	return proxyMix([...ingredients, { constructor }], null);
+	return proxyMix([...ingredients, { constructor }]);
 };
+
+export const unique = <T>(arr: T[]): T[] =>
+	arr.filter((e, i) => arr.indexOf(e) == i);
+
+export const flatten = <T>(arr: T[][]): T[] =>
+	arr.length === 0
+		? []
+		: arr.length === 1
+			? arr[0]
+			: arr.reduce((a1, a2) => [...a1, ...a2]);

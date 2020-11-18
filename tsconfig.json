@@ -9,7 +9,8 @@
 	"outDir": "dist",
 	"declaration": true,
 	"experimentalDecorators": true,
-	"emitDecoratorMetadata": true
+	"emitDecoratorMetadata": true,
+	"strictNullChecks": true
   },
   "include": [
 	"src/**/*.ts"
