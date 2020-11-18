@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/tannerntannern/ts-mixer/compare/v5.3.0...v5.4.0) (2020-11-18)
+
+
+### Features
+
+* deep decorator inheritance ([6daabc5](https://github.com/tannerntannern/ts-mixer/commit/6daabc5d340d20c8eda4fe96b635a54f6a7e18fb))
+
 ## [5.3.0](https://github.com/tannerntannern/ts-mixer/compare/v5.3.0-beta.0...v5.3.0) (2020-06-01)
 
 ## [5.3.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v5.2.1...v5.3.0-beta.0) (2020-05-31)
