@@ -32,7 +32,7 @@ describe('gh-issue #28', () => {
 			const extendedObject = new ExtendedObject2();
 			extendedObject.status = 'blue';
 			extendedObject.other = 'blue';
-			// @ts-expect-error
+			// @ts-ignore
 			extendedObject.isDisposed = undefined;
 
 			const errors = await validate(extendedObject);
