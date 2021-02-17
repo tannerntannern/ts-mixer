@@ -1,7 +1,7 @@
 const { readFileSync, writeFileSync } = require('fs');
 const { execSync } = require('child_process');
 const { resolve } = require('path');
-const { safeLoad } = require('js-yaml');
+const { load } = require('js-yaml');
 
 const main = () => {
 	const ciYaml = loadYaml(resolve(__dirname, '.github/workflows/CI.yml'))
@@ -36,7 +36,7 @@ const main = () => {
 
 // ----------------[ UTIL ]-------------------
 
-const loadYaml = (filename) => safeLoad(readFileSync(filename, 'utf8'));
+const loadYaml = (filename) => load(readFileSync(filename, 'utf8'));
 
 const replaceInFile = (filename, tag, replaceContent) => {
 	const [fileLines, replaceLines] =
