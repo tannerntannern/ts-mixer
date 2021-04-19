@@ -80,3 +80,10 @@ export const proxyMix = (ingredients: any[], prototype = Object.prototype) => ne
 			);
 	},
 });
+
+/**
+ * Creates a new proxy-prototype object that is a "soft" mixture of the given prototypes.  The mixing is achieved by
+ * proxying all property access to the ingredients.  This is not ES5 compatible and less performant.  However, any
+ * changes made to the source prototypes will be reflected in the proxy-prototype, which may be desirable.
+ */
+export const softMixProtos = (ingredients: any[], constructor: Function): object => proxyMix([...ingredients, {constructor}]);

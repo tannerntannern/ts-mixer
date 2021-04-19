@@ -1,5 +1,3 @@
-import { proxyMix } from './proxy';
-
 /**
  * Utility function that works like `Object.apply`, but copies getters and setters properly as well.  Additionally gives
  * the option to exclude properties by name.
@@ -80,15 +78,6 @@ export const hardMixProtos = (ingredients: any[], constructor: Function | null, 
 	mixedProto.constructor = constructor;
 
 	return mixedProto;
-};
-
-/**
- * Creates a new proxy-prototype object that is a "soft" mixture of the given prototypes.  The mixing is achieved by
- * proxying all property access to the ingredients.  This is not ES5 compatible and less performant.  However, any
- * changes made to the source prototypes will be reflected in the proxy-prototype, which may be desirable.
- */
-export const softMixProtos = (ingredients: any[], constructor: Function): object => {
-	return proxyMix([...ingredients, { constructor }]);
 };
 
 export const unique = <T>(arr: T[]): T[] =>
