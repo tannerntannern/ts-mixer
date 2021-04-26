@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
-        typescript-version: [3.8.x, 3.9.x, 4.0.x, 4.1.x]
+        typescript-version: [3.8.x, 3.9.x, 4.0.x, 4.1.x, 4.2.x]
     steps:
       - uses: actions/checkout@v2
       - name: Node.js ${{ matrix.node-version }}
@@ -43,7 +43,7 @@ jobs:
           node-version: 14.x
           registry-url: 'https://registry.npmjs.org'
       - run: yarn install
-      - run: yarn build-clean
+      - run: yarn build
       - id: prerelease_tag
         uses: satackey/action-js-inline@v0.0.2
         with:
