@@ -1,7 +1,7 @@
-import { proxyMix } from './proxy';
+import { proxyMix, softMixProtos } from './proxy';
 import { Class, Longest } from './types'; // TODO: need something more than just Longest: also forces all to be subset of longest
 import { settings } from './settings';
-import { copyProps, hardMixProtos, softMixProtos } from './util';
+import { copyProps, hardMixProtos } from './util';
 import { directDecoratorSearch, deepDecoratorSearch, PropertyAndMethodDecorators } from './decorator';
 import { registerMixins } from './mixin-tracking';
 
