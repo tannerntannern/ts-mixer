@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
-	"lib": ["es6"],
-	"target": "es6",
-	"module": "commonjs",
-	"types": ["node"],
-	"moduleResolution": "node",
-	"sourceMap": false,
-	"outDir": "dist",
-	"declaration": true,
-	"experimentalDecorators": true,
-	"emitDecoratorMetadata": true,
-	"strictNullChecks": true
+    "lib": ["es6"],
+    "target": "es6",
+    "module": "commonjs",
+    "types": ["node"],
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "outDir": "dist/cjs",
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true
   },
   "include": [
-	"src/**/*.ts"
+    "src"
   ]
 }
