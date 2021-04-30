@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.1](https://github.com/tannerntannern/ts-mixer/compare/v5.4.0...v5.4.1) (2021-04-30)
+
+
+### Bug Fixes
+
+* "publish" workflow ([bd2e4ec](https://github.com/tannerntannern/ts-mixer/commit/bd2e4ec088b19a403bc013926c7f3a2545cc4171))
+* circular dependency ([66f7e2d](https://github.com/tannerntannern/ts-mixer/commit/66f7e2dc929c90e8c15d718415114ceaa31402c2))
+
 ## [5.4.0](https://github.com/tannerntannern/ts-mixer/compare/v5.3.0...v5.4.0) (2020-11-18)
 
 
