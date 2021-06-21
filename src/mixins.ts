@@ -219,6 +219,7 @@ function Mixin(...constructors: Class[]) {
 
 	function MixedClass(...args) {
 		for (const constructor of constructors)
+			// @ts-ignore: potentially abstract class
 			copyProps(this, new constructor(...args));
 
 		if (initFunctionName !== null && typeof this[initFunctionName] === 'function')

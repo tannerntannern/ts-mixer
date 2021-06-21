@@ -3,7 +3,7 @@
 [version-link]: https://npmjs.com/package/ts-mixer
 [build-badge]: https://img.shields.io/github/workflow/status/tannerntannern/ts-mixer/ts-mixer%20CI
 [build-link]: https://github.com/tannerntannern/ts-mixer/actions
-[ts-versions]: https://badgen.net/badge/icon/3.8,3.9,4.0,4.1,4.2?icon=typescript&label&list=|
+[ts-versions]: https://badgen.net/badge/icon/4.2,4.3?icon=typescript&label&list=|
 [node-versions]: https://badgen.net/badge/node/10%2C12%2C14/blue/?list=|
 [![npm version][version-badge]][version-link]
 [![github actions][build-badge]][build-link]
@@ -25,20 +25,19 @@ The mixin problem is more nuanced than it appears.  I've seen countless code sni
 * mixes classes that were mixed with `ts-mixer`
 * supports static properties
 * supports protected/private properties (the popular function-that-returns-a-class solution does not)
-* mixes abstract classes (with caveats [[1](#caveats)])
-* mixes generic classes (with caveats [[2](#caveats)])
-* supports class, method, and property decorators (with caveats [[3, 6](#caveats)])
-* mostly supports the complexity presented by constructor functions (with caveats [[4](#caveats)])
-* comes with an `instanceof`-like replacement (with caveats [[5, 6](#caveats)])
+* mixes abstract classes (requires TypeScript >= 4.2)
+* mixes generic classes (with caveats [[1](#caveats)])
+* supports class, method, and property decorators (with caveats [[2, 5](#caveats)])
+* mostly supports the complexity presented by constructor functions (with caveats [[3](#caveats)])
+* comes with an `instanceof`-like replacement (with caveats [[4, 5](#caveats)])
 * [multiple mixing strategies](#settings) (ES6 proxies vs hard copy)
 
 ### Caveats
-1. Mixing abstract classes requires a bit of a hack that may break in future versions of TypeScript.  See [mixing abstract classes](#mixing-abstract-classes) below.
-2. Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [mixing generic classes](#mixing-generic-classes) below.
-3. Using decorators in mixed classes also requires a more cumbersome notation.  See [mixing with decorators](#mixing-with-decorators) below.
-4. ES6 made it impossible to use `.apply(...)` on class constructors (or any means of calling them without `new`), which makes it impossible for `ts-mixer` to pass the proper `this` to your constructors.  This may or may not be an issue for your code, but there are options to work around it.  See [dealing with constructors](#dealing-with-constructors) below.
-5. `ts-mixer` does not support `instanceof` for mixins, but it does offer a replacement.  See the [hasMixin function](#hasmixin) for more details.
-6. Certain features (specifically, `@decorator` and `hasMixin`) make use of ES6 `Map`s, which means you must either use ES6+ or polyfill `Map` to use them.  If you don't need these features, you should be fine without.
+1. Mixing generic classes requires a more cumbersome notation, but it's still possible.  See [mixing generic classes](#mixing-generic-classes) below.
+2. Using decorators in mixed classes also requires a more cumbersome notation.  See [mixing with decorators](#mixing-with-decorators) below.
+3. ES6 made it impossible to use `.apply(...)` on class constructors (or any means of calling them without `new`), which makes it impossible for `ts-mixer` to pass the proper `this` to your constructors.  This may or may not be an issue for your code, but there are options to work around it.  See [dealing with constructors](#dealing-with-constructors) below.
+4. `ts-mixer` does not support `instanceof` for mixins, but it does offer a replacement.  See the [hasMixin function](#hasmixin) for more details.
+5. Certain features (specifically, `@decorator` and `hasMixin`) make use of ES6 `Map`s, which means you must either use ES6+ or polyfill `Map` to use them.  If you don't need these features, you should be fine without.
 
 ## Quick Start
 ### Installation
@@ -80,35 +79,6 @@ console.log(fooBar.makeFooBar());  // "foobar"
 ```
 
 ## Special Cases
-### Mixing Abstract Classes
-Abstract classes, by definition, cannot be constructed, which means they cannot take on the type, `new(...args) => any`, and by extension, are incompatible with `ts-mixer`.  BUT, you can "trick" TypeScript into giving you all the benefits of an abstract class without making it technically abstract.  The trick is just some strategic `// @ts-ignore`'s:
-
-```typescript
-import { Mixin } from 'ts-mixer';
-
-// note that Foo is not marked as an abstract class
-class Foo {
-    // @ts-ignore: "Abstract methods can only appear within an abstract class"
-    public abstract makeFoo(): string;
-}
-
-class Bar {
-    public makeBar() {
-        return 'bar';
-    }
-}
-
-class FooBar extends Mixin(Foo, Bar) {
-    // we still get all the benefits of abstract classes here, because TypeScript
-    // will still complain if this method isn't implemented
-    public makeFoo() {
-        return 'foo';
-    }
-}
-```
-
-Do note that while this does work quite well, it is a bit of a hack and I can't promise that it will continue to work in future TypeScript versions.
-
 ### Mixing Generic Classes
 Frustratingly, it is _impossible_ for generic parameters to be referenced in base class expressions.  No matter what, you will eventually run into `Base class expressions cannot reference class type parameters.`
 

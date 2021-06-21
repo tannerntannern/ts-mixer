@@ -42,5 +42,10 @@ _Longest<
 /**
  * A rigorous type alias for a class.
  */
-export type Class<CtorArgs extends any[] = any[], InstanceType = {}, StaticType = {}> =
-	{ new(...args: CtorArgs): InstanceType } & { [K in keyof StaticType]: StaticType[K] };
+export type Class<
+	CtorArgs extends any[] = any[],
+	InstanceType = {},
+	StaticType = {},
+	IsAbstract = false,
+> =
+	(abstract new(...args: any[]) => InstanceType) & StaticType;
