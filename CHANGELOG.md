@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v5.4.1...v6.0.0-beta.0) (2021-06-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop TS < 4.2 support
+
+### Features
+
+* add abstract mixin support ([1c4b306](https://github.com/tannerntannern/ts-mixer/commit/1c4b306bae62fa6319c74d1f3040c8aba0da2c28))
+
 ### [5.4.1](https://github.com/tannerntannern/ts-mixer/compare/v5.4.0...v5.4.1) (2021-04-30)
 
 
