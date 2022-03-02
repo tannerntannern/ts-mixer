@@ -82,7 +82,7 @@ export const directDecoratorSearch = (...classes: Class[]): Decorators => {
 		return {};
 
 	if (classDecorators.length === 1)
-		return classDecorators[1];
+		return classDecorators[0];
 
 	return classDecorators.reduce((d1, d2) => mergeDecorators(d1, d2));
 };
