@@ -6,7 +6,7 @@ export type Settings = {
 };
 
 export const settings: Settings = {
-	initFunction: null,
+	initFunction: 'init',
 	staticsStrategy: 'copy',
 	prototypeStrategy: 'copy',
 	decoratorInheritance: 'deep',
