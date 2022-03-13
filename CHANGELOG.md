@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.1](https://github.com/tannerntannern/ts-mixer/compare/v6.0.0...v6.0.1) (2022-03-13)
+
+### Bug Fixes
+
+* fix bug in `directDecoratorSearch` ([51c50b8](https://github.com/tannerntannern/ts-mixer/commit/51c50b8c50a63e85b133bdd61eaad4427a22e515)) (thanks, [@AMcBain](https://github.com/AMcBain)!)
+
 ## [6.0.0](https://github.com/tannerntannern/ts-mixer/compare/v6.0.0-beta.0...v6.0.0) (2021-07-07)
 
 ## [6.0.0-beta.0](https://github.com/tannerntannern/ts-mixer/compare/v5.4.1...v6.0.0-beta.0) (2021-06-24)
