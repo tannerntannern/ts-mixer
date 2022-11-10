@@ -248,7 +248,7 @@ function Mixin(...constructors: Class[]) {
 			const result = decorator(DecoratedMixedClass);
 
 			if (result) {
-			  DecoratedMixedClass = result;
+				DecoratedMixedClass = result;
 			}
 		}
 
