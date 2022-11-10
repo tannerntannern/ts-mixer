@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.2](https://github.com/tannerntannern/ts-mixer/compare/v6.0.1...v6.0.2) (2022-11-10)
+
+
+### Bug Fixes
+
+* **decorators:** support class decorators that don't return anything ([7433cf3](https://github.com/tannerntannern/ts-mixer/commit/7433cf36a43bb18a1dd280aa629ac81ef532c74a))
+
 ### [6.0.1](https://github.com/tannerntannern/ts-mixer/compare/v6.0.0...v6.0.1) (2022-03-13)
 
 ### Bug Fixes
