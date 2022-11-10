@@ -244,8 +244,13 @@ function Mixin(...constructors: Class[]) {
 			? deepDecoratorSearch(...constructors)
 			: directDecoratorSearch(...constructors);
 
-		for (let decorator of classDecorators?.class ?? [])
-			DecoratedMixedClass = decorator(DecoratedMixedClass);
+		for (let decorator of classDecorators?.class ?? []) {
+			const result = decorator(DecoratedMixedClass);
+
+			if (result) {
+			  DecoratedMixedClass = result;
+			}
+		}
 
 		applyPropAndMethodDecorators(classDecorators?.static ?? {}, DecoratedMixedClass);
 		applyPropAndMethodDecorators(classDecorators?.instance ?? {}, DecoratedMixedClass.prototype);
