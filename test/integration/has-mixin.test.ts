@@ -26,6 +26,13 @@ describe('hasMixin(...)', () => {
 			expect(hasMixin(fooBar, Bar)).to.be.true;
 		});
 
+		it('should work with abstract classes', () => {
+			abstract class Baz {}
+			class FooBaz extends Mixin(Foo, Baz) {}
+			const fooBaz: any = new FooBaz();
+			expect(hasMixin(fooBaz, Baz)).to.be.true;
+		});
+
 		it('should work for cases where the mixin is buried deep in the proto chain', () => {
 			class Foo1 {}
 			class Bar1 {}
