@@ -10,7 +10,7 @@ export const getMixinsForClass = (clazz: Class) =>
 export const registerMixins = (mixedClass: any, constituents: Function[]) =>
 	mixins.set(mixedClass, constituents);
 
-export const hasMixin = <M>(instance: any, mixin: (new (...args) => M) | (abstract new (...args) => M)): instance is M => {
+export const hasMixin = <M>(instance: any, mixin: abstract new (...args) => M): instance is M => {
 	if (instance instanceof mixin)
 		return true;
 
