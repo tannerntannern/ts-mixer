@@ -120,24 +120,16 @@ const decorateMember = <T extends PropertyDecorator | MethodDecorator>(decorator
 
 		const decoratorsForClass = getDecoratorsForClass(clazz);
 
-		let decoratorsForTargetType = decoratorsForClass?.[decoratorTargetType];
-		if (!decoratorsForTargetType) {
-			decoratorsForTargetType = {};
-			decoratorsForClass[decoratorTargetType] = decoratorsForTargetType;
-		}
+		const decoratorsForTargetType = decoratorsForClass?.[decoratorTargetType] ?? {};
+		decoratorsForClass[decoratorTargetType] = decoratorsForTargetType;
 
-		let decoratorsForType = decoratorsForTargetType?.[decoratorType];
-		if (!decoratorsForType) {
-			decoratorsForType = {};
-			decoratorsForTargetType[decoratorType] = decoratorsForType as any;
-		}
+		let decoratorsForType = decoratorsForTargetType?.[decoratorType] ?? {};
+		decoratorsForTargetType[decoratorType] = decoratorsForType as any;
 
-		let decoratorsForKey = decoratorsForType?.[key];
-		if (!decoratorsForKey) {
-			decoratorsForKey = [];
-			decoratorsForType[key] = decoratorsForKey;
-		}
+		let decoratorsForKey = decoratorsForType?.[key] ?? [];
+		decoratorsForType[key] = decoratorsForKey;
 
+		// @ts-ignore: array is type `A[] | B[]` and item is type `A | B`, so technically a type error, but it's fine
 		decoratorsForKey.push(decorator);
 
 		// @ts-ignore
