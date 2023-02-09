@@ -3,8 +3,8 @@
 [version-link]: https://npmjs.com/package/ts-mixer
 [build-badge]: https://img.shields.io/github/workflow/status/tannerntannern/ts-mixer/ts-mixer%20CI
 [build-link]: https://github.com/tannerntannern/ts-mixer/actions
-[ts-versions]: https://badgen.net/badge/icon/4.2,4.3?icon=typescript&label&list=|
-[node-versions]: https://badgen.net/badge/node/10%2C12%2C14/blue/?list=|
+[ts-versions]: https://badgen.net/badge/icon/4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9?icon=typescript&label&list=|
+[node-versions]: https://badgen.net/badge/node/10%2C12%2C14%2C16%2C18/blue/?list=|
 [![npm version][version-badge]][version-link]
 [![github actions][build-badge]][build-link]
 [![TS Versions][ts-versions]][build-link]
