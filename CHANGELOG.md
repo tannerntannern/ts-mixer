@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.4](https://github.com/tannerntannern/ts-mixer/compare/v6.0.3...v6.0.4) (2024-02-20)
+
+
+### Bug Fixes
+
+* weakmap in mixing tracking ([acd28db](https://github.com/tannerntannern/ts-mixer/commit/acd28dbe96f18557b05f7f86312ed109d3098b98))
+
 ### [6.0.3](https://github.com/tannerntannern/ts-mixer/compare/v6.0.2...v6.0.3) (2023-02-09)
 
 
