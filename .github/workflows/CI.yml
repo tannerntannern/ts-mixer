@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           node-version: 14.x
           registry-url: 'https://registry.npmjs.org'
@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 18.x]
-        typescript-version: [4.2.x, 4.4.x, 4.6.x, 4.8.x]
+        node-version: [16, 18, 20]
+        typescript-version: [4.2.x, 4.6.x, 5.0.x, 5.2.x]
     steps:
       - uses: actions/checkout@v2
       - name: Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install --ignore-engines
@@ -38,7 +38,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           node-version: 14.x
           registry-url: 'https://registry.npmjs.org'

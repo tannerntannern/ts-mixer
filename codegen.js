@@ -4,9 +4,9 @@ const { resolve } = require('path');
 const { load } = require('js-yaml');
 
 const main = () => {
-	const ciYaml = loadYaml(resolve(__dirname, '.github/workflows/CI.yml'))
+	const ciYaml = loadYaml(resolve(__dirname, '.github/workflows/CI.yml'));
 	const tsVersions = ciYaml.jobs.test.strategy.matrix['typescript-version'].map(version => version.replace('.x', '')).join(',');
-	const nodeVersions = ciYaml.jobs.test.strategy.matrix['node-version'].map(version => version.replace('.x', '')).join('%2C');
+	const nodeVersions = ciYaml.jobs.test.strategy.matrix['node-version'].join('%2C');
 
 	replaceInFileInline(
 		resolve(__dirname, 'README.md'),

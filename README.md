@@ -2,8 +2,8 @@
 [version-badge]: https://badgen.net/npm/v/ts-mixer
 [version-link]: https://npmjs.com/package/ts-mixer
 [build-link]: https://github.com/tannerntannern/ts-mixer/actions
-[ts-versions]: https://badgen.net/badge/icon/4.2,4.4,4.6,4.8?icon=typescript&label&list=|
-[node-versions]: https://badgen.net/badge/node/12%2C14%2C16%2C18/blue/?list=|
+[ts-versions]: https://badgen.net/badge/icon/4.2,4.6,5.0,5.2?icon=typescript&label&list=|
+[node-versions]: https://badgen.net/badge/node/16%2C18%2C20/blue/?list=|
 [![npm version][version-badge]][version-link]
 [![TS Versions][ts-versions]][build-link]
 [![Node.js Versions][node-versions]][build-link]
